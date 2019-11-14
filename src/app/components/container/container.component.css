@@ -59,10 +59,12 @@ a, a:hover, a:focus {
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
+    margin-top: 8px
 }
 
 #sidebar.active {
     margin-left: -250px;
+    margin-top: 25px
 }
 
 #sidebar .sidebar-header {
