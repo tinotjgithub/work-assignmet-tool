@@ -11,7 +11,8 @@ import bootstrap from "bootstrap";
 import { SidebarDirective } from "./sidebar.directive";
 import { RouteGuard } from "./services/route.guard/route.guard.service";
 import { AuthService } from "./services/auth/auth.service";
-import { TaskManagementComponent } from './task-management/task-management.component';
+import { TaskManagementComponent } from './components/task-management/task-management.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TaskManagementComponent } from './task-management/task-management.compo
     ContainerComponent,
     NavigationBarComponent,
     SidebarDirective,
-    TaskManagementComponent
+    TaskManagementComponent,
+    UserManagementComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [RouteGuard, AuthService],
