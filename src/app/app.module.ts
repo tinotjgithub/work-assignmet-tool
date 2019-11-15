@@ -11,6 +11,7 @@ import bootstrap from "bootstrap";
 import { SidebarDirective } from "./sidebar.directive";
 import { RouteGuard } from "./services/route.guard/route.guard.service";
 import { AuthService } from "./services/auth/auth.service";
+import { TaskManagementComponent } from './task-management/task-management.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthService } from "./services/auth/auth.service";
     FooterComponent,
     ContainerComponent,
     NavigationBarComponent,
-    SidebarDirective
+    SidebarDirective,
+    TaskManagementComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [RouteGuard, AuthService],
