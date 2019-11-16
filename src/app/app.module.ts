@@ -13,6 +13,8 @@ import { RouteGuard } from "./services/route.guard/route.guard.service";
 import { AuthService } from "./services/auth/auth.service";
 import { TaskManagementComponent } from './components/task-management/task-management.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
+import { DrawModeComponent } from './components/task-management/draw-mode/draw-mode.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,10 +25,11 @@ import { UserManagementComponent } from './components/user-management/user-manag
     NavigationBarComponent,
     SidebarDirective,
     TaskManagementComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    DrawModeComponent
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [RouteGuard, AuthService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
