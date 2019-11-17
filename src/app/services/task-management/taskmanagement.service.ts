@@ -10,11 +10,9 @@ export class TaskmanagementService {
 
   }
 
-  getPosts() {
-    alert('hai');
-    this.http.get('http://localhost:4200/api/posts').subscribe((data) => {
+  getPosts() {    
+    this.http.get('http://localhost:3000/api/posts/').subscribe((data) => {
       console.log(data);
     })
   }
-
 }

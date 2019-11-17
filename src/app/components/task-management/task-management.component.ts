@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as $ from "jquery";
 import { TaskmanagementService } from 'src/app/services/task-management/taskmanagement.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: "app-task-management",
@@ -8,7 +9,7 @@ import { TaskmanagementService } from 'src/app/services/task-management/taskmana
   styleUrls: ["./task-management.component.css"]
 })
 export class TaskManagementComponent implements OnInit {
-  constructor(private taskManagementService: TaskmanagementService) { }
+  constructor(private taskManagementService: TaskmanagementService, private authService: AuthService) { }
   id: string = "DRAW"
   status: boolean = false;
   clickEvent() {
@@ -17,6 +18,7 @@ export class TaskManagementComponent implements OnInit {
 
   ngOnInit() {
     this.setClassorNav();
+    this.authService.setAuthToken();
     this.taskManagementService.getPosts();
   }
 

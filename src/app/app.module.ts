@@ -9,12 +9,11 @@ import { ContainerComponent } from "./components/dashboard/container.component";
 import { NavigationBarComponent } from "./components/navigation-bar/navigation-bar.component";
 import bootstrap from "bootstrap";
 import { SidebarDirective } from "./sidebar.directive";
-import { RouteGuard } from "./services/route.guard/route.guard.service";
-import { AuthService } from "./services/auth/auth.service";
 import { TaskManagementComponent } from './components/task-management/task-management.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { DrawModeComponent } from './components/task-management/draw-mode/draw-mode.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     DrawModeComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [RouteGuard, AuthService],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
