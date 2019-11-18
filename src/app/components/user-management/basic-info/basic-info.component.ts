@@ -11,6 +11,7 @@ import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-b
 export class BasicInfoComponent implements OnInit {
 
   basicInfo: FormGroup;
+  basicInformation: {};
   emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   hoveredDate: NgbDate;
   fromDate: NgbDate;
@@ -34,27 +35,30 @@ export class BasicInfoComponent implements OnInit {
   get info() { return this.basicInfo.controls; }
 
   onSubmit() {
-    // if (this.basicInfo.invalid) {
-    //   return;
-    // }
-    // else {
-    this.submitted = true;
-    const firstName = this.basicInfo.get('firstName').value;
-    const lastName = this.basicInfo.get('lastName').value;
-    const userId = this.basicInfo.get('userId').value;
-    const primaryEmail = this.basicInfo.get('primaryEmail').value;
-    const effectiveFrom = this.basicInfo.get('effectiveFrom').value;
-    const terminationDate = this.basicInfo.get('terminationDate').value;
-    const userSkillSet = this.basicInfo.get('userSkillSet').value;
-    debugger
-    console.log('firstName:', this.info.primaryEmail.errors.email);
-    console.log('lastName:', lastName);
-    console.log('userId:', userId);
-    console.log('primaryEmail:', primaryEmail);
-    console.log('effectiveFrom:', effectiveFrom);
-    console.log('terminationDate:', terminationDate);
-    console.log('userSkillSet:', userSkillSet);
-    // }
+    this.basicInformation = {};
+    if (this.basicInfo.invalid) {
+      return;
+    }
+    else {
+      this.submitted = true;
+      const firstName = this.basicInfo.get('firstName').value;
+      const lastName = this.basicInfo.get('lastName').value;
+      const userId = this.basicInfo.get('userId').value;
+      const primaryEmail = this.basicInfo.get('primaryEmail').value;
+      const effectiveFrom = this.basicInfo.get('effectiveFrom').value;
+      const terminationDate = this.basicInfo.get('terminationDate').value;
+      const userSkillSet = this.basicInfo.get('userSkillSet').value;
+      this.basicInformation = {
+        "firstName": firstName,
+        "lastName": lastName,
+        "userId": userId,
+        "primaryEmail": primaryEmail,
+        "effectiveFrom": effectiveFrom,
+        "terminationDate": terminationDate,
+        "userSkillSet": userSkillSet
+      }
+      console.log("basicInformation: ", this.basicInformation);
+    }
   }
 
   onFromDateSelection(date: NgbDate) {

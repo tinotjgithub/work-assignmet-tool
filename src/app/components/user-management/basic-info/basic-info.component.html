@@ -1,7 +1,7 @@
-<div class="container basic-info-container">
+<div class="container">
     <form [formGroup]="basicInfo" (ngSubmit)="onSubmit()">
         <div class="row">
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="firstName">First Name</label>
                 <input formControlName="firstName" type="text" class="form-control" id="firstName"
                     placeholder="Enter First Name">
@@ -9,7 +9,7 @@
                     *ngIf="submitted && info.firstName.errors && info.firstName.errors.required">
                     first name is required</span>
             </div>
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="lastName">Last Name</label>
                 <input formControlName="lastName" type="text" class="form-control" id="lastName"
                     placeholder="Enter Last Name">
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="userId">User ID</label>
                 <input formControlName="userId" type="text" class="form-control" id="userId"
                     placeholder="Enter User Id">
@@ -27,7 +27,7 @@
                     *ngIf="submitted && info.userId.errors && info.userId.errors.required">
                     user id is required</span>
             </div>
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="primaryEmail">Primary Email</label>
                 <input formControlName="primaryEmail" type="email" class="form-control" id="primaryEmail"
                     placeholder="Enter Primary Email Address">
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="effectiveFrom">Effective From</label>
                 <div class='input-group'>
                     <input ngbDatepicker name="d1" #d1="ngbDatepicker" formControlName="effectiveFrom" type="text"
@@ -56,7 +56,7 @@
                     *ngIf="submitted && info.effectiveFrom.errors && info.effectiveFrom.errors.required">
                     effective from date is required</span>
             </div>
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="terminationDate">Termination Date</label>
                 <div class='input-group'>
                     <input ngbDatepicker name="d2" #d2="ngbDatepicker" formControlName="terminationDate" type="text"
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-4 col-style">
+            <div class="form-group col-sm-4 txt-style">
                 <label for="userSkillSet">User Skill Set</label>
                 <input formControlName="userSkillSet" type="text" class="form-control" id="userSkillSet"
                     placeholder="Enter User Skill Set">
@@ -83,12 +83,7 @@
                     *ngIf="submitted && info.userSkillSet.errors && info.userSkillSet.errors.required">
                     user skill set is required</span>
             </div>
-
         </div>
-        <!-- <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div> -->
         <div class="row row-btn">
             <div class="form-group col-xs-4 col-btn-style">
                 <button type="submit" class="btn btn-primary submit-btn-style btn-style">Submit</button>

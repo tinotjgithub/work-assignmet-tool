@@ -1,15 +1,17 @@
-.basic-info-container{
-    padding-top: 50px;
-}
 
-.col-style{
- padding-right: 50px;
+.txt-style{
+    text-align: left;
+    padding:5px;
 }
 .col-d-style{
     padding-right: 5px;   
 }
+.lbl-style{
+    padding: 2px;
+}
 .col-btn-style{
-    padding-right: 5px;    
+    padding-right: 5px;   
+    padding-top: 0px;    
 }
 .btn-style{
     width: 150px;
