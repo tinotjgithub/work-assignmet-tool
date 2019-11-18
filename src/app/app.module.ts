@@ -14,6 +14,7 @@ import { UserManagementComponent } from './components/user-management/user-manag
 import { DrawModeComponent } from './components/task-management/draw-mode/draw-mode.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { LoginComponent } from './components/login/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AuthInterceptor } from './services/auth/auth.interceptor';
     SidebarDirective,
     TaskManagementComponent,
     UserManagementComponent,
-    DrawModeComponent
+    DrawModeComponent,
+    LoginComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [

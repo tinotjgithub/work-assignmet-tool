@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import * as $ from "jquery";
 import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
 import { AuthService } from "src/app/services/auth/auth.service";
@@ -9,11 +9,13 @@ import { Subscription } from "rxjs";
   templateUrl: "./task-management.component.html",
   styleUrls: ["./task-management.component.css"]
 })
-export class TaskManagementComponent implements OnInit {
+export class TaskManagementComponent implements OnInit, OnDestroy {
+
   constructor(
     private taskManagementService: TaskmanagementService,
     private authService: AuthService
   ) {}
+
   id: string = "DRAW";
   status: boolean = false;
   tasks: any[] = [];
@@ -22,9 +24,6 @@ export class TaskManagementComponent implements OnInit {
   content: string = "";
   title: string = "";
 
-  clickEvent() {
-    this.status = !this.status;
-  }
 
   ngOnInit() {
     this.setClassorNav();
@@ -39,6 +38,10 @@ export class TaskManagementComponent implements OnInit {
         this.content = tasks[0].content;
         this.title = tasks[0].title;
       });
+  }
+
+  clickEvent() {
+    this.status = !this.status;
   }
 
   private setClassorNav() {
@@ -57,4 +60,9 @@ export class TaskManagementComponent implements OnInit {
   setComponentId(id) {
     this.id = id;
   }
+
+  ngOnDestroy(): void {
+    this.taskSub.unsubscribe();
+  }
+
 }

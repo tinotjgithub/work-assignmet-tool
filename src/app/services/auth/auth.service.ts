@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { Subject } from "rxjs";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AuthService {
-  private isAuthenticated = true;
+  private isAuthenticated = false;
   private authToken: string;
-  constructor(private http: HttpClient,
-    private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
+  private authUpdated = new Subject<boolean>();
 
   getIsAuth() {
-    alert('sdsa')
     return this.isAuthenticated;
   }
 
@@ -18,7 +18,16 @@ export class AuthService {
     return this.authToken;
   }
 
+  authUpdatedListener() {
+    return this.authUpdated.asObservable();
+  }
+
   setAuthToken() {
-    this.authToken = "SampleTokenTino1234"
+    this.authToken = "SampleTokenTino1234";
+  }
+
+  setLogin() {
+    this.isAuthenticated = true;
+    this.authUpdated.next(this.isAuthenticated);
   }
 }
