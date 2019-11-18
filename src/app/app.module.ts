@@ -1,14 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContainerComponent } from './components/container/container.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import bootstrap from 'bootstrap';
 import { SidebarDirective } from './sidebar.directive';
+import { BasicInfoComponent } from './components/user-management/basic-info/basic-info.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +20,15 @@ import { SidebarDirective } from './sidebar.directive';
     FooterComponent,
     ContainerComponent,
     NavigationBarComponent,
-    SidebarDirective
+    SidebarDirective,
+    BasicInfoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
