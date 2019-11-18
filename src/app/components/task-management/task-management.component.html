@@ -20,25 +20,25 @@
 
 
     <div *ngIf="id==='DRAW'" class="card-body" style="min-height: 545px">
-      <h5 class="card-title">{{title}}</h5>
-      <p class="card-text">{{content}}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <app-draw-mode></app-draw-mode>
     </div>
-
     <div *ngIf="id==='SCORE_CARD'" class="card-body" style="min-height: 545px">
       <h5 class="card-title">SCORE_CARD</h5>
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
+
     <div *ngIf="id==='PENDIG_TASKS'" class="card-body" style="min-height: 545px">
       <h5 class="card-title">PENDIG_TASKS</h5>
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
+
     <div *ngIf="id==='AUDIT'" class="card-body" style="min-height: 545px">
       <h5 class="card-title">AUDIT</h5>
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
+
   </div>
 </div>

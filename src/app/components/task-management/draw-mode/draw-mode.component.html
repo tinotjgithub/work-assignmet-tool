@@ -1,1 +1,78 @@
-<p>draw-mode works!</p>
+<div>
+  <button type="button" class="btn btn-success m-2">Complete</button>
+  <button type="button" class="btn btn-secondary m-2 " data-toggle="collapse" href="#collapseRoute">Pend</button>
+  <button type="button" class="btn btn-secondary m-2" data-toggle="collapse" href="#collapseRoute">Route</button>
+  <button (click)="setPause()" class="btn btn-primary align-middle" data-toggle="tooltip" data-placement="bottom"
+    title="Pause/Resume  On-going Task">
+    <i *ngIf="pause === false" class="fa fa-pause" style="color: rgb(41, 16, 22);"></i>
+    <i *ngIf="pause === true" class="fa fa-play" style="color: rgb(41, 16, 22);"></i>
+  </button>
+</div>
+<div id="clockdiv">
+  <div>
+    <span class="hours">{{timer}}</span>
+    <div class="smalltext">HH:MM:SS</div>
+  </div>
+</div>
+<div class="p-2 collapse multi-collapse" id="collapseRoute">
+  <div class="card p-2">
+    <div>
+      <textarea placeholder="Enter comments here.." class=" form-control p-2" id="exampleFormControlTextarea1"
+        rows="3"></textarea>
+      <button type="button" class="btn btn-success p-2 float-right" style="margin-top: 7px">Save and Next</button>
+    </div>
+  </div>
+</div>
+<div class="card-deck p-2 " style="margin-top: 25px">
+  <div class="card">
+    <div class="card-body">
+
+      <div>
+        <div class="row">
+          <input class="form-control col" type="text" value="Claim Id" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="10256" readonly style="margin: 15px">
+        </div>
+        <div class="row">
+          <input class="form-control col" type="text" value="Type" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="Professional" readonly style="margin: 15px">
+        </div>
+        <div class="row">
+          <input class="form-control col" type="text" value="State" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="Repair" readonly style="margin: 15px">
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card" style="width: 200px">
+    <div class="card-body">
+
+      <div>
+        <div class="row">
+          <input class="form-control col" type="text" value="WB Name" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="Auth WB" readonly style="margin: 15px">
+        </div>
+        <div class="row">
+          <input class="form-control col" type="text" value="Repair reason" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="Authorization is required,No match found" readonly
+            style="margin: 15px;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <div class="row">
+          <input class="form-control col" type="text" value="Receipt Date" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="12/12/2018" readonly style="margin: 15px">
+        </div>
+        <div class="row">
+          <input class="form-control col" type="text" value="Age" readonly style="margin: 15px">
+          <input class="form-control col" type="text" value="15 Days" readonly style="margin: 15px">
+        </div>
+      </div>
+    </div>
+  </div>
