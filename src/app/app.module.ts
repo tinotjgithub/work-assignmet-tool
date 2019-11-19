@@ -19,6 +19,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AssignRolesComponent } from './components/user-management/assign-roles/assign-roles.component';
 import { AssignWbComponent } from './components/user-management/assign-wb/assign-wb.component';
+import { LoginComponent } from './components/login/login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AssignWbComponent } from './components/user-management/assign-wb/assign
     UserManagementComponent,
     DrawModeComponent,
     AssignRolesComponent,
-    AssignWbComponent
+    AssignWbComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,10 +43,10 @@ import { AssignWbComponent } from './components/user-management/assign-wb/assign
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    HttpClientModule    
+    HttpClientModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

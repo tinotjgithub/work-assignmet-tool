@@ -1,0 +1,65 @@
+button {
+  width: 120px;
+}
+
+.fa-play {
+  color: darkslateblue;
+}
+
+.circleBase {
+  border-radius: 50%;
+}
+
+.type1 {
+  width: 50px;
+  height: 50px;
+  background: yellow;
+  border: 3px solid red;
+}
+
+body {
+  text-align: center;
+  background: #00ecb9;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+h6 {
+  color: #396;
+  font-weight: 100;
+  font-size: 25px;
+  margin: 40px 0px 20px;
+}
+
+.readonly {
+  background-color: white;
+}
+
+#clockdiv {
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px;
+  padding-top: 25px;
+}
+
+#clockdiv > div {
+  padding: 10px;
+  border-radius: 3px;
+  background: #00bf96;
+  display: inline-block;
+}
+
+#clockdiv div > span {
+  padding: 15px;
+  border-radius: 3px;
+  background: #00816a;
+  display: inline-block;
+}
+
+.smalltext {
+  padding-top: 5px;
+  font-size: 16px;
+}

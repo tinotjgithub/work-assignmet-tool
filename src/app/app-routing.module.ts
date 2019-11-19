@@ -4,8 +4,13 @@ import { ContainerComponent } from "./components/dashboard/container.component";
 import { RouteGuard } from "./services/route.guard/route.guard.service";
 import { TaskManagementComponent } from "./components/task-management/task-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
+import { LoginComponent } from "./components/login/login/login.component";
 const routes: Routes = [
-  { path: "", component: TaskManagementComponent },
+  { path: "", component: LoginComponent },
+  {
+    path: "LandingPage",
+    component: TaskManagementComponent
+  },
   {
     path: "Dashboard",
     component: ContainerComponent
