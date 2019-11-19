@@ -15,6 +15,30 @@ export class DrawModeComponent implements OnInit {
   seconds: string = "00";
   minutes: string = "00";
   hours: string = "00";
+
+  breakReasons: Array<BreakReasons> = [
+    {
+      value: 1,
+      label: "Coffee break"
+    },
+    {
+      value: 2,
+      label: "Lunch/dinner break"
+    },
+    {
+      value: 3,
+      label: "team Meeting"
+    },
+    {
+      value: 3,
+      label: "Personal Time"
+    },
+    {
+      value: 4,
+      label: "Done for the day"
+    }
+  ];
+
   ngOnInit() {
     (<any>$("[data-toggle=tooltip")).tooltip();
     this.startTimer();
@@ -43,4 +67,9 @@ export class DrawModeComponent implements OnInit {
       this.startTimer();
     }
   }
+}
+
+class BreakReasons {
+  value: number;
+  label: string;
 }

@@ -10,13 +10,12 @@ import { Subscription } from "rxjs";
   styleUrls: ["./task-management.component.css"]
 })
 export class TaskManagementComponent implements OnInit, OnDestroy {
-
   constructor(
     private taskManagementService: TaskmanagementService,
     private authService: AuthService
   ) {}
 
-  id: string = "DRAW";
+  id: string = "SCORE_CARD";
   status: boolean = false;
   tasks: any[] = [];
   private taskSub: Subscription;
@@ -24,12 +23,10 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
   content: string = "";
   title: string = "";
 
-
   ngOnInit() {
     this.setClassorNav();
     this.authService.setAuthToken();
     this.taskManagementService.getPosts();
-
     this.taskSub = this.taskManagementService
       .getTaskListener()
       .subscribe((tasks: any[]) => {
@@ -64,5 +61,9 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.taskSub.unsubscribe();
   }
+}
 
+class BreakReasons {
+  value: number;
+  label: string;
 }
