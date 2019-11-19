@@ -1,1 +1,49 @@
-<p>assign-wb works!</p>
+<div class="container card">
+    <div class="card-body">
+        <form>
+            <div class="bg">
+                <div>
+                    <div class="chiller_cb">
+                        <input id="missinchk" type="checkbox">
+                        <label for="missinchk">Missing Member WB</label>
+                        <span></span>
+                    </div>
+                    <div class="chiller_cb">
+                        <input id="alternatechk" type="checkbox">
+                        <label for="alternatechk">Alternate Pricing WB</label>
+                        <span></span>
+                    </div>
+                    <div class="chiller_cb">
+                        <input id="cobchk" type="checkbox">
+                        <label for="cobchk">COB WB</label>
+                        <span></span>
+                    </div>
+                    <div class="chiller_cb">
+                        <input id="highchk" type="checkbox">
+                        <label for="highchk">High $ WB</label>
+                        <span></span>
+                    </div>
+                    <div class="chiller_cb">
+                        <input id="nonpaymentchk" type="checkbox">
+                        <label for="nonpaymentchk">Non-Payment of Premiums WB</label>
+                        <span></span>
+                    </div>
+                    <div class="chiller_cb">
+                        <input id="missingchk" type="checkbox">
+                        <label for="missingchk">Missing Provider WB</label>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="row row-btn">
+                    <div class="form-group col-xs-4 col-btn-style">
+                        <button type="button" class="btn btn-primary prev-btn-style btn-style"
+                            (click)="previousPage()">Previous</button>
+                    </div>
+                    <div class="form-group col-xs-4 col-btn-style">
+                        <button type="submit" class="btn btn-primary submit-btn-style btn-style">Create</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

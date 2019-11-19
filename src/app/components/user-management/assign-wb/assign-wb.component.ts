@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-assign-wb',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./assign-wb.component.css']
 })
 export class AssignWbComponent implements OnInit {
-
+  @Output() previousRoleTab: EventEmitter<string> = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
   }
-
+  previousPage() {
+    this.previousRoleTab.emit('ASSIGN_ROLE');
+  }
 }

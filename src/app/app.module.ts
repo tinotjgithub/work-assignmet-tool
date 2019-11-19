@@ -19,7 +19,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AssignRolesComponent } from './components/user-management/assign-roles/assign-roles.component';
 import { AssignWbComponent } from './components/user-management/assign-wb/assign-wb.component';
-import { SearchUserComponent } from './components/user-management/search-user/search-user.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { SearchUserComponent } from './components/user-management/search-user/se
     UserManagementComponent,
     DrawModeComponent,
     AssignRolesComponent,
-    AssignWbComponent,
-    SearchUserComponent
+    AssignWbComponent
   ],
   imports: [
     BrowserModule,

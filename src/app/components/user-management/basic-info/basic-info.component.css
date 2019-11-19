@@ -1,16 +1,24 @@
-
+.card{
+    align-self: center;
+}
+.row-style{
+    padding-top:0px;
+    padding-bottom:0px;
+}
+.card-body{
+    align-content: center;
+    align-self: left;
+}
 .txt-style{
     text-align: left;
-    padding:5px;
-}
-.col-d-style{
-    padding-right: 5px;   
+    padding-right:10px;
+    margin:4px;
 }
 .lbl-style{
-    padding: 2px;
+    margin: 1px;
 }
 .col-btn-style{
-    padding-right: 5px;   
+    padding-right: 25px;   
     padding-top: 0px;    
 }
 .btn-style{
@@ -26,6 +34,10 @@
     background-color: darkblue;
     border-color:  darkblue;
     color:white;
+}
+.card-body{
+    align-items:center;
+    align-content :center;
 }
 
 button.calendar, button.calendar:active {
