@@ -13,8 +13,16 @@ export class DrawModeComponent implements OnInit {
   pause: boolean = false;
   timer: string = "00:00:00";
   seconds: string = "00";
-  minutes: string = "00";
-  hours: string = "00";
+  minutes: number = 0;
+  hours: number = 0;
+
+  timerRedColor: string = "#bf0000";
+  timerRedFadeColor: string = "#00b0b621";
+  timerAmberColor: string = "#FFBF00";
+  timerAmberFadeColor: string = "#00b0b621";
+
+  timerColor: string = "#00bf96";
+  timerFadeColor: string = "#00816a";
 
   breakReasons: Array<BreakReasons> = [
     {
@@ -48,10 +56,18 @@ export class DrawModeComponent implements OnInit {
     this.interval = setInterval(() => {
       this.timeLeft++;
       this.timer = new Date(this.timeLeft * 1000).toISOString().substr(11, 8);
-      console.log(this.timer);
-      this.seconds = this.timer.substr(6, 8);
-      this.minutes = this.timer.substr(3, 5);
-      this.hours = this.timer.substr(0, 2);
+      this.minutes = Number(this.timer.substr(3, 2));
+      this.hours = Number(this.timer.substr(0, 2));
+      if (this.hours >= 1) {
+        this.timerColor = this.timerRedColor;
+        this.timerFadeColor = this.timerRedFadeColor;
+      } else if (this.minutes >= 1 && this.minutes < 2) {
+        this.timerColor = this.timerAmberColor;
+        this.timerFadeColor = this.timerAmberFadeColor;
+      } else if (this.minutes >= 2) {
+        this.timerColor = this.timerRedColor;
+        this.timerFadeColor = this.timerRedFadeColor;
+      }
     }, 1000);
   }
 
@@ -66,6 +82,13 @@ export class DrawModeComponent implements OnInit {
     } else {
       this.startTimer();
     }
+  }
+
+  /* To copy Text from Textbox */
+  copyInputMessage(inputElement) {
+    inputElement.select();
+    document.execCommand("copy");
+    inputElement.setSelectionRange(0, 0);
   }
 }
 
