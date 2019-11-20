@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
-const BACKEND_URL = "http://localhost:3000/";
+import { BaseHttpService } from '../base-http.service';
+
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class TaskmanagementService {
   private tasks: any[] = [];
@@ -32,7 +32,7 @@ export class TaskmanagementService {
   timerColor: string = "#00bf96";
   timerFadeColor: string = "#00816a";
   timerStarted: boolean = false;
-  constructor(public http: HttpClient) {
+  constructor(private baseHTTPService: BaseHttpService) {
     this.startTimer();
   }
 
@@ -82,23 +82,15 @@ export class TaskmanagementService {
   }
 
   getPosts() {
-    this.http
-      .get<{ message: string; posts: any[] }>(
-        "http://localhost:3000/api/posts/"
-      )
-      .subscribe(postData => {
+    this.baseHTTPService.get('api/posts/').subscribe(postData => {
         this.tasks = postData.posts;
         this.taskUpdatedSub.next([...this.tasks]);
       });
   }
 
   getClaim() {
-    this.http
-      .get<{ claim: any }>(
-        BACKEND_URL + "api/drawMode/drawClaims?userId=" + "admin"
-      )
-      .subscribe(claim => {
-        console.log("Claim from back-end", claim);
+      this.baseHTTPService.get('api/drawMode/drawClaims?userId=admin').subscribe(claim => {
+        console.log('Claim from back-end', claim);
       });
   }
 }

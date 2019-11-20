@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import * as $ from "jquery";
-import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { Subscription } from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { TaskmanagementService } from 'src/app/services/task-management/taskmanagement.service';
 
 @Component({
-  selector: "app-task-management",
-  templateUrl: "./task-management.component.html",
-  styleUrls: ["./task-management.component.css"]
+  selector: 'app-task-management',
+  templateUrl: './task-management.component.html',
+  styleUrls: ['./task-management.component.css']
 })
 export class TaskManagementComponent implements OnInit, OnDestroy {
   constructor(
@@ -15,13 +15,13 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) {}
 
-  id: string = "SCORE_CARD";
+  id: string = 'SCORE_CARD';
   status: boolean = false;
   tasks: any[] = [];
   private taskSub: Subscription;
 
-  content: string = "";
-  title: string = "";
+  content: string = '';
+  title: string = '';
 
   ngOnInit() {
     this.setClassorNav();
@@ -31,7 +31,7 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
       .getTaskListener()
       .subscribe((tasks: any[]) => {
         this.tasks = tasks;
-        console.log("Tasks", tasks[0].message);
+        console.log('Tasks', tasks[0].message);
         this.content = tasks[0].content;
         this.title = tasks[0].title;
       });
@@ -43,11 +43,11 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
 
   private setClassorNav() {
     $(document).ready(function() {
-      $(".activelink").click(function(e) {
-        $(".activelink").removeClass("active");
+      $('.activelink').click(function(e) {
+        $('.activelink').removeClass('active');
         var $this = $(this);
-        if (!$this.hasClass("active")) {
-          $this.addClass("active");
+        if (!$this.hasClass('active')) {
+          $this.addClass('active');
         }
         e.preventDefault();
       });
