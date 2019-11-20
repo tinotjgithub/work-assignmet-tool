@@ -42,21 +42,24 @@
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Claim Id" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="2019020100001543" readonly style="margin: 15px"
-            #userinput>
+          <input class="form-control col readonly" type="text" value={{claimDetails.claimId}} readonly
+            style="margin: 15px" #userinput>
         </div>
 
         <div class="row">
           <input class="form-control col" type="text" value="Type" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Institutional" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.claimType}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Claim Source" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="EDI" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.claimSource}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Billed Amount" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="17361.84" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.billedAmount}}" readonly
+            style="margin: 15px">
         </div>
       </div>
     </div>
@@ -72,15 +75,17 @@
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="WB Name" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Auth WB" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.workBasketName}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="State" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Repair" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.state}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Review/Repair reason" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Authorization is required,No match found"
+          <input class="form-control col readonly" type="text" value="{{claimDetails.reviewRepairReason}}"
             style="margin: 15px;" readonly>
         </div>
       </div>
@@ -97,20 +102,22 @@
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Receipt Date" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="12/12/2018" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.receiptDate}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Entry Date" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="12/12/2018" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.entryDate}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Age" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="15 Days" style="margin: 15px" readonly>
+          <input class="form-control col readonly" type="text" value="{{claimDetails.rank}}" style="margin: 15px"
+            readonly>
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

@@ -31,10 +31,11 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
       .getTaskListener()
       .subscribe((tasks: any[]) => {
         this.tasks = tasks;
-        console.log("Tasks", tasks[0].message);
         this.content = tasks[0].content;
         this.title = tasks[0].title;
       });
+    // Fetching first claim
+    this.taskManagementService.getClaim();
   }
 
   clickEvent() {

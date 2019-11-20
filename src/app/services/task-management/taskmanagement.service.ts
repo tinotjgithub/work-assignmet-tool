@@ -9,6 +9,7 @@ const BACKEND_URL = "http://localhost:3000/";
 export class TaskmanagementService {
   private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
+  private claimDetailsSub = new Subject<any>();
 
   private taskTimerSub = new Subject<{
     timer: string;
@@ -32,6 +33,9 @@ export class TaskmanagementService {
   timerColor: string = "#00bf96";
   timerFadeColor: string = "#00816a";
   timerStarted: boolean = false;
+
+  claimDetails: any;
+
   constructor(public http: HttpClient) {
     this.startTimer();
   }
@@ -44,7 +48,11 @@ export class TaskmanagementService {
     return this.taskTimerSub.asObservable();
   }
 
-  restTaskTimer() {
+  getClaimDetailsListener() {
+    return this.claimDetailsSub.asObservable();
+  }
+
+  resetTaskTimer() {
     this.timeLeft = 0;
   }
 
@@ -98,7 +106,8 @@ export class TaskmanagementService {
         BACKEND_URL + "api/drawMode/drawClaims?userId=" + "admin"
       )
       .subscribe(claim => {
-        console.log("Claim from back-end", claim);
+        this.claimDetails = claim;
+        this.claimDetailsSub.next(this.claimDetails);
       });
   }
 }

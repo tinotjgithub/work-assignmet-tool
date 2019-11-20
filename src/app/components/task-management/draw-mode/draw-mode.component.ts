@@ -16,6 +16,9 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   timer: string = "00:00:00";
   timerColor: string = "#00bf96";
   timerFadeColor: string = "#00816a";
+  claimDetails: any;
+
+  private claimDetailsSubscription: Subscription;
 
   breakReasons: Array<BreakReasons> = [
     {
@@ -42,7 +45,6 @@ export class DrawModeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     (<any>$("[data-toggle=tooltip")).tooltip();
-    this.taskManagementService.getClaim();
     this.taskTimerSubscription = this.taskManagementService
       .getTaskTimerListener()
       .subscribe(
@@ -56,6 +58,13 @@ export class DrawModeComponent implements OnInit, OnDestroy {
           this.timerFadeColor = timerDetails.timerFadeColor;
         }
       );
+
+    this.claimDetails = this.taskManagementService.claimDetails;
+    this.claimDetailsSubscription = this.taskManagementService
+      .getClaimDetailsListener()
+      .subscribe((claimDetails: any) => {
+        this.claimDetails = claimDetails;
+      });
   }
 
   setPause() {
@@ -76,7 +85,7 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   }
 
   resetTaskTimer() {
-    this.taskManagementService.restTaskTimer();
+    this.taskManagementService.resetTaskTimer();
   }
 
   ngOnDestroy(): void {
