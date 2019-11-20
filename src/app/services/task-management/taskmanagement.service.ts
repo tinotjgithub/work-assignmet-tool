@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
+import { BaseHttpService } from "../base-http.service";
 
 const BACKEND_URL = "http://localhost:3000/";
 @Injectable({
@@ -36,7 +37,7 @@ export class TaskmanagementService {
 
   claimDetails: any;
 
-  constructor(public http: HttpClient) {
+  constructor(public baseHTTPService: BaseHttpService) {
     this.startTimer();
   }
 
@@ -90,21 +91,15 @@ export class TaskmanagementService {
   }
 
   getPosts() {
-    this.http
-      .get<{ message: string; posts: any[] }>(
-        "http://localhost:3000/api/posts/"
-      )
-      .subscribe(postData => {
-        this.tasks = postData.posts;
-        this.taskUpdatedSub.next([...this.tasks]);
-      });
+    this.baseHTTPService.get("api/posts/").subscribe(postData => {
+      this.tasks = postData.posts;
+      this.taskUpdatedSub.next([...this.tasks]);
+    });
   }
 
   getClaim() {
-    this.http
-      .get<{ claim: any }>(
-        BACKEND_URL + "api/drawMode/drawClaims?userId=" + "admin"
-      )
+    this.baseHTTPService
+      .get("api/drawMode/drawClaims?userId=admin")
       .subscribe(claim => {
         this.claimDetails = claim;
         this.claimDetailsSub.next(this.claimDetails);
