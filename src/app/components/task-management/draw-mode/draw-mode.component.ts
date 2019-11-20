@@ -88,8 +88,12 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     inputElement.setSelectionRange(0, 0);
   }
 
-  triggerCompleteClaimModal() {
-    this.taskManagementService.resetTaskTimer();
+  triggerClaimCompletion() {
+    this.taskManagementService.saveAndNavigateToNextClaim(
+      "complete",
+      new Date(),
+      ""
+    );
   }
 
   ngOnDestroy(): void {

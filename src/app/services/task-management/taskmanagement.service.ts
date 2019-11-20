@@ -11,7 +11,7 @@ export class TaskmanagementService {
   private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
-
+  private userId = "1";
   private taskTimerSub = new Subject<{
     timer: string;
     timerColor: string;
@@ -86,6 +86,9 @@ export class TaskmanagementService {
     } else if (this.minutes >= 2) {
       this.timerColor = this.timerRedColor;
       this.timerFadeColor = this.timerRedFadeColor;
+    } else {
+      this.timerColor = "#00bf96";
+      this.timerFadeColor = "#00816a";
     }
   }
 
@@ -101,6 +104,7 @@ export class TaskmanagementService {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   }
+
   getClaim() {
     this.baseHTTPService
       .get("api/drawMode/drawClaims?userId=admin")
@@ -124,7 +128,7 @@ export class TaskmanagementService {
     const param = {
       workItemType: this.claimDetails.claimType,
       workItemId: this.claimDetails.claimId,
-      userId: "1",
+      userId: this.userId,
       startTime: new Date()
     };
     this.baseHTTPService
@@ -133,5 +137,28 @@ export class TaskmanagementService {
         this.assignTaskResponse = data;
         console.log(this.assignTaskResponse);
       });
+  }
+
+  saveAndNavigateToNextClaim(action, timeStamp, comments) {
+    const param = {
+      taskId: this.assignTaskResponse.taskId,
+      workItemId: this.assignTaskResponse.workItemId,
+      workItemType: this.assignTaskResponse.workItemType,
+      userId: this.userId,
+      startTime: this.assignTaskResponse.startTime,
+      action,
+      finishTime: timeStamp,
+      comments
+    };
+    this.baseHTTPService.post(param, "api/drawMode/updateTask").subscribe(
+      data => {
+        console.log(data);
+        this.resetTaskTimer();
+        this.getClaim();
+      },
+      error => {
+        alert("Something Went Wrong");
+      }
+    );
   }
 }

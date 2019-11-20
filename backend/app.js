@@ -56,7 +56,7 @@ app.get("/api/drawMode/drawClaims", (req, res, next) => {
     "workBasketName": "Itemized Bill WB",
     "owner": "",
     "entryDate": "2019-11-08T18:30:00.000+0000",
-    "receiptDate": "2019-11-01T18:30:00.000+0000",
+    "receiptDate": "2019-11-09T18:30:00.000+0000",
     "billedAmount": 37944.07, "allowedAmount": null,
     "claimSource": "EDI",
     "createdTime": "2019-11-18T18:30:00.000+0000",
@@ -66,7 +66,6 @@ app.get("/api/drawMode/drawClaims", (req, res, next) => {
 });
 
 app.post("/api/drawMode/assignTask", (req, res, next) => {
-  console.log(req);
   const claim = {
     "taskId": 4,
     "workItemId": "2019082800000200",
@@ -80,4 +79,12 @@ app.post("/api/drawMode/assignTask", (req, res, next) => {
 
   res.status(200).json(claim);
 });
+
+app.post("/api/drawMode/updateTask", (req, res, next) => {
+  const claim = {
+    message: "succes"
+  }
+  res.status(200).json(claim);
+});
+
 module.exports = app;
