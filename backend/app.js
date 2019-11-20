@@ -55,8 +55,8 @@ app.get("/api/drawMode/drawClaims", (req, res, next) => {
     "reviewRepairReason": "Claim requires review payment total greater than $20,000.00",
     "workBasketName": "Itemized Bill WB",
     "owner": "",
-    "entryDate": "2019-11-07T18:30:00.000+0000",
-    "receiptDate": "2019-11-07T18:30:00.000+0000",
+    "entryDate": "2019-11-08T18:30:00.000+0000",
+    "receiptDate": "2019-11-01T18:30:00.000+0000",
     "billedAmount": 37944.07, "allowedAmount": null,
     "claimSource": "EDI",
     "createdTime": "2019-11-18T18:30:00.000+0000",
@@ -65,4 +65,19 @@ app.get("/api/drawMode/drawClaims", (req, res, next) => {
   res.status(200).json(claim);
 });
 
+app.post("/api/drawMode/assignTask", (req, res, next) => {
+  console.log(req);
+  const claim = {
+    "taskId": 4,
+    "workItemId": "2019082800000200",
+    "workItemType": "Institutional",
+    "userId": 1,
+    "startTime": "2019-11-20",
+    "action": null,
+    "finishTime": null,
+    "comments": null
+  }
+
+  res.status(200).json(claim);
+});
 module.exports = app;

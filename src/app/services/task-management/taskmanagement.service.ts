@@ -22,7 +22,6 @@ export class TaskmanagementService {
   timeLeft: number = 0;
   pause: boolean = false;
   timer: string = "00:00:00";
-  seconds: string = "00";
   minutes: number = 0;
   hours: number = 0;
 
@@ -30,12 +29,12 @@ export class TaskmanagementService {
   timerRedFadeColor: string = "#00b0b621";
   timerAmberColor: string = "#FFBF00";
   timerAmberFadeColor: string = "#00b0b621";
-
   timerColor: string = "#00bf96";
   timerFadeColor: string = "#00816a";
   timerStarted: boolean = false;
 
   claimDetails: any;
+  assignTaskResponse: any;
 
   constructor(public baseHTTPService: BaseHttpService) {
     this.startTimer();
@@ -97,12 +96,42 @@ export class TaskmanagementService {
     });
   }
 
+  getDiffDays(date1, date2) {
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
   getClaim() {
     this.baseHTTPService
       .get("api/drawMode/drawClaims?userId=admin")
       .subscribe(claim => {
+        let clonedObject = claim;
+        Object.assign(clonedObject, {
+          age: this.getDiffDays(
+            new Date(claim.entryDate),
+            new Date(claim.receiptDate)
+          )
+        });
+
         this.claimDetails = claim;
+        console.log(this.claimDetails);
         this.claimDetailsSub.next(this.claimDetails);
+        this.assignTask();
+      });
+  }
+
+  assignTask() {
+    const param = {
+      workItemType: this.claimDetails.claimType,
+      workItemId: this.claimDetails.claimId,
+      userId: "1",
+      startTime: new Date()
+    };
+    this.baseHTTPService
+      .post(param, "api/drawMode/assignTask")
+      .subscribe(data => {
+        this.assignTaskResponse = data;
+        console.log(this.assignTaskResponse);
       });
   }
 }

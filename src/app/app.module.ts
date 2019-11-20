@@ -16,6 +16,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./services/auth/auth.interceptor";
 import { LoginComponent } from "./components/login/login/login.component";
 import { BaseHttpService } from "./services/base-http.service";
+import { DatePipe } from "@angular/common";
+import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.component';
 
 @NgModule({
   declarations: [
@@ -28,12 +30,14 @@ import { BaseHttpService } from "./services/base-http.service";
     TaskManagementComponent,
     UserManagementComponent,
     DrawModeComponent,
-    LoginComponent
+    LoginComponent,
+    YesNoModelComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    BaseHttpService
+    BaseHttpService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

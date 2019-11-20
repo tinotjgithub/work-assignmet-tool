@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
 import { Subscription } from "rxjs";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-draw-mode",
@@ -10,14 +11,17 @@ import { Subscription } from "rxjs";
 export class DrawModeComponent implements OnInit, OnDestroy {
   private taskTimerSubscription: Subscription;
 
-  constructor(private taskManagementService: TaskmanagementService) {}
+  constructor(
+    private taskManagementService: TaskmanagementService,
+    private datePype: DatePipe
+  ) {}
   // These are important variables
   pause: boolean = false;
   timer: string = "00:00:00";
   timerColor: string = "#00bf96";
   timerFadeColor: string = "#00816a";
   claimDetails: any;
-
+  showCompleteClaimModal = false;
   private claimDetailsSubscription: Subscription;
 
   breakReasons: Array<BreakReasons> = [
@@ -84,7 +88,7 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     inputElement.setSelectionRange(0, 0);
   }
 
-  resetTaskTimer() {
+  triggerCompleteClaimModal() {
     this.taskManagementService.resetTaskTimer();
   }
 

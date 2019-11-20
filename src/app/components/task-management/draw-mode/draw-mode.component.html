@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center">
   <div>
-    <button type="button" (click)="resetTaskTimer()" class="btn btn-success m-2">Complete</button>
+    <button type="button" data-toggle="modal" data-target="#yesnoModal" class="btn btn-success m-2">Complete</button>
     <button type="button" class="btn btn-secondary m-2 " data-toggle="collapse" href="#collapseRoute">Pend</button>
     <button type="button" class="btn btn-secondary m-2" data-toggle="collapse" href="#collapseRoute">Route</button>
     <span class="m-2" data-toggle="modal" data-target="#exampleModalCenter">
@@ -102,17 +102,17 @@
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Receipt Date" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="{{claimDetails.receiptDate}}" readonly
-            style="margin: 15px">
+          <input class="form-control col readonly" type="text"
+            value="{{claimDetails.receiptDate | date: 'dd/MM/yyyy'}} " readonly style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Entry Date" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="{{claimDetails.entryDate}}" readonly
-            style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.entryDate| date: 'dd/MM/yyyy'}} "
+            readonly style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Age" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="{{claimDetails.rank}}" style="margin: 15px"
+          <input class="form-control col readonly" type="text" value="{{claimDetails.age}}" style="margin: 15px"
             readonly>
         </div>
       </div>
@@ -144,8 +144,12 @@
         </div>
         <div class="modal-footer">
           <button (click)="setPause()" type="button" class="btn btn-primary" data-dismiss="modal" id="aaa"
-            style="width: 150px">{{pause === false ?"Save & Continue": "Ok"}}</button>
+            style="width: 150px">{{pause === false ?"Save & Pause": "Ok"}}</button>
         </div>
       </div>
     </div>
   </div>
+  <app-yes-no-model modalTitle="Complete Claim?" modalBody="Complete Claim and move to next Claim"
+    modalYesButtonText="OK" modalNoButtonText="Cancel"
+    (yesEvent)="triggerCompleteClaimModal($event)" >
+  </app-yes-no-model>
