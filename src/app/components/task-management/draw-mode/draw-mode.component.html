@@ -1,8 +1,8 @@
 <div class="row d-flex justify-content-center">
   <div>
     <button type="button" data-toggle="modal" data-target="#yesnoModal" class="btn btn-success m-2">Complete</button>
-    <button type="button" class="btn btn-secondary m-2 " data-toggle="collapse" href="#collapseRoute">Pend</button>
-    <button type="button" class="btn btn-secondary m-2" data-toggle="collapse" href="#collapseRoute">Route</button>
+    <button (click)="setAction('pend')" type="button" class="btn btn-secondary m-2 " data-toggle="collapse" href="#collapseRoute">Pend</button>
+    <button (click)="setAction('route')" type="button" class="btn btn-secondary m-2" data-toggle="collapse" href="#collapseRoute">Route</button>
     <span class="m-2" data-toggle="modal" data-target="#exampleModalCenter">
       <button class="btn btn-primary align-middle" data-toggle="tooltip" data-placement="bottom"
         title="Pause/Resume  On-going Task">
@@ -23,8 +23,8 @@
   <div class="card p-2">
     <div>
       <textarea placeholder="Enter comments here.." class=" form-control p-2" id="exampleFormControlTextarea1"
-        rows="3"></textarea>
-      <button type="button" class="btn btn-success p-2 float-right" style="margin-top: 7px">Save and Next</button>
+        rows="3" ></textarea>
+      <button (click)="triggerClaimCompletion(action)" data-toggle="collapse" href="#collapseRoute" type="button" class="btn btn-success p-2 float-right" style="margin-top: 7px">Save and Next</button>
     </div>
   </div>
 </div>
@@ -151,5 +151,5 @@
   </div>
   <app-yes-no-model modalTitle="Complete Claim?" modalBody="Complete Claim and move to next Claim"
     modalYesButtonText="OK" modalNoButtonText="Cancel"
-    (yesEvent)="triggerClaimCompletion($event)" >
+    (yesEvent)="triggerClaimCompletion('complete')" >
   </app-yes-no-model>

@@ -24,6 +24,7 @@ import { LoginComponent } from "./components/login/login/login.component";
 import { BaseHttpService } from "./services/base-http.service";
 import { DatePipe } from "@angular/common";
 import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.component';
+import { ReprioritizeComponent } from './components/reprioritize/reprioritize.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.comp
     AssignRolesComponent,
     AssignWbComponent,
     LoginComponent,
-    YesNoModelComponent
+    YesNoModelComponent,
+    ReprioritizeComponent
   ],
   imports: [
     BrowserModule,

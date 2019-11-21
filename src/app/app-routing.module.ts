@@ -5,6 +5,7 @@ import { RouteGuard } from "./services/route.guard/route.guard.service";
 import { TaskManagementComponent } from "./components/task-management/task-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { LoginComponent } from "./components/login/login/login.component";
+import { ReprioritizeComponent } from "./components/reprioritize/reprioritize.component";
 const routes: Routes = [
   { path: "", component: LoginComponent },
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: "UserManagement",
     component: UserManagementComponent
+  },
+  {
+    path: "Reprioritize",
+    component: ReprioritizeComponent
   }
 ];
 
