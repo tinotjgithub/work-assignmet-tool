@@ -45,7 +45,7 @@ export class AssignWbComponent {
 
   saveToService(finalObject: any) {
     this.baseHTTPService
-      .post(finalObject, "api/drawMode/assignTask")
+      .post(finalObject, "api/user-management/create-users")
       .subscribe(data => {
         this.saveResponse = data;
         console.log(this.saveResponse);
@@ -117,7 +117,6 @@ export class AssignWbComponent {
 
 
     this.assignWbs = this.userMgtService.getWBs();
-    console.log("ASSIGNED: ", this.assignWbs)
     this.userMgtService.updateWBsListener().subscribe((assignWbs: any) => {
       this.assignWbs = assignWbs;
     });
@@ -139,7 +138,6 @@ export class AssignWbComponent {
       // "userWorkBasketRequestDtos": this.assignWbs
       "userWorkBasketRequestDtos": [{"workBasketID" : 1, priority: -1}]
     }];
-    console.log("finalObject: ", finalObject[0]);
     this.saveToService(finalObject[0]);
   }
 
