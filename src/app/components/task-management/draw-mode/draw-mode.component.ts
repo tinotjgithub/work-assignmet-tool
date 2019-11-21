@@ -10,6 +10,7 @@ import { DatePipe } from "@angular/common";
 })
 export class DrawModeComponent implements OnInit, OnDestroy {
   private taskTimerSubscription: Subscription;
+  action: any;
 
   constructor(
     private taskManagementService: TaskmanagementService,
@@ -81,6 +82,10 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     }
   }
 
+  setAction(value) {
+    this.action = value;
+  }
+
   /* To copy Text from Textbox */
   copyInputMessage(inputElement) {
     inputElement.select();
@@ -88,11 +93,11 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     inputElement.setSelectionRange(0, 0);
   }
 
-  triggerClaimCompletion() {
+  triggerClaimCompletion(action = "complete", comments = "") {
     this.taskManagementService.saveAndNavigateToNextClaim(
-      "complete",
+      action,
       new Date(),
-      ""
+      comments
     );
   }
 
