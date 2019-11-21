@@ -16,7 +16,7 @@ export class AssignRolesComponent implements OnInit {
   basicInfo: BasicInfoModel;
   roleGroup: FormGroup;
   rolesList = Array<{ roleId: number, roleName: string }>();
-
+  submitted: boolean = false;
   constructor(private formBuilder: FormBuilder, private basicInfoService: UserMgtService) {
     this.getRoles();
     this.roleGroup = this.formBuilder.group({

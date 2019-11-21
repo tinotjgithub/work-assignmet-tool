@@ -30,6 +30,7 @@ export class UserMgtService {
 
     saveBasicInfo(basicInfo) {
         UserMgtService.basicInfoDetails = basicInfo;
+        console.log("Service", UserMgtService.basicInfoDetails)
         this.updateBasicInfo.next(UserMgtService.basicInfoDetails);
     }
 

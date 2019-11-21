@@ -28,11 +28,11 @@ export class BasicInfoComponent implements OnInit {
     this.basicInfo = fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      userId: ['', Validators.required],
+      userID: ['', Validators.required],
       primaryEmail: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       effectiveFrom: ['', Validators.required],
       terminationDate: [''],
-      userSkillSet: ['', Validators.required]
+      resourceSkillset: ['', Validators.required]
     })
   }
 
@@ -40,7 +40,8 @@ export class BasicInfoComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.basicInformations = this.basicInfo.value
+    this.basicInformations = this.basicInfo.value;
+    console.log("this.basicInformations: ",this.basicInformations );
     this.userMgtService.saveBasicInfo(this.basicInformations);
     this.nextBasicTab.emit('ASSIGN_ROLE');
   }
@@ -50,11 +51,11 @@ export class BasicInfoComponent implements OnInit {
     if (savedInfo) {
       this.basicInfo.get('firstName').setValue(savedInfo["firstName"]);
       this.basicInfo.get('lastName').setValue(savedInfo["lastName"]);
-      this.basicInfo.get('userId').setValue(savedInfo["userId"]);
+      this.basicInfo.get('userID').setValue(savedInfo["userID"]);
       this.basicInfo.get('primaryEmail').setValue(savedInfo["primaryEmail"]);
       this.basicInfo.get('effectiveFrom').setValue(savedInfo["effectiveFrom"]);
       this.basicInfo.get('terminationDate').setValue(savedInfo["terminationDate"]);
-      this.basicInfo.get('userSkillSet').setValue(savedInfo["userSkillSet"]);
+      this.basicInfo.get('resourceSkillset').setValue(savedInfo["resourceSkillset"]);
     }
   }
 
@@ -71,7 +72,7 @@ export class BasicInfoComponent implements OnInit {
     //   this.toDate = null;
     //   this.fromDate = date;
     // }
-    return this.basicInfo.get('terminationDate').setValue(formattedDate);
+    return this.basicInfo.get('effectiveFrom').setValue(formattedDate);
   }
 
   // validateFromDateInput(currentValue: NgbDate, input: string): NgbDate {

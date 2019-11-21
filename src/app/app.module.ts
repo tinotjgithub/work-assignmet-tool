@@ -25,6 +25,7 @@ import { BaseHttpService } from "./services/base-http.service";
 import { DatePipe } from "@angular/common";
 import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.component';
 import { ReprioritizeComponent } from './components/reprioritize/reprioritize.component';
+import { ToastComponent } from './components/toast.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ReprioritizeComponent } from './components/reprioritize/reprioritize.co
     AssignWbComponent,
     LoginComponent,
     YesNoModelComponent,
-    ReprioritizeComponent
+    ReprioritizeComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

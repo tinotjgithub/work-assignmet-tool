@@ -21,11 +21,11 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm-5 txt-style">
-                    <label lbl-stylefor="userId">User ID</label>
-                    <input formControlName="userId" type="text" class="form-control" id="userId"
+                    <label lbl-stylefor="userID">User ID</label>
+                    <input formControlName="userID" type="text" class="form-control" id="userID"
                         placeholder="Enter User Id">
                     <span style="font-size:14px; color: rgb(238, 11, 11);"
-                        *ngIf="submitted && info.userId.errors && info.userId.errors.required">
+                        *ngIf="submitted && info.userID.errors && info.userID.errors.required">
                         user id is required</span>
                 </div>
                 <div class="form-group col-sm-5 txt-style">
@@ -45,7 +45,7 @@
                     <label lbl-stylefor="effectiveFrom">Effective From</label>
                     <div class='input-group'>
                         <input ngbDatepicker name="d1" #d1="ngbDatepicker" formControlName="effectiveFrom" type="text"
-                            class="form-control" id="effectiveFrom" placeholder="dd-mm-yyyy" (dateSelect)="onFromDateSelection($event)">
+                            class="form-control" id="effectiveFrom" placeholder="dd-mm-yyyy">
                         <!-- [value]="formatter.format(fromDate)" 
                             (dateSelect)="onFromDateSelection($event)"
                        (input)="fromDate = validateFromDateInput(fromDate, d1.value)" -->
@@ -84,16 +84,16 @@
             </div>
             <div class="row">
                 <!-- <div class="form-group col-sm-5 txt-style">
-                    <label lbl-stylefor="userSkillSet">User Skill Set</label>
-                    <input formControlName="userSkillSet" type="text" class="form-control" id="userSkillSet"
+                    <label lbl-stylefor="resourceSkillset">User Skill Set</label>
+                    <input formControlName="resourceSkillset" type="text" class="form-control" id="resourceSkillset"
                         placeholder="Enter User Skill Set">
                     <span style="font-size:14px; color: rgb(238, 11, 11);"
-                        *ngIf="submitted && info.userSkillSet.errors && info.userSkillSet.errors.required">
+                        *ngIf="submitted && info.resourceSkillset.errors && info.resourceSkillset.errors.required">
                         user skill set is required</span>
                 </div> -->
                 <div class="form-group col-sm-5 txt-style">
-                    <label lbl-stylefor="userSkillSet">User Skill Set</label>
-                    <select formControlName="userSkillSet" type="select" class="form-control" id="userSkillSet"
+                    <label lbl-stylefor="resourceSkillset">User Skill Set</label>
+                    <select formControlName="resourceSkillset" type="select" class="form-control" id="resourceSkillset"
                         placeholder="Enter User Skill Set" >
                         <option *ngFor="let skill of skillList" value={{skill.skillId}}>
                             {{skill.skillName}}

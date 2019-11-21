@@ -4,7 +4,7 @@ export class BasicInfoModel {
     lastName: string;
     userID: string;
     primaryEmail: string;
-    effectiveFrom: string;
+    effectiveFrom: {day:number, month: number, year: number};
     terminationDate: string;
     resourceSkillset: string;
     loggedInUser: string;

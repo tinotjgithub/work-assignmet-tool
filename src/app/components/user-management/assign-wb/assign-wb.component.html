@@ -21,7 +21,8 @@
                             atleast one workbasket</span>
                     </div>
                     <div class="col-sm-4 form-group">
-                        <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number" class="form-control textbox-style">
+                        <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number"
+                            class="form-control textbox-style">
                         <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
                             a priority for the selected workbasket</span>
                     </div>

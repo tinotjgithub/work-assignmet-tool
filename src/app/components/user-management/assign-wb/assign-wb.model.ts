@@ -1,4 +1,3 @@
 export class AssignWBsModel{
-    workBasketId: [];
-    priority: [];
+    userWorkBasketRequestDtos: {wbId:string, priority: string}
 }

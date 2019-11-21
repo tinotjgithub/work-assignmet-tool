@@ -4,12 +4,14 @@ import { UserMgtService } from './../services/user-management.service';
 import { AssignRolesModel } from './../assign-roles/assign-roles.model';
 import { BasicInfoModel } from './../basic-info/basic-info.model';
 import { AssignWBsModel } from './../assign-wb/assign-wb.model';
+import { BaseHttpService } from "./../../../services/base-http.service";
+import {ToastService} from './../../../services/toast.service';
 
 @Component({
   selector: 'app-assign-wb',
   templateUrl: './assign-wb.component.html',
   styleUrls: ['./assign-wb.component.css'],
-  providers: [UserMgtService, AssignRolesModel]
+  providers: [UserMgtService, BaseHttpService, AssignRolesModel,ToastService]
 })
 export class AssignWbComponent {
   @Output() previousRoleTab: EventEmitter<string> = new EventEmitter<string>();
@@ -17,7 +19,9 @@ export class AssignWbComponent {
   roleIDs: AssignRolesModel;
   basicInfo: BasicInfoModel;
   assignWbs: AssignWBsModel;
-  constructor(private formBuilder: FormBuilder, private userMgtService: UserMgtService) {
+  saveResponse: any;
+  wbList=  Array<{ wbId: number, wbName: string, priority: number }>();
+  constructor(private formBuilder: FormBuilder, public toastService: ToastService, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
     this.getWb();
     this.WBGroup = this.formBuilder.group({
       wbs: new FormArray([]),
@@ -39,13 +43,46 @@ export class AssignWbComponent {
     });
   }
 
+  saveToService(finalObject: any) {
+    this.baseHTTPService
+      .post(finalObject, "api/drawMode/assignTask")
+      .subscribe(data => {
+        this.saveResponse = data;
+        console.log(this.saveResponse);
+      });
+    this.showSuccess();
+  }
+
   addCheckboxes() {
     this.wbList.forEach((o, i) => {
       const control = new FormControl();
       (this.WBGroup.controls.wbs as FormArray).push(control);
     });
   }
-
+  showStandard() {
+    this.toastService.show('I am a standard toast', {
+      delay: 2000,
+      autohide: true
+    });
+  }
+ 
+  showSuccess() {
+    this.toastService.show('I am a success toast', {
+      classname: 'bg-success text-light',
+      delay: 2000 ,
+      autohide: true,
+      headertext: 'Toast Header'
+    });
+  }
+  showError() {
+    this.toastService.show('I am a success toast', {
+      classname: 'bg-danger text-light',
+      delay: 2000 ,
+      autohide: true,
+      headertext: 'Error!!!'
+    });
+  }
+ 
   getWb() {
     this.wbList = [
       { wbId: 1, wbName: 'Missing Member WB', priority: null },
@@ -59,23 +96,28 @@ export class AssignWbComponent {
 
   submit() {
     let wBasket = [];
+    let wbListed=[];
     const selectedWBIds = this.WBGroup.value.wbs
       .map((v, i) => v ? this.wbList[i].wbId : null)
       .filter(v => v !== null);
 
     if (selectedWBIds) {
       for (var i = 0; i < selectedWBIds.length; i++) {
-        wBasket.push(this.wbList.filter(wb => wb.wbId === selectedWBIds[i]));
+        wBasket.push(this.wbList.filter(wb => wb.wbId === selectedWBIds[i])[0]);
       }
+    
       // wBasket.forEach(w => {
       //   workBasket['wbId'].push(w.wbId);
       //   workBasket['priority'].push(w.priority);
       // });
-      console.log(wBasket)
+      
     }
-
     this.userMgtService.saveWBs(wBasket);
+
+
+
     this.assignWbs = this.userMgtService.getWBs();
+    console.log("ASSIGNED: ", this.assignWbs)
     this.userMgtService.updateWBsListener().subscribe((assignWbs: any) => {
       this.assignWbs = assignWbs;
     });
@@ -83,19 +125,22 @@ export class AssignWbComponent {
   }
 
   createFinalOnject() {
+    const formattedDate =  this.basicInfo.effectiveFrom.day + '-' + this.basicInfo.effectiveFrom.month + '-' + this.basicInfo.effectiveFrom.year;
     const finalObject = [{
       "firstName": this.basicInfo.firstName,
       "lastName": this.basicInfo.lastName,
       "userID": this.basicInfo.userID,
       "primaryEmail": this.basicInfo.primaryEmail,
-      "effectiveFrom": this.basicInfo.effectiveFrom,
+      "effectiveFrom": formattedDate,
       "terminationDate": this.basicInfo.terminationDate,
       "resourceSkillset": this.basicInfo.resourceSkillset,
       "loggedInUser": "Santhosh",
       "roleId": this.roleIDs,
-      "workBasketId": this.assignWbs
+      // "userWorkBasketRequestDtos": this.assignWbs
+      "userWorkBasketRequestDtos": [{"workBasketID" : 1, priority: -1}]
     }];
-    return finalObject;
+    console.log("finalObject: ", finalObject[0]);
+    this.saveToService(finalObject[0]);
   }
 
 
