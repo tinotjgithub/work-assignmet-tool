@@ -11,7 +11,7 @@ export class TaskmanagementService {
   private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
-  private userId = "1";
+  private userId = "abc12d@sgdfsssssgmail.com";
   private taskTimerSub = new Subject<{
     timer: string;
     timerColor: string;
@@ -92,13 +92,6 @@ export class TaskmanagementService {
     }
   }
 
-  getPosts() {
-    this.baseHTTPService.get("api/posts/").subscribe(postData => {
-      this.tasks = postData.posts;
-      this.taskUpdatedSub.next([...this.tasks]);
-    });
-  }
-
   getDiffDays(date1, date2) {
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -107,7 +100,7 @@ export class TaskmanagementService {
 
   getClaim() {
     this.baseHTTPService
-      .get("api/drawMode/drawClaims?userId=admin")
+      .get("api/drawMode/draw-claims?primaryEmail=abc@abc.com")
       .subscribe(claim => {
         let clonedObject = claim;
         Object.assign(clonedObject, {
@@ -128,11 +121,11 @@ export class TaskmanagementService {
     const param = {
       workItemType: this.claimDetails.claimType,
       workItemId: this.claimDetails.claimId,
-      userId: this.userId,
+      primaryEmail: this.userId,
       startTime: new Date()
     };
     this.baseHTTPService
-      .post(param, "api/drawMode/assignTask")
+      .post(param, "api/drawMode/assign-task")
       .subscribe(data => {
         this.assignTaskResponse = data;
         console.log(this.assignTaskResponse);
@@ -144,13 +137,13 @@ export class TaskmanagementService {
       taskId: this.assignTaskResponse.taskId,
       workItemId: this.assignTaskResponse.workItemId,
       workItemType: this.assignTaskResponse.workItemType,
-      userId: this.userId,
+      primaryEmail: this.userId,
       startTime: this.assignTaskResponse.startTime,
       action,
       finishTime: timeStamp,
       comments
     };
-    this.baseHTTPService.post(param, "api/drawMode/updateTask").subscribe(
+    this.baseHTTPService.post(param, "api/drawMode/update-task").subscribe(
       data => {
         console.log(data);
         this.resetTaskTimer();

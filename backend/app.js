@@ -46,7 +46,7 @@ app.get("/api/posts", (req, res, next) => {
   });
 });
 
-app.get("/api/drawMode/drawClaims", (req, res, next) => {
+app.get("/api/drawMode/draw-claims", (req, res, next) => {
   console.log(req.body);
   const claim = {
     "claimType": "Institutional",
@@ -65,12 +65,12 @@ app.get("/api/drawMode/drawClaims", (req, res, next) => {
   res.status(200).json(claim);
 });
 
-app.post("/api/drawMode/assignTask", (req, res, next) => {
+app.post("/api/drawMode/assign-task", (req, res, next) => {
   const claim = {
     "taskId": 4,
     "workItemId": "2019082800000200",
     "workItemType": "Institutional",
-    "userId": 1,
+    "primaryEmail": 1,
     "startTime": "2019-11-20",
     "action": null,
     "finishTime": null,
@@ -80,7 +80,7 @@ app.post("/api/drawMode/assignTask", (req, res, next) => {
   res.status(200).json(claim);
 });
 
-app.post("/api/drawMode/updateTask", (req, res, next) => {
+app.post("/api/drawMode/update-task", (req, res, next) => {
   const claim = {
     message: "succes"
   }
