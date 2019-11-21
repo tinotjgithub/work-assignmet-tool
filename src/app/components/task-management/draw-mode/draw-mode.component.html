@@ -1,22 +1,24 @@
-<div>
-  <button type="button" class="btn btn-success m-2">Complete</button>
-  <button type="button" class="btn btn-secondary m-2 " data-toggle="collapse" href="#collapseRoute">Pend</button>
-  <button type="button" class="btn btn-secondary m-2" data-toggle="collapse" href="#collapseRoute">Route</button>
-
-  <span data-toggle="modal" data-target="#exampleModalCenter">
-    <button class="btn btn-primary align-middle" data-toggle="tooltip" data-placement="bottom"
-      title="Pause/Resume  On-going Task">
-      <i *ngIf="pause === false" class="fa fa-pause" style="color: rgb(41, 16, 22);"></i>
-      <i *ngIf="pause === true" class="fa fa-play" style="color: rgb(41, 16, 22);"></i>
-    </button>
-  </span>
-</div>
-<div id="clockdiv">
+<div class="row d-flex justify-content-center">
   <div>
-    <span class="hours">{{timer}}</span>
-    <div class="smalltext">HH:MM:SS</div>
+    <button type="button" data-toggle="modal" data-target="#yesnoModal" class="btn btn-success m-2">Complete</button>
+    <button type="button" class="btn btn-secondary m-2 " data-toggle="collapse" href="#collapseRoute">Pend</button>
+    <button type="button" class="btn btn-secondary m-2" data-toggle="collapse" href="#collapseRoute">Route</button>
+    <span class="m-2" data-toggle="modal" data-target="#exampleModalCenter">
+      <button class="btn btn-primary align-middle" data-toggle="tooltip" data-placement="bottom"
+        title="Pause/Resume  On-going Task">
+        <i *ngIf="pause === false" class="fa fa-pause" style="color: rgb(41, 16, 22);"></i>
+        <i *ngIf="pause === true" class="fa fa-play" style="color: rgb(41, 16, 22);"></i>
+      </button>
+    </span>
+  </div>
+  <div id="clockdiv" class="m-2">
+    <div [ngStyle]="{background: timerColor}">
+      <span [ngStyle]="{background: timerFadeColor}">{{timer}}</span>
+      <div class="smalltext">HH:MM:SS</div>
+    </div>
   </div>
 </div>
+
 <div class="p-2 collapse multi-collapse" id="collapseRoute">
   <div class="card p-2">
     <div>
@@ -31,20 +33,33 @@
     <div class="card-body">
       <div>
         <div class="row">
-          <input class="form-control col" type="text" value="Claim Id" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="2019020100001543" readonly style="margin: 15px">
+          <span class="col" type="text" style="margin: 15px"></span>
+          <button (click)="copyInputMessage(userinput)" class="btn btn-secondary align-middle" data-toggle="tooltip"
+            data-placement="bottom" title="Copy Claim Id"
+            style="margin: 15px; border-radius: 50%; height: 35px; width: 35px; margin-bottom: -5px">
+            <i class="fa fa-clipboard" aria-hidden="true"></i>
+          </button>
         </div>
         <div class="row">
+          <input class="form-control col" type="text" value="Claim Id" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value={{claimDetails.claimId}} readonly
+            style="margin: 15px" #userinput>
+        </div>
+
+        <div class="row">
           <input class="form-control col" type="text" value="Type" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Institutional" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.claimType}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Claim Source" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="EDI" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.claimSource}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Billed Amount" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="17361.84" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.billedAmount}}" readonly
+            style="margin: 15px">
         </div>
       </div>
     </div>
@@ -53,16 +68,24 @@
     <div class="card-body">
       <div>
         <div class="row">
+          <span class="col" type="text" style="margin: 15px"></span>
+          <span class="align-middle"
+            style="margin: 15px; border-radius: 50%; height: 35px; width: 35px; margin-bottom: -5px">
+          </span>
+        </div>
+        <div class="row">
           <input class="form-control col" type="text" value="WB Name" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Auth WB" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.workBasketName}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="State" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Repair" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.state}}" readonly
+            style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Review/Repair reason" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="Authorization is required,No match found"
+          <input class="form-control col readonly" type="text" value="{{claimDetails.reviewRepairReason}}"
             style="margin: 15px;" readonly>
         </div>
       </div>
@@ -72,21 +95,29 @@
     <div class="card-body">
       <div>
         <div class="row">
+          <span class="col" type="text" style="margin: 15px"></span>
+          <span class="align-middle"
+            style="margin: 15px; border-radius: 50%; height: 35px; width: 35px; margin-bottom: -5px">
+          </span>
+        </div>
+        <div class="row">
           <input class="form-control col" type="text" value="Receipt Date" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="12/12/2018" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text"
+            value="{{claimDetails.receiptDate | date: 'dd/MM/yyyy'}} " readonly style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Entry Date" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="12/12/2018" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text" value="{{claimDetails.entryDate| date: 'dd/MM/yyyy'}} "
+            readonly style="margin: 15px">
         </div>
         <div class="row">
           <input class="form-control col" type="text" value="Age" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="15 Days" style="margin: 15px" readonly>
+          <input class="form-control col readonly" type="text" value="{{claimDetails.age}}" style="margin: 15px"
+            readonly>
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -109,12 +140,16 @@
               </label>
             </div>
           </form>
-          <div class = "d-flex flex-row" *ngIf="pause === true">Your Task will be resumed</div>
+          <div class="d-flex flex-row" *ngIf="pause === true">Your Task will be resumed</div>
         </div>
         <div class="modal-footer">
           <button (click)="setPause()" type="button" class="btn btn-primary" data-dismiss="modal" id="aaa"
-            style="width: 150px">{{pause === false ?"Save & Continue": "Ok"}}</button>
+            style="width: 150px">{{pause === false ?"Save & Pause": "Ok"}}</button>
         </div>
       </div>
     </div>
   </div>
+  <app-yes-no-model modalTitle="Complete Claim?" modalBody="Complete Claim and move to next Claim"
+    modalYesButtonText="OK" modalNoButtonText="Cancel"
+    (yesEvent)="triggerClaimCompletion($event)" >
+  </app-yes-no-model>

@@ -45,8 +45,9 @@
                     <label lbl-stylefor="effectiveFrom">Effective From</label>
                     <div class='input-group'>
                         <input ngbDatepicker name="d1" #d1="ngbDatepicker" formControlName="effectiveFrom" type="text"
-                            class="form-control" id="effectiveFrom" placeholder="dd-mm-yyyy">
-                        <!-- [value]="formatter.format(fromDate)" (dateSelect)="onFromDateSelection($event)"
+                            class="form-control" id="effectiveFrom" placeholder="dd-mm-yyyy" (dateSelect)="onFromDateSelection($event)">
+                        <!-- [value]="formatter.format(fromDate)" 
+                            (dateSelect)="onFromDateSelection($event)"
                        (input)="fromDate = validateFromDateInput(fromDate, d1.value)" -->
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"

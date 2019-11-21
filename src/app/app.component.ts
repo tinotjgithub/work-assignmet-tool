@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "./services/auth/auth.service";
 import { Router } from "@angular/router";
-import { BasicInfoService } from './components/user-management/services/basic-info.service';
+import { UserMgtService } from './components/user-management/services/user-management.service';
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
-  providers: [BasicInfoService]
+  providers: [UserMgtService]
 })
 export class AppComponent implements OnInit {
   title = "work-assignment-tool";

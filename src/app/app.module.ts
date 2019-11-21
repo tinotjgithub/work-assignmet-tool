@@ -9,18 +9,21 @@ import { ContainerComponent } from "./components/dashboard/container.component";
 import { NavigationBarComponent } from "./components/navigation-bar/navigation-bar.component";
 import bootstrap from "bootstrap";
 import { SidebarDirective } from "./sidebar.directive";
-import { TaskManagementComponent } from './components/task-management/task-management.component';
-import { UserManagementComponent } from './components/user-management/user-management.component';
-import { DrawModeComponent } from './components/task-management/draw-mode/draw-mode.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './services/auth/auth.interceptor';
 import { BasicInfoComponent } from './components/user-management/basic-info/basic-info.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AssignRolesComponent } from './components/user-management/assign-roles/assign-roles.component';
 import { AssignWbComponent } from './components/user-management/assign-wb/assign-wb.component';
-import { LoginComponent } from './components/login/login/login.component';
-import { BasicInfoService } from './components/user-management/services/basic-info.service';
+import { UserMgtService } from './components/user-management/services/user-management.service';
+import { TaskManagementComponent } from "./components/task-management/task-management.component";
+import { UserManagementComponent } from "./components/user-management/user-management.component";
+import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "./services/auth/auth.interceptor";
+import { LoginComponent } from "./components/login/login/login.component";
+import { BaseHttpService } from "./services/base-http.service";
+import { DatePipe } from "@angular/common";
+import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { BasicInfoService } from './components/user-management/services/basic-in
     DrawModeComponent,
     AssignRolesComponent,
     AssignWbComponent,
-    LoginComponent
+    LoginComponent,
+    YesNoModelComponent
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,11 @@ import { BasicInfoService } from './components/user-management/services/basic-in
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    BasicInfoService
+    UserMgtService,
+    BaseHttpService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
-})
-export class AppModule { }
+  })
+
+  export class AppModule {}

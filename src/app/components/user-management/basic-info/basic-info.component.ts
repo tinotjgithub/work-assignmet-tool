@@ -2,13 +2,13 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControlName, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from "@angular/router";
-import { BasicInfoService } from './../services/basic-info.service';
+import { UserMgtService } from './../services/user-management.service';
 import { BasicInfoModel } from './basic-info.model';
 @Component({
   selector: 'app-basic-info',
   templateUrl: './basic-info.component.html',
   styleUrls: ['./basic-info.component.css'],
-  providers: [BasicInfoModel, BasicInfoService]
+  providers: [BasicInfoModel, UserMgtService]
 })
 
 export class BasicInfoComponent implements OnInit {
@@ -22,7 +22,7 @@ export class BasicInfoComponent implements OnInit {
   skillList = Array<{ skillId: number, skillName: string }>();
   basicInformations: BasicInfoModel;
   constructor(fb: FormBuilder,
-    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private basicInfoService: BasicInfoService) {
+    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private userMgtService: UserMgtService) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.basicInfo = fb.group({
@@ -41,12 +41,12 @@ export class BasicInfoComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.basicInformations = this.basicInfo.value
-    this.basicInfoService.saveBasicInfo(this.basicInformations);
+    this.userMgtService.saveBasicInfo(this.basicInformations);
     this.nextBasicTab.emit('ASSIGN_ROLE');
   }
 
   reBuildForm() {
-    let savedInfo = this.basicInfoService.getBasicInfo();
+    let savedInfo = this.userMgtService.getBasicInfo();
     if (savedInfo) {
       this.basicInfo.get('firstName').setValue(savedInfo["firstName"]);
       this.basicInfo.get('lastName').setValue(savedInfo["lastName"]);
@@ -63,14 +63,15 @@ export class BasicInfoComponent implements OnInit {
     // console.log(date);
     const formattedDate = date.day + '-' + date.month + '-' + date.year;
     // this.formatter.parse(date);
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
+    // if (!this.fromDate && !this.toDate) {
+    //   this.fromDate = date;
+    // } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+    //   this.toDate = date;
+    // } else {
+    //   this.toDate = null;
+    //   this.fromDate = date;
+    // }
+    return this.basicInfo.get('terminationDate').setValue(formattedDate);
   }
 
   // validateFromDateInput(currentValue: NgbDate, input: string): NgbDate {

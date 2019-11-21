@@ -1,20 +1,28 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
+import { Subscription } from "rxjs";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-draw-mode",
   templateUrl: "./draw-mode.component.html",
   styleUrls: ["./draw-mode.component.css"]
 })
-export class DrawModeComponent implements OnInit {
-  constructor() {}
-  interval;
-  subscribeTimer: any;
-  timeLeft: number = 0;
+export class DrawModeComponent implements OnInit, OnDestroy {
+  private taskTimerSubscription: Subscription;
+
+  constructor(
+    private taskManagementService: TaskmanagementService,
+    private datePype: DatePipe
+  ) {}
+  // These are important variables
   pause: boolean = false;
   timer: string = "00:00:00";
-  seconds: string = "00";
-  minutes: string = "00";
-  hours: string = "00";
+  timerColor: string = "#00bf96";
+  timerFadeColor: string = "#00816a";
+  claimDetails: any;
+  showCompleteClaimModal = false;
+  private claimDetailsSubscription: Subscription;
 
   breakReasons: Array<BreakReasons> = [
     {
@@ -41,31 +49,55 @@ export class DrawModeComponent implements OnInit {
 
   ngOnInit() {
     (<any>$("[data-toggle=tooltip")).tooltip();
-    this.startTimer();
-  }
+    this.taskTimerSubscription = this.taskManagementService
+      .getTaskTimerListener()
+      .subscribe(
+        (timerDetails: {
+          timer: string;
+          timerColor: string;
+          timerFadeColor: string;
+        }) => {
+          this.timer = timerDetails.timer;
+          this.timerColor = timerDetails.timerColor;
+          this.timerFadeColor = timerDetails.timerFadeColor;
+        }
+      );
 
-  startTimer() {
-    this.interval = setInterval(() => {
-      this.timeLeft++;
-      this.timer = new Date(this.timeLeft * 1000).toISOString().substr(11, 8);
-      console.log(this.timer);
-      this.seconds = this.timer.substr(6, 8);
-      this.minutes = this.timer.substr(3, 5);
-      this.hours = this.timer.substr(0, 2);
-    }, 1000);
-  }
-
-  pauseTimer() {
-    clearInterval(this.interval);
+    this.claimDetails = this.taskManagementService.claimDetails;
+    this.claimDetailsSubscription = this.taskManagementService
+      .getClaimDetailsListener()
+      .subscribe((claimDetails: any) => {
+        this.claimDetails = claimDetails;
+      });
   }
 
   setPause() {
     this.pause = !this.pause;
     if (this.pause) {
-      this.pauseTimer();
+      this.taskManagementService.pauseTimer();
     } else {
-      this.startTimer();
+      this.taskManagementService.startTimer();
+      this.taskTimerSubscription.add();
     }
+  }
+
+  /* To copy Text from Textbox */
+  copyInputMessage(inputElement) {
+    inputElement.select();
+    document.execCommand("copy");
+    inputElement.setSelectionRange(0, 0);
+  }
+
+  triggerClaimCompletion() {
+    this.taskManagementService.saveAndNavigateToNextClaim(
+      "complete",
+      new Date(),
+      ""
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.taskTimerSubscription.unsubscribe();
   }
 }
 
