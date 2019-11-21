@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AssignRolesComponent } from './components/user-management/assign-roles/assign-roles.component';
 import { AssignWbComponent } from './components/user-management/assign-wb/assign-wb.component';
 import { LoginComponent } from './components/login/login/login.component';
+import { BasicInfoService } from './components/user-management/services/basic-info.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { LoginComponent } from './components/login/login/login.component';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    BasicInfoService
   ],
   bootstrap: [AppComponent]
 })

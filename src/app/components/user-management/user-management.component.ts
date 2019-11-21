@@ -23,8 +23,10 @@ export class UserManagementComponent implements OnInit {
   }
 
   setComponentId(id: string) {
+    let tabId = "";
     this.id = id;
     $(".activelink").removeClass("active");
-    $('#assign-role').addClass('active');
+    tabId = id === "ASSIGN_ROLE" ? "#assign-role" : id === "WB" ? "#assign-wb" : id === "INFO" ? "#basic-info" : "";
+    tabId !== "" ? $(tabId).addClass('active') : "";
   }
 }
