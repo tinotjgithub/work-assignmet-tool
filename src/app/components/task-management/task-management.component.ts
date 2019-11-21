@@ -26,7 +26,6 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setClassorNav();
     this.authService.setAuthToken();
-    this.taskManagementService.getPosts();
     this.taskSub = this.taskManagementService
       .getTaskListener()
       .subscribe((tasks: any[]) => {

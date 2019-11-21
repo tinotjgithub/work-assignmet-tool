@@ -27,14 +27,6 @@ export class ContainerComponent implements OnInit {
         {
           type: "column",
           click: function(e) {
-            alert(
-              e.dataSeries.type +
-                ", dataPoint { x:" +
-                e.dataPoint.x +
-                ", y: " +
-                e.dataPoint.y +
-                " }"
-            );
             let myParamObject = {
               xvalue: e.dataPoint.x,
               yvalue: e.dataPoint.y
@@ -63,14 +55,6 @@ export class ContainerComponent implements OnInit {
         {
           type: "column",
           click: function(e) {
-            alert(
-              e.dataSeries.type +
-                ", dataPoint { x:" +
-                e.dataPoint.x +
-                ", y: " +
-                e.dataPoint.y +
-                " }"
-            );
             let myParamObject = {
               xvalue: e.dataPoint.x,
               yvalue: e.dataPoint.y
@@ -88,6 +72,7 @@ export class ContainerComponent implements OnInit {
         }
       ]
     });
+
     chart.render();
     chart1.render();
   }
