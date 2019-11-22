@@ -22,7 +22,7 @@
   <div class="p-2 collapse multi-collapse" id="collapseRoute">
     <div class="card p-2">
       <div>
-        <textarea placeholder="Enter comments here.." class=" form-control p-2" id="exampleFormControlTextarea1"
+        <textarea [(ngModel)]="comments" placeholder="Enter comments here.." class=" form-control p-2" id="exampleFormControlTextarea1"
           rows="3" ></textarea>
         <button (click)="triggerClaimCompletion(action)" data-toggle="collapse" href="#collapseRoute" type="button" class="btn btn-success p-2 float-right" style="margin-top: 7px">Save and Next</button>
       </div>
