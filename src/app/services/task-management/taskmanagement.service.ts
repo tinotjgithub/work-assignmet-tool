@@ -143,7 +143,7 @@ export class TaskmanagementService {
       finishTime: timeStamp,
       comments
     };
-    this.baseHTTPService.post(param, "api/drawMode/update-task").subscribe(
+    this.baseHTTPService.post(param, "api/draw-mode/update-task").subscribe(
       data => {
         console.log(data);
         this.resetTaskTimer();

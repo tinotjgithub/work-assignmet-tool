@@ -44,7 +44,7 @@ export class AssignWbComponent {
   saveToService(finalObject: any) {
     console.log("finalObject: ", finalObject);
     this.baseHTTPService
-      .post(finalObject, "api/user-management/create-users")
+      .post(finalObject, "api/user-management/create-user")
       .subscribe(data => {
         this.saveResponse = data;
         console.log(this.saveResponse);
