@@ -26,6 +26,7 @@ import { DatePipe } from "@angular/common";
 import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.component';
 import { ReprioritizeComponent } from './components/reprioritize/reprioritize.component';
 import { ToastComponent } from './components/toast.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ToastComponent } from './components/toast.component';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleChartsModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

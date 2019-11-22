@@ -22,6 +22,14 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
 
   content: string = "";
   title: string = "";
+  myData = [
+    ["London", 8136000],
+    ["New York", 8538000],
+    ["Paris", 2244000],
+    ["Berlin", 3470000],
+    ["Kairo", 19500000]
+  ];
+  type  = "PieChart"
 
   ngOnInit() {
     this.setClassorNav();

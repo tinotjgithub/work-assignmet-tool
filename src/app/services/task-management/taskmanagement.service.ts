@@ -100,7 +100,7 @@ export class TaskmanagementService {
 
   getClaim() {
     this.baseHTTPService
-      .get("api/drawMode/draw-claim?primaryEmail=abc@abc.com")
+      .get("api/draw-mode/draw-claim?primaryEmail=abc@abc.com")
       .subscribe(claim => {
         let clonedObject = claim;
         Object.assign(clonedObject, {
@@ -125,7 +125,7 @@ export class TaskmanagementService {
       startTime: new Date()
     };
     this.baseHTTPService
-      .post(param, "api/drawMode/assign-task")
+      .post(param, "api/draw-mode/assign-task")
       .subscribe(data => {
         this.assignTaskResponse = data;
         console.log(this.assignTaskResponse);

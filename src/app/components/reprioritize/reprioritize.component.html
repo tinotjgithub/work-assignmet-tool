@@ -4,6 +4,7 @@
       <div style="margin: 25px">
         <table id="myTable" style="margin: 6px">
           <tr class="header">
+            <th style="width:5%;">Select</th>
             <th style="width:20%;">Claim Id</th>
             <th style="width:20%;">Claim Type</th>
             <th style="width:20%;">Billed Amount</th>
@@ -12,6 +13,9 @@
             <th style="width:20%;">Age</th>
           </tr>
           <tr *ngFor="let item of claimObject">
+            <td>
+              <input type="checkbox" name="myTextEditBox" value="checked" />
+            </td>
             <td>{{item.claimId}}</td>
             <td>{{item.claimType}}</td>
             <td>{{item.billedAmount}}</td>

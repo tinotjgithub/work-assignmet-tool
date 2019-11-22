@@ -11,6 +11,27 @@ export class ContainerComponent implements OnInit {
   constructor(private router: Router) {}
 
   status: boolean = false;
+  myData = [
+    ["Active", 100],
+    ["Non Active", 260]
+  ];
+  type = "PieChart";
+
+  myData1 = [
+    ["Logged In", 100],
+    ["Logged Out", 15]
+  ];
+
+  dataLine = [
+    ["Year", "Sales", "Expenses"],
+    ["2004", 1000, 400],
+    ["2005", 1170, 460],
+    ["2006", 660, 1120],
+    ["2007", 1030, 540]
+  ];
+
+  lineType  = "LineChart"
+
   clickEvent() {
     this.status = !this.status;
   }

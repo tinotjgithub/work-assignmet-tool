@@ -53,7 +53,7 @@ app.get("/api/drawMode/draw-claim", (req, res, next) => {
     "claimId": "2019110800000067",
     "state": "Review",
     "reviewRepairReason": "Claim requires review payment total greater than $20,000.00",
-    "workBasketName": "Itemized Bill WB",
+    "workBasketName": "Auth",
     "owner": "",
     "entryDate": "2019-11-08T18:30:00.000+0000",
     "receiptDate": "2019-11-09T18:30:00.000+0000",
