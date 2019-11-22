@@ -4,7 +4,7 @@
             <div class="row row-style" formArrayName="roles"
                 *ngFor="let roles of roleGroup.controls.roles.controls; let i = index">
                 <div class="col-sm-4 txt-style">
-                    <input class="checkbox-style" id="{{roles}}-{{i}}" type="checkbox" [formControlName]="i">
+                    <input class="checkbox-style" id="{{roles}}-{{i}}" type="checkbox" [formControlName]="i" >
                     {{rolesList[i].roleName}}
                 </div>
             </div>

@@ -17,7 +17,7 @@ export class AssignRolesComponent implements OnInit {
   roleGroup: FormGroup;
   rolesList = Array<{ roleId: number, roleName: string }>();
   submitted: boolean = false;
-  constructor(private formBuilder: FormBuilder, private basicInfoService: UserMgtService) {
+  constructor(private formBuilder: FormBuilder, private userMgtService: UserMgtService) {
     this.getRoles();
     this.roleGroup = this.formBuilder.group({
       roles: new FormArray([])
@@ -27,24 +27,28 @@ export class AssignRolesComponent implements OnInit {
 
   ngOnInit() {
     this.rebuildForm();
-    this.basicInfo = this.basicInfoService.getBasicInfo();
-    this.basicInfoService.updateBasicInfoListener().subscribe((basicInfoDetails: any) => {
+    this.basicInfo = this.userMgtService.getBasicInfo();
+    this.userMgtService.updateBasicInfoListener().subscribe((basicInfoDetails: any) => {
       this.basicInfo = basicInfoDetails;
     });
   }
+
   rebuildForm() {
-    let savedInfo =[];
-    savedInfo.push(this.basicInfoService.getRoleIDs());
-    if (savedInfo) {
-      for (var i = 0; i < savedInfo.length; i++) {
-        // debugger
-        // let index = savedInfo[i];
-        // let a = this.roleGroup.value.roles[index];
-        // let p = this.roleGroup.get('roles');
-        // this.roleGroup.get(roles[a]).setValue(true);
+    let savedInfo = [];
+    savedInfo.push(this.userMgtService.getRoleIDs());
+    if (savedInfo && savedInfo[0]) {
+      let savedInformation = savedInfo[0];
+      let formArr = <FormArray>this.roleGroup.controls.roles;
+      for (var i = 0; i < savedInformation.length; i++) {
+        for (var j = i; j <= this.roleGroup.controls.roles.value.length; j++) {
+          if (j === savedInformation[i]) {
+              formArr.at(j - 1).setValue(true);
+          }
+        }
       }
     }
   }
+
   addCheckboxes() {
     this.rolesList.forEach((o, i) => {
       const control = new FormControl(); // if first item set to true, else false
@@ -65,7 +69,7 @@ export class AssignRolesComponent implements OnInit {
     const selectedRoleIds = this.roleGroup.value.roles
       .map((v, i) => v ? this.rolesList[i].roleId : null)
       .filter(v => v !== null);
-    this.basicInfoService.saveRoleIDs(selectedRoleIds);
+    this.userMgtService.saveRoleIDs(selectedRoleIds);
     this.nextRoleTab.emit('WB');
   }
   previousPage() {

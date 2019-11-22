@@ -41,7 +41,6 @@ export class BasicInfoComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.basicInformations = this.basicInfo.value;
-    console.log("this.basicInformations: ",this.basicInformations );
     this.userMgtService.saveBasicInfo(this.basicInformations);
     this.nextBasicTab.emit('ASSIGN_ROLE');
   }
@@ -61,7 +60,6 @@ export class BasicInfoComponent implements OnInit {
 
   onFromDateSelection(date: NgbDate) {
     // const parsed = this.formatter.parse(date);
-    // console.log(date);
     const formattedDate = date.day + '-' + date.month + '-' + date.year;
     // this.formatter.parse(date);
     // if (!this.fromDate && !this.toDate) {

@@ -24,15 +24,13 @@ export class AssignWbComponent {
   constructor(private formBuilder: FormBuilder, public toastService: ToastService, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
     this.getWb();
     this.WBGroup = this.formBuilder.group({
-      wbs: new FormArray([]),
-      // priority: new FormArray([])
+      wbs: new FormArray([])
     });
     this.addCheckboxes();
   }
 
 
   ngOnInit() {
-    // this.rebuildForm();
     this.roleIDs = this.userMgtService.getRoleIDs();
     this.userMgtService.updateRoleIDsListener().subscribe((roleIds: any) => {
       this.roleIDs = roleIds;
@@ -124,7 +122,7 @@ export class AssignWbComponent {
   }
 
   createFinalOnject() {
-    const formattedDate = this.basicInfo.effectiveFrom.day + '-' + this.basicInfo.effectiveFrom.month + '-' + this.basicInfo.effectiveFrom.year;
+    const formattedDate = this.basicInfo.effectiveFrom.year+'-'+this.basicInfo.effectiveFrom.month+'-'+this.basicInfo.effectiveFrom.day;
     const finalObject = [{
       "firstName": this.basicInfo.firstName,
       "lastName": this.basicInfo.lastName,
