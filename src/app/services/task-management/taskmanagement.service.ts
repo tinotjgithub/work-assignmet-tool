@@ -35,6 +35,7 @@ export class TaskmanagementService {
 
   claimDetails: any;
   assignTaskResponse: any;
+  seconds: number;
 
   constructor(public baseHTTPService: BaseHttpService) {
     this.startTimer();
@@ -63,6 +64,7 @@ export class TaskmanagementService {
       this.timer = new Date(this.timeLeft * 1000).toISOString().substr(11, 8);
       this.minutes = Number(this.timer.substr(3, 2));
       this.hours = Number(this.timer.substr(0, 2));
+      this.seconds = Number(this.timer.substr(6, 2));
       this.setTimerColor();
       this.taskTimerSub.next({
         timer: this.timer,
@@ -77,13 +79,13 @@ export class TaskmanagementService {
   }
 
   private setTimerColor() {
-    if (this.hours >= 1) {
+    if (this.hours >= 1 || this.minutes >= 1) {
       this.timerColor = this.timerRedColor;
       this.timerFadeColor = this.timerRedFadeColor;
-    } else if (this.minutes >= 1 && this.minutes < 2) {
+    } else if (this.seconds >= 20 && this.seconds < 30) {
       this.timerColor = this.timerAmberColor;
       this.timerFadeColor = this.timerAmberFadeColor;
-    } else if (this.minutes >= 2) {
+    } else if (this.seconds >= 30) {
       this.timerColor = this.timerRedColor;
       this.timerFadeColor = this.timerRedFadeColor;
     } else {
