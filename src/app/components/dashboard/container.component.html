@@ -1,12 +1,20 @@
 <div class="row" style="margin: 10px; min-height: 360">
+
+  <!-- Row 1 -->
+
+  <!-- Col 1 -->
   <div class="col-sm-6 m-6">
+    <h6>Aging Dollar Impact</h6>
     <div class="card align-items-center m-6">
       <div class="card-body m-6">
         <div class="m-2" id="chartContainer" style="width: 325px; height: 350px;"></div>
       </div>
     </div>
   </div>
+
+  <!-- Col 2 -->
   <div class="col-sm-6">
+    <h6>SLA Risk - Auth Count </h6>
     <div class="card align-items-center m-6">
       <div class="card-body m-6">
         <div class="m-2" id="chartContainer1" style="width: 325px;height: 350px"></div>
@@ -15,8 +23,10 @@
   </div>
 </div>
 
+<!-- Row 2 -->
 <div class="row" style="margin: 10px; min-height: 360px">
   <div class="col-sm-6 m-6">
+    <h6>Active Status</h6>
     <div class="card align-items-center m-6">
       <div class="card-body m-6">
         <google-chart [type]="type" [data]="myData"></google-chart>
@@ -24,9 +34,53 @@
     </div>
   </div>
   <div class="col-sm-6 m-6">
+    <h6>Current Status</h6>
     <div class="card align-items-center m-6">
       <div class="card-body m-6">
-        <google-chart [type]="type" [data]="myData"></google-chart>
+        <google-chart [type]="type" [data]="myData1"></google-chart>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin: 10px; min-height: 360px">
+  <div class="col-sm-6 m-6">
+    <h6>Active Users</h6>
+    <div class="card align-items-center m-6">
+      <div class="card-body m-6">
+        <google-chart #chart [title]="titleline" [type]="typeline" [data]="dataline" [columnNames]="columnNamesline"
+          [options]="optionsline" [width]="widthline" [height]="heightline">
+        </google-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 m-6">
+    <h6>Intake Vs Completed</h6>
+    <div class="card align-items-center m-6">
+      <div class="card-body m-6">
+        <google-chart #chart [title]="titlelineIntake" [type]="typelineIntake" [data]="datalineIntake"
+          [columnNames]="columnNameslineIntake" [options]="optionslineIntake" [width]="widthlineIntake"
+          [height]="heightlineIntake">
+        </google-chart>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin: 10px; min-height: 360">
+  <div class="col-sm-6 m-6">
+    <h6>Aging Claims</h6>
+    <div class="card align-items-center m-6">
+      <div class="card-body m-6">
+        <div class="m-2" id="chartContainer3" style="width: 325px; height: 350px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <h6>Claims nearing SLA </h6>
+    <div class="card align-items-center m-6">
+      <div class="card-body m-6">
+        <div class="m-2" id="chartContainer4" style="width: 325px;height: 350px"></div>
       </div>
     </div>
   </div>
