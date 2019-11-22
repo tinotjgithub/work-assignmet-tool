@@ -46,14 +46,14 @@ app.get("/api/posts", (req, res, next) => {
   });
 });
 
-app.get("/api/drawMode/draw-claims", (req, res, next) => {
+app.get("/api/draw-mode/draw-claim", (req, res, next) => {
   console.log(req.body);
   const claim = {
     "claimType": "Institutional",
     "claimId": "2019110800000067",
     "state": "Review",
     "reviewRepairReason": "Claim requires review payment total greater than $20,000.00",
-    "workBasketName": "Itemized Bill WB",
+    "workBasketName": "Auth",
     "owner": "",
     "entryDate": "2019-11-08T18:30:00.000+0000",
     "receiptDate": "2019-11-09T18:30:00.000+0000",
@@ -65,7 +65,7 @@ app.get("/api/drawMode/draw-claims", (req, res, next) => {
   res.status(200).json(claim);
 });
 
-app.post("/api/drawMode/assign-task", (req, res, next) => {
+app.post("/api/draw-mode/assign-task", (req, res, next) => {
   const claim = {
     "taskId": 4,
     "workItemId": "2019082800000200",
@@ -80,7 +80,7 @@ app.post("/api/drawMode/assign-task", (req, res, next) => {
   res.status(200).json(claim);
 });
 
-app.post("/api/drawMode/update-task", (req, res, next) => {
+app.post("/api/draw-mode/update-task", (req, res, next) => {
   const claim = {
     message: "succes"
   }

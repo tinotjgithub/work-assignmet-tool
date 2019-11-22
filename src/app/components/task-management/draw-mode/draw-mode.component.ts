@@ -23,6 +23,7 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   timerFadeColor: string = "#00816a";
   claimDetails: any;
   showCompleteClaimModal = false;
+  comments: "";
   private claimDetailsSubscription: Subscription;
 
   breakReasons: Array<BreakReasons> = [
@@ -93,12 +94,13 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     inputElement.setSelectionRange(0, 0);
   }
 
-  triggerClaimCompletion(action = "complete", comments = "") {
+  triggerClaimCompletion(action = "complete", comments = this.comments) {
     this.taskManagementService.saveAndNavigateToNextClaim(
       action,
       new Date(),
       comments
     );
+    this.comments = "";
   }
 
   ngOnDestroy(): void {
