@@ -26,25 +26,25 @@ export class AssignRolesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.rebuildForm();
+    this.rebuildForm();
     this.basicInfo = this.basicInfoService.getBasicInfo();
     this.basicInfoService.updateBasicInfoListener().subscribe((basicInfoDetails: any) => {
       this.basicInfo = basicInfoDetails;
     });
   }
-  // rebuildForm() {
-  //   let savedInfo = [];
-  //   savedInfo = this.basicInfoService.getRoleIDs();
-  //   if (savedInfo && savedInfo.length > 0) {
-  //     for (var i = 0; i < savedInfo.length; i++) {
-  //       // debugger
-  //       // let index = savedInfo[i];
-  //       // let a = this.roleGroup.value.roles[index];
-  //       // let p = this.roleGroup.get('roles');
-  //       // this.roleGroup.get(roles[a]).setValue(true);
-  //     }
-  //   }
-  // }
+  rebuildForm() {
+    let savedInfo =[];
+    savedInfo.push(this.basicInfoService.getRoleIDs());
+    if (savedInfo) {
+      for (var i = 0; i < savedInfo.length; i++) {
+        // debugger
+        // let index = savedInfo[i];
+        // let a = this.roleGroup.value.roles[index];
+        // let p = this.roleGroup.get('roles');
+        // this.roleGroup.get(roles[a]).setValue(true);
+      }
+    }
+  }
   addCheckboxes() {
     this.rolesList.forEach((o, i) => {
       const control = new FormControl(); // if first item set to true, else false
