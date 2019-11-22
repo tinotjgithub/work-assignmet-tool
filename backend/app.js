@@ -46,7 +46,7 @@ app.get("/api/posts", (req, res, next) => {
   });
 });
 
-app.get("/api/drawMode/draw-claims", (req, res, next) => {
+app.get("/api/drawMode/draw-claim", (req, res, next) => {
   console.log(req.body);
   const claim = {
     "claimType": "Institutional",
