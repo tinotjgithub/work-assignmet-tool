@@ -5,13 +5,14 @@ import { AssignRolesModel } from './../assign-roles/assign-roles.model';
 import { BasicInfoModel } from './../basic-info/basic-info.model';
 import { AssignWBsModel } from './../assign-wb/assign-wb.model';
 import { BaseHttpService } from "./../../../services/base-http.service";
-import { ToastService } from './../../../services/toast.service';
+import { Router } from "@angular/router";
+import { AppComponent } from './../../../app.component';
 
 @Component({
   selector: 'app-assign-wb',
   templateUrl: './assign-wb.component.html',
   styleUrls: ['./assign-wb.component.css'],
-  providers: [UserMgtService, BaseHttpService, AssignRolesModel, ToastService]
+  providers: [UserMgtService, BaseHttpService, AssignRolesModel]
 })
 export class AssignWbComponent {
   @Output() previousRoleTab: EventEmitter<string> = new EventEmitter<string>();
@@ -21,7 +22,7 @@ export class AssignWbComponent {
   assignWbs: AssignWBsModel;
   saveResponse: any;
   wbList = Array<{ wbId: number, wbName: string, priority: number }>();
-  constructor(private formBuilder: FormBuilder, public toastService: ToastService, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
+  constructor(private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
     this.getWb();
     this.WBGroup = this.formBuilder.group({
       wbs: new FormArray([])
@@ -42,44 +43,22 @@ export class AssignWbComponent {
   }
 
   saveToService(finalObject: any) {
-    console.log("finalObject: ", finalObject);
     this.baseHTTPService
       .post(finalObject, "api/user-management/create-user")
       .subscribe(data => {
         this.saveResponse = data;
-        console.log(this.saveResponse);
       });
-    this.showSuccess();
+    this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
+    setTimeout(function () {
+      this.router.navigate(['/LandingPage']);
+    }.bind(this), 2100);
+
   }
 
   addCheckboxes() {
     this.wbList.forEach((o, i) => {
       const control = new FormControl();
       (this.WBGroup.controls.wbs as FormArray).push(control);
-    });
-  }
-  showStandard() {
-    this.toastService.show('I am a standard toast', {
-      delay: 2000,
-      autohide: true
-    });
-  }
-
-  showSuccess() {
-    this.toastService.show('user details saved sucessfully.', {
-      classname: 'bg-success text-light',
-      delay: 2000,
-      autohide: true,
-      headertext: 'Success!'
-    });
-  }
-
-  showError() {
-    this.toastService.show('I am a success toast', {
-      classname: 'bg-danger text-light',
-      delay: 2000,
-      autohide: true,
-      headertext: 'Error!!!'
     });
   }
 
@@ -122,7 +101,7 @@ export class AssignWbComponent {
   }
 
   createFinalOnject() {
-    const formattedDate = this.basicInfo.effectiveFrom.year+'-'+this.basicInfo.effectiveFrom.month+'-'+this.basicInfo.effectiveFrom.day;
+    const formattedDate = this.basicInfo.effectiveFrom.year + '-' + this.basicInfo.effectiveFrom.month + '-' + this.basicInfo.effectiveFrom.day;
     const finalObject = [{
       "firstName": this.basicInfo.firstName,
       "lastName": this.basicInfo.lastName,
