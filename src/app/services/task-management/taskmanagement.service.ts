@@ -100,7 +100,7 @@ export class TaskmanagementService {
 
   getClaim() {
     this.baseHTTPService
-      .get("api/drawMode/draw-claims?primaryEmail=abc@abc.com")
+      .get("api/drawMode/draw-claim?primaryEmail=abc@abc.com")
       .subscribe(claim => {
         let clonedObject = claim;
         Object.assign(clonedObject, {
