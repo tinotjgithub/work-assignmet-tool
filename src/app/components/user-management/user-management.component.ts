@@ -5,6 +5,7 @@ import { Component, OnInit } from "@angular/core";
   templateUrl: "./user-management.component.html",
   styleUrls: ["./user-management.component.css"]
 })
+
 export class UserManagementComponent implements OnInit {
   constructor() { }
   id = "INFO";
@@ -21,7 +22,11 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  setComponentId(id) {
+  setComponentId(id: string) {
+    let tabId = "";
     this.id = id;
+    $(".activelink").removeClass("active");
+    tabId = id === "ASSIGN_ROLE" ? "#assign-role" : id === "WB" ? "#assign-wb" : id === "INFO" ? "#basic-info" : "";
+    tabId !== "" ? $(tabId).addClass('active') : "";
   }
 }

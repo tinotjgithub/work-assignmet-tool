@@ -1,0 +1,49 @@
+.card{
+    align-self: center;
+}
+.row-style{
+    padding-top:0px;
+    padding-bottom:0px;
+}
+.card-body{
+    align-content: center;
+    align-self: left;
+}
+.txt-style{
+    text-align: left;
+    padding-right:10px;
+    margin:4px;
+}
+.lbl-style{
+    margin: 1px;
+}
+.col-btn-style{
+    padding-right: 25px;   
+    padding-top: 0px;    
+}
+.btn-style{
+    width: 150px;
+    height:50px;
+}
+.row-btn{
+    padding-top:30px;
+    padding-left:10px;
+    height: 95px;
+}
+.submit-btn-style{
+    background-color: darkblue;
+    border-color:  darkblue;
+    color:white;
+}
+.card-body{
+    align-items:center;
+    align-content :center;
+}
+
+button.calendar, button.calendar:active {
+    width: 2.75rem;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+    background-repeat: no-repeat;
+    background-size: 23px;
+    background-position: center;
+  }

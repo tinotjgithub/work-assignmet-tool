@@ -1,0 +1,43 @@
+<div class="container card">
+    <div class="card-body">
+        <form [formGroup]="WBGroup" (ngSubmit)="submit()">
+            <div class="bg">
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h5>Work Basket</h5>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5>Priority</h5>
+                    </div>
+                </div>
+                <hr />
+                <div class="row row-style" formArrayName="wbs" class="row"
+                    *ngFor="let wb of WBGroup.controls.wbs.controls; let i = index">
+                    <div class="col-sm-4 txt-style">
+                        <input class="checkbox-style" id="{{wb}}-{{i}}" type="checkbox" [formControlName]="i">
+                        {{wbList[i].wbName}}
+                        <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please assign
+                            atleast one workbasket</span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number"
+                            class="form-control textbox-style">
+                        <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
+                            a priority for the selected workbasket</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-btn">
+                <div class="form-group col-xs-4 col-btn-style">
+                    <button type="button" class="btn btn-primary prev-btn-style btn-style"
+                        (click)="previousPage()">Previous</button>
+                </div>
+                <div class="form-group col-xs-4 col-btn-style">
+                    <button type="submit" class="btn btn-primary submit-btn-style btn-style">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<app-toasts></app-toasts>
+</div>
