@@ -27,6 +27,7 @@ import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.comp
 import { ReprioritizeComponent } from './components/reprioritize/reprioritize.component';
 import { ToastComponent } from './components/toast.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ScoreCardComponent } from './components/task-management/score-card/score-card/score-card.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     LoginComponent,
     YesNoModelComponent,
     ReprioritizeComponent,
-    ToastComponent
+    ToastComponent,
+    ScoreCardComponent
   ],
   imports: [
     BrowserModule,

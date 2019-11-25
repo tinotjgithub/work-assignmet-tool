@@ -7,6 +7,7 @@ import { AssignWBsModel } from './../assign-wb/assign-wb.model';
 import { BaseHttpService } from "./../../../services/base-http.service";
 import { Router } from "@angular/router";
 import { AppComponent } from './../../../app.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-assign-wb',
@@ -22,7 +23,7 @@ export class AssignWbComponent {
   assignWbs: AssignWBsModel;
   saveResponse: any;
   wbList = Array<{ wbId: number, wbName: string, priority: number }>();
-  constructor(private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
+  constructor(public datepipe: DatePipe, private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
     this.getWb();
     this.WBGroup = this.formBuilder.group({
       wbs: new FormArray([])
@@ -107,13 +108,14 @@ export class AssignWbComponent {
       "lastName": this.basicInfo.lastName,
       "userID": this.basicInfo.userID,
       "primaryEmail": this.basicInfo.primaryEmail,
-      "effectiveFrom": formattedDate,
+      "effectiveFrom": this.datepipe.transform(formattedDate, 'yyyy-MM-dd'),
       "terminationDate": this.basicInfo.terminationDate,
       "resourceSkillset": this.basicInfo.resourceSkillset,
       "loggedInUser": "Santhosh",
       "roleId": this.roleIDs,
       "userWorkBasketRequestDtos": this.assignWbs
     }];
+    console.log("finalObject: ", finalObject[0]);
     this.saveToService(finalObject[0]);
   }
 
