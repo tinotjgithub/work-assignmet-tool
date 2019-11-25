@@ -3,13 +3,17 @@
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
-          <a class="nav-link activelink active" (click)="setComponentId('USER')">Team Dashboard</a>
+          <a class="nav-link activelink active" id="team-dashboard" (click)="setComponentId('USER')">Team Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link activelink " (click)="setComponentId('OVERALL')">Bussiness Dashboard</a>
+          <a class="nav-link activelink " id="business-dashboard" (click)="setComponentId('OVERALL')">Business
+            Dashboard</a>
         </li>
       </ul>
     </div>
+
+    <!-- FIRST TAB -->
+
     <div [hidden]="id!=='USER'" class="card-body" style="min-height: 545px">
       <div class="row" style="margin: 10px; min-height: 360px">
         <div class="col-sm-6 m-6">
@@ -47,6 +51,24 @@
     <div [hidden]="id!=='OVERALL'" class="card-body" style="min-height: 545px">
 
       <div class="row" style="margin: 10px; min-height: 360px">
+        <div class="col-sm-6">
+          <h6>High Impact Claims </h6>
+          <div class="card align-items-center m-6">
+            <div class="card-body m-6">
+              <div class="m-2" id="chartContainer1" style="width: 325px;height: 350px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 m-6">
+          <h6>Aging Dollar Impact</h6>
+          <div class="card align-items-center m-6">
+            <div class="card-body m-6">
+              <div class="m-2" id="chartContainer" style="width: 325px; height: 350px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px; min-height: 360">
         <div class="col-sm-6 m-6">
           <h6>Aging Claims</h6>
           <div class="card align-items-center m-6">
@@ -60,25 +82,6 @@
           <div class="card align-items-center m-6">
             <div class="card-body m-6">
               <div class="m-2" id="chartContainer4" style="width: 325px;height: 350px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row" style="margin: 10px; min-height: 360">
-        <div class="col-sm-6 m-6">
-          <h6>Aging Dollar Impact</h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
-              <div class="m-2" id="chartContainer" style="width: 325px; height: 350px;"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <h6>SLA Risk - Auth Count </h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
-              <div class="m-2" id="chartContainer1" style="width: 325px;height: 350px"></div>
             </div>
           </div>
         </div>

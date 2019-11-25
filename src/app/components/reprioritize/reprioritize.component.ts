@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AppComponent } from './../../app.component';
 
 @Component({
   selector: "app-reprioritize",
@@ -6,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./reprioritize.component.css"]
 })
 export class ReprioritizeComponent implements OnInit {
-  constructor() {}
+  constructor(private app: AppComponent, private router: Router) { }
   claimObject = [
     {
       claimId: 2019100900000000,
@@ -50,5 +52,13 @@ export class ReprioritizeComponent implements OnInit {
     }
   ];
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+
+  reprioritize() {
+    this.app.showSuccess("Claim(s) reprioritized successfully!!", "SUCCESS");
+    setTimeout(function () {
+      this.router.navigate(['/Dashboard']);
+    }.bind(this), 2001);
+  }
 }

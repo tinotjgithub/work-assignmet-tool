@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
 import { Subscription } from "rxjs";
 import { DatePipe } from "@angular/common";
+import { AppComponent } from './../../../app.component';
 
 @Component({
   selector: "app-draw-mode",
@@ -14,7 +15,8 @@ export class DrawModeComponent implements OnInit, OnDestroy {
 
   constructor(
     private taskManagementService: TaskmanagementService,
-    private datePype: DatePipe
+    private datePype: DatePipe,
+    public app: AppComponent
   ) {}
   // These are important variables
   pause: boolean = false;
@@ -101,6 +103,7 @@ export class DrawModeComponent implements OnInit, OnDestroy {
       comments
     );
     this.comments = "";
+    this.app.showSuccess("Claim(s) moved to "+ action +" status successfully!!", "SUCCESS");
   }
 
   ngOnDestroy(): void {
