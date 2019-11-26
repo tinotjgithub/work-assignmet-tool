@@ -60,7 +60,7 @@ export class AssignWbComponent {
     let basicInfo = {
       firstName: '',
       lastName: '',
-      userID: '',
+      // userID: '',
       primaryEmail: '',
       effectiveFrom: { day: '', month: '', year: '' },
       terminationDate: '',
@@ -126,7 +126,7 @@ export class AssignWbComponent {
     const finalObject = [{
       "firstName": this.basicInfo.firstName,
       "lastName": this.basicInfo.lastName,
-      "userID": this.basicInfo.userID,
+      // "userID": this.basicInfo.userID,
       "primaryEmail": this.basicInfo.primaryEmail,
       "effectiveFrom": this.datepipe.transform(formattedDate, 'yyyy-MM-dd'),
       "terminationDate": this.basicInfo.terminationDate,
