@@ -53,7 +53,27 @@ export class AssignWbComponent {
     setTimeout(function () {
       this.router.navigate(['/LandingPage']);
     }.bind(this), 2100);
+    this.resetAll();
+  }
 
+  resetAll() {
+    let basicInfo = {
+      firstName: '',
+      lastName: '',
+      userID: '',
+      primaryEmail: '',
+      effectiveFrom: { day: '', month: '', year: '' },
+      terminationDate: '',
+      resourceSkillset: '',
+      loggedInUser: ''
+    }
+    let roleIds = {
+      roleId: []
+    }
+    let wbs = { userWorkBasketRequestDtos: { wbId: '', priority: '' } }
+    this.userMgtService.saveBasicInfo(basicInfo);
+    this.userMgtService.saveRoleIDs(roleIds);
+    this.userMgtService.saveWBs(wbs);
   }
 
   addCheckboxes() {

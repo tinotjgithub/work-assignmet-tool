@@ -1,5 +1,4 @@
 export class BasicInfoModel {
-
     firstName: string;
     lastName: string;
     userID: string;
@@ -8,6 +7,4 @@ export class BasicInfoModel {
     terminationDate: string;
     resourceSkillset: string;
     loggedInUser: string;
-    roleId: [];
-    workBasketId: [];
 }
