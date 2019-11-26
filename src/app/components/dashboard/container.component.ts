@@ -23,7 +23,7 @@ export class ContainerComponent implements OnInit {
     });
   }
 
-  id = "USER";
+  id = "OVERALL";
   status: boolean = false;
   myData = [
     ["Active", 100],
@@ -125,7 +125,7 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
     this.setClassorNav();
     let that = this;
     let chart = new CanvasJS.Chart("chartContainer", {

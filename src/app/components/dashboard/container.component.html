@@ -3,53 +3,16 @@
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
-          <a class="nav-link activelink active" id="team-dashboard" (click)="setComponentId('USER')">Team Dashboard</a>
+          <a class="nav-link activelink active" id="business-dashboard" (click)="setComponentId('OVERALL')">Business
+            Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link activelink " id="business-dashboard" (click)="setComponentId('OVERALL')">Business
-            Dashboard</a>
+          <a class="nav-link activelink " id="team-dashboard" (click)="setComponentId('USER')">Team Dashboard</a>
         </li>
       </ul>
     </div>
-
-    <!-- FIRST TAB -->
-
-    <div [hidden]="id!=='USER'" class="card-body" style="min-height: 545px">
-      <div class="row" style="margin: 10px; min-height: 360px">
-        <div class="col-sm-6 m-6">
-          <h6>Active Status</h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
-              <google-chart [type]="type" [data]="myData"></google-chart>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 m-6">
-          <h6>Current Status</h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
-              <google-chart [type]="type" [data]="myData1"></google-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" style="margin: 10px; min-height: 360px">
-        <div class="col-sm-6 m-6">
-          <h6>Team Availability</h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
-              <google-chart #chart [title]="titleline" [type]="typeline" [data]="dataline"
-                [columnNames]="columnNamesline" [options]="optionsline" [width]="widthline" [height]="heightline">
-              </google-chart>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- // SECOND TAB -->
+    <!-- // FIRST TAB -->
     <div [hidden]="id!=='OVERALL'" class="card-body" style="min-height: 545px">
-
       <div class="row" style="margin: 10px; min-height: 360px">
         <div class="col-sm-6">
           <h6>High Impact Claims </h6>
@@ -86,7 +49,6 @@
           </div>
         </div>
       </div>
-
       <div class="row" style="margin: 10px; min-height: 360">
         <div class="col-sm-6 m-6">
           <h6>Hourly Progress</h6>
@@ -111,8 +73,39 @@
           </div>
         </div>
       </div>
-
-
+    </div>
+    <!-- SECOND TAB -->
+    <div [hidden]="id!=='USER'" class="card-body" style="min-height: 545px">
+      <div class="row" style="margin: 10px; min-height: 360px">
+        <div class="col-sm-6 m-6">
+          <h6>Active Status</h6>
+          <div class="card align-items-center m-6">
+            <div class="card-body m-6">
+              <google-chart [type]="type" [data]="myData"></google-chart>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 m-6">
+          <h6>Current Status</h6>
+          <div class="card align-items-center m-6">
+            <div class="card-body m-6">
+              <google-chart [type]="type" [data]="myData1"></google-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px; min-height: 360px">
+        <div class="col-sm-6 m-6">
+          <h6>Team Availability</h6>
+          <div class="card align-items-center m-6">
+            <div class="card-body m-6">
+              <google-chart #chart [title]="titleline" [type]="typeline" [data]="dataline"
+                [columnNames]="columnNamesline" [options]="optionsline" [width]="widthline" [height]="heightline">
+              </google-chart>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
