@@ -1,8 +1,7 @@
 <div class="container card">
     <div class="card-body">
         <form [formGroup]="WBGroup" (ngSubmit)="submit()">
-            <div class="bg">
-
+            <div>
                 <div class="row">
                     <div class="col-sm-2">
                         <h5>Work Basket</h5>
@@ -12,19 +11,21 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row row-style" formArrayName="wbs" class="row"
-                    *ngFor="let wb of WBGroup.controls.wbs.controls; let i = index">
-                    <div class="col-sm-4 txt-style">
-                        <input class="checkbox-style" id="{{wb}}-{{i}}" type="checkbox" [formControlName]="i">
-                        {{wbList[i].wbName}}
-                        <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please assign
-                            atleast one workbasket</span>
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number" min="1" max="100"
-                            class="form-control textbox-style">
-                        <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
-                            a priority for the selected workbasket</span>
+                <div class="div-style">
+                    <div class="row row-style" formArrayName="wbs" class="row"
+                        *ngFor="let wb of WBGroup.controls.wbs.controls; let i = index">
+                        <div class="col-sm-4 txt-style">
+                            <input class="checkbox-style" id="{{wb}}-{{i}}" type="checkbox" [formControlName]="i">
+                            {{wbList[i].wbName}}
+                            <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please assign
+                                atleast one workbasket</span>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number" min="1"
+                                max="100" class="form-control textbox-style">
+                            <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
+                                a priority for the selected workbasket</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,4 +41,3 @@
         </form>
     </div>
 </div>
-

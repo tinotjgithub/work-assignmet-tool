@@ -28,7 +28,7 @@ export class BasicInfoComponent implements OnInit {
     this.basicInfo = fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      userID: ['', Validators.required],
+      // userID: ['', Validators.required],
       primaryEmail: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       effectiveFrom: ['', Validators.required],
       terminationDate: [''],
@@ -50,7 +50,7 @@ export class BasicInfoComponent implements OnInit {
     if (savedInfo) {
       this.basicInfo.get('firstName').setValue(savedInfo["firstName"]);
       this.basicInfo.get('lastName').setValue(savedInfo["lastName"]);
-      this.basicInfo.get('userID').setValue(savedInfo["userID"]);
+      // this.basicInfo.get('userID').setValue(savedInfo["userID"]);
       this.basicInfo.get('primaryEmail').setValue(savedInfo["primaryEmail"]);
       this.basicInfo.get('effectiveFrom').setValue(savedInfo["effectiveFrom"]);
       this.basicInfo.get('terminationDate').setValue(savedInfo["terminationDate"]);

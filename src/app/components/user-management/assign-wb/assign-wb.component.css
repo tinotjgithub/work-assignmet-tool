@@ -109,3 +109,8 @@ padding-top: 0px;
 .row-style{
   padding-bottom: 5px;
 }
+.div-style{
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 310px;
+}
