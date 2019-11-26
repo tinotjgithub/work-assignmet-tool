@@ -14,8 +14,8 @@
 
     <!-- FIRST TAB -->
 
-    <div [hidden]="id!=='USER'" class="card-body" style="min-height: 545px">
-      <div class="row" style="margin: 10px; min-height: 360px">
+    <div [hidden]="id!=='USER'" class="card-body" style="min-height: 400px">
+      <div class="row" style="margin: 5px; min-height: 280px">
         <div class="col-sm-6 m-6">
           <h6>Active Status</h6>
           <div class="card align-items-center m-6">
@@ -33,11 +33,11 @@
           </div>
         </div>
       </div>
-      <div class="row" style="margin: 10px; min-height: 360px">
-        <div class="col-sm-6 m-6">
+      <div class="row" style="margin: 5px; min-height: 260px">
+        <div class="col-sm-12 m-12">
           <h6>Team Availability</h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
+          <div class="card align-items-center m-12">
+            <div class="card-body m-12">
               <google-chart #chart [title]="titleline" [type]="typeline" [data]="dataline"
                 [columnNames]="columnNamesline" [options]="optionsline" [width]="widthline" [height]="heightline">
               </google-chart>

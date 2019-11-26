@@ -11,7 +11,7 @@ import bootstrap from "bootstrap";
 import { SidebarDirective } from "./sidebar.directive";
 import { BasicInfoComponent } from './components/user-management/basic-info/basic-info.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { AssignRolesComponent } from './components/user-management/assign-roles/assign-roles.component';
 import { AssignWbComponent } from './components/user-management/assign-wb/assign-wb.component';
 import { UserMgtService } from './components/user-management/services/user-management.service';
@@ -27,6 +27,7 @@ import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.comp
 import { ReprioritizeComponent } from './components/reprioritize/reprioritize.component';
 import { ToastComponent } from './components/toast.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { DateParserFormatter } from './date-parser-formater';
 import { ScoreCardComponent } from './components/task-management/score-card/score-card/score-card.component';
 
 @NgModule({
@@ -60,9 +61,10 @@ import { ScoreCardComponent } from './components/task-management/score-card/scor
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
     UserMgtService,
     BaseHttpService,
-    DatePipe
+    DatePipe,
   ],
   bootstrap: [AppComponent]
   })

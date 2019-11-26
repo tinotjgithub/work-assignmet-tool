@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="form-group col-sm-5 txt-style">
                     <label lbl-stylefor="firstName">First Name</label>
-                    <input formControlName="firstName" type="text" class="form-control" id="firstName"
+                    <input autocomplete="off" formControlName="firstName" type="text" class="form-control" id="firstName"
                         placeholder="Enter First Name">
                     <span style="font-size:14px; color: rgb(238, 11, 11);"
                         *ngIf="submitted && info.firstName.errors && info.firstName.errors.required">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group col-sm-5 txt-style">
                     <label lbl-stylefor="lastName">Last Name</label>
-                    <input formControlName="lastName" type="text" class="form-control" id="lastName"
+                    <input autocomplete="off" formControlName="lastName" type="text" class="form-control" id="lastName"
                         placeholder="Enter Last Name">
                     <span style="font-size:14px; color: rgb(238, 11, 11);"
                         *ngIf="submitted && info.lastName.errors && info.lastName.errors.required">
@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="form-group col-sm-5 txt-style">
                     <label lbl-stylefor="userID">User ID</label>
-                    <input formControlName="userID" type="text" class="form-control" id="userID"
+                    <input autocomplete="off" formControlName="userID" type="text" class="form-control" id="userID"
                         placeholder="Enter User Id">
                     <span style="font-size:14px; color: rgb(238, 11, 11);"
                         *ngIf="submitted && info.userID.errors && info.userID.errors.required">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group col-sm-5 txt-style">
                     <label lbl-stylefor="primaryEmail">Primary Email</label>
-                    <input formControlName="primaryEmail" type="email" class="form-control" id="primaryEmail"
+                    <input autocomplete="off" formControlName="primaryEmail" type="email" class="form-control" id="primaryEmail"
                         placeholder="Enter Primary Email Address">
                     <span style="font-size:14px; color: rgb(238, 11, 11);"
                         *ngIf="submitted && info.primaryEmail.errors && info.primaryEmail.errors.required">
@@ -44,8 +44,8 @@
                 <div class="form-group col-sm-5 txt-style">
                     <label lbl-stylefor="effectiveFrom">Effective From</label>
                     <div class='input-group'>
-                        <input ngbDatepicker name="d1" #d1="ngbDatepicker" formControlName="effectiveFrom" type="text"
-                            class="form-control" id="effectiveFrom" placeholder="yyyy-mm-dd">
+                        <input autocomplete="off" ngbDatepicker name="d1" #d1="ngbDatepicker" formControlName="effectiveFrom" type="text"
+                            class="form-control" id="effectiveFrom" placeholder="dd-mm-yyyy">
                         <!-- [value]="formatter.format(fromDate)" 
                             (dateSelect)="onFromDateSelection($event)"
                        (input)="fromDate = validateFromDateInput(fromDate, d1.value)" -->
@@ -74,7 +74,7 @@
                 </div> -->
                 <div class="form-group col-sm-5 txt-style">
                     <label lbl-stylefor="terminationDate">Termination Date</label>
-                    <input formControlName="terminationDate" [readonly]="true" type="text" class="form-control"
+                    <input autocomplete="off" formControlName="terminationDate" [readonly]="true" type="text" class="form-control"
                         id="terminationDate">
                     <!-- placeholder="Enter Termination Date" -->
                     <!-- <span style="font-size:14px; color: rgb(238, 11, 11);"
