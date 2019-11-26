@@ -46,12 +46,7 @@ export class ContainerComponent implements OnInit {
     ["25 Nov", 10, 10],
     ["28 Nov", 7, 10],
     ["29 Nov", 8, 10],
-    ["01 Dec", 9, 10],
-    ["02 Dec", 10, 10],
-    ["03 Dec", 7, 10],
-    ["04 Dec", 9, 10],
-    ["05 Dec", 9, 10],
-    ["06 Dec", 10, 10]
+    ["01 Dec", 9, 10]
   ];
   columnNamesline = ["Day", "Logged In", "Total"];
   optionsline = {

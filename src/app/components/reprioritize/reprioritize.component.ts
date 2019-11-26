@@ -22,7 +22,7 @@ export class ReprioritizeComponent implements OnInit {
       claimId: 2019100910000000,
       claimType: "Institutional",
       billedAmount: "$23160.50",
-      workBasket: "Auth",
+      workBasket: "COB",
       claimSource: "EDI",
       Age: "2"
     },
@@ -30,7 +30,7 @@ export class ReprioritizeComponent implements OnInit {
       claimId: 2019125800000000,
       claimType: "Institutional",
       billedAmount: "$21580.50",
-      workBasket: "Auth",
+      workBasket: "Missing Member",
       claimSource: "EDI",
       Age: "1"
     },
@@ -38,7 +38,7 @@ export class ReprioritizeComponent implements OnInit {
       claimId: 2011250900000000,
       claimType: "Institutional",
       billedAmount: "$235620.50",
-      workBasket: "Auth",
+      workBasket: "High Dollar",
       claimSource: "EDI",
       Age: "12"
     },
