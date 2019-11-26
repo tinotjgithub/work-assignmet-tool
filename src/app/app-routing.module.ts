@@ -10,24 +10,29 @@ const routes: Routes = [
   { path: "", component: LoginComponent },
   {
     path: "LandingPage",
-    component: TaskManagementComponent
+    component: TaskManagementComponent,
+    canActivate: [RouteGuard]
   },
   {
     path: "Dashboard",
-    component: ContainerComponent
+    component: ContainerComponent,
+    canActivate: [RouteGuard]
   },
   {
     path: "UserManagement",
-    component: UserManagementComponent
+    component: UserManagementComponent,
+    canActivate: [RouteGuard]
   },
   {
     path: "Reprioritize",
-    component: ReprioritizeComponent
+    component: ReprioritizeComponent,
+    canActivate: [RouteGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RouteGuard]
 })
 export class AppRoutingModule {}

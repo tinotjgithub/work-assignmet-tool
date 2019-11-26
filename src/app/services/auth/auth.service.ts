@@ -30,4 +30,9 @@ export class AuthService {
     this.isAuthenticated = true;
     this.authUpdated.next(this.isAuthenticated);
   }
+
+  logout() {
+    this.isAuthenticated = false;
+    this.authUpdated.next(this.isAuthenticated);
+  }
 }

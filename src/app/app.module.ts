@@ -66,7 +66,7 @@ import { AuditModeComponent } from './components/task-management/audit-mode/audi
     { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
     UserMgtService,
     BaseHttpService,
-    DatePipe,
+    DatePipe
   ],
   bootstrap: [AppComponent]
   })
