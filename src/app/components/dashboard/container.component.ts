@@ -144,7 +144,7 @@ export class ContainerComponent implements OnInit {
             });
           },
           dataPoints: [
-            { y: 200, label: "0$ - 200$" },
+            { y: 200, label: "0$ - 100$" },
             { y: 160, label: "$100 - $1000" },
             { y: 135, label: "$1000- $20,000" },
             { y: 27, label: "$20,000 - Above" }
