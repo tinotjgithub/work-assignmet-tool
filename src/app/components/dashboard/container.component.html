@@ -15,7 +15,7 @@
     <div [hidden]="id!=='OVERALL'" class="card-body" style="min-height: 545px">
       <div class="row" style="margin: 10px; min-height: 360px">
         <div class="col-sm-6">
-          <h6>High Impact Claims </h6>
+          <h6>High Dollar High Impact Claims </h6>
           <div class="card align-items-center m-6">
             <div class="card-body m-6">
               <div class="m-2" id="chartContainer1" style="width: 325px;height: 350px"></div>
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <h6>Claims nearing SLA </h6>
+          <h6>Aging Claims Workbasket </h6>
           <div class="card align-items-center m-6">
             <div class="card-body m-6">
               <div class="m-2" id="chartContainer4" style="width: 325px;height: 350px"></div>
@@ -76,7 +76,7 @@
     </div>
     <!-- SECOND TAB -->
     <div [hidden]="id!=='USER'" class="card-body" style="min-height: 545px">
-      <div class="row" style="margin: 10px; min-height: 360px">
+      <div class="row" style="margin: 5px; min-height: 280px">
         <div class="col-sm-6 m-6">
           <h6>Active Status</h6>
           <div class="card align-items-center m-6">
@@ -94,11 +94,11 @@
           </div>
         </div>
       </div>
-      <div class="row" style="margin: 10px; min-height: 360px">
-        <div class="col-sm-6 m-6">
+      <div class="row" style="margin: 5px; min-height: 280px">
+        <div class="col-sm-12 m-12">
           <h6>Team Availability</h6>
-          <div class="card align-items-center m-6">
-            <div class="card-body m-6">
+          <div class="card align-items-center m-12">
+            <div class="card-body m-12">
               <google-chart #chart [title]="titleline" [type]="typeline" [data]="dataline"
                 [columnNames]="columnNamesline" [options]="optionsline" [width]="widthline" [height]="heightline">
               </google-chart>
