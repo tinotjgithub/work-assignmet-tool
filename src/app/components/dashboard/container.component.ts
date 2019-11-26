@@ -8,11 +8,11 @@ import { Router } from "@angular/router";
   styleUrls: ["./container.component.css"]
 })
 export class ContainerComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   private setClassorNav() {
-    $(document).ready(function () {
-      $(".activelink").click(function (e) {
+    $(document).ready(function() {
+      $(".activelink").click(function(e) {
         $(".activelink").removeClass("active");
         var $this = $(this);
         if (!$this.hasClass("active")) {
@@ -41,10 +41,12 @@ export class ContainerComponent implements OnInit {
   titleline = "";
   typeline = "LineChart";
   dataline = [
-    ["23 Nov", 10, 8],
-    ["24 Nov", 6, 4],
-    ["25 Nov", 7, 5],
-    ["28 Nov", 9, 6]
+    ["23 Nov", 10, 10],
+    ["24 Nov", 6, 10],
+    ["25 Nov", 10, 10],
+    ["28 Nov", 7, 10],
+    ["29 Nov", 8, 10],
+    ["01 Dec", 9, 10]
   ];
   columnNamesline = ["Day", "Logged In", "Total"];
   optionsline = {
@@ -52,7 +54,11 @@ export class ContainerComponent implements OnInit {
       title: "Day"
     },
     vAxis: {
-      title: "Count"
+      title: "Count",
+      viewWindow: {
+        max: 14,
+        min: 0
+      }
     }
   };
   widthline = 550;
@@ -121,7 +127,7 @@ export class ContainerComponent implements OnInit {
     this.id = id;
     $(".activelink").removeClass("active");
     tabId = id === "OVERALL" ? "#business-dashboard" : "#team-wb";
-    tabId !== "" ? $(tabId).addClass('active') : "";
+    tabId !== "" ? $(tabId).addClass("active") : "";
   }
 
   ngOnInit() {
@@ -134,7 +140,7 @@ export class ContainerComponent implements OnInit {
       data: [
         {
           type: "column",
-          click: function (e) {
+          click: function(e) {
             let myParamObject = {
               xvalue: e.dataPoint.x,
               yvalue: e.dataPoint.y
@@ -144,7 +150,7 @@ export class ContainerComponent implements OnInit {
             });
           },
           dataPoints: [
-            { y: 200, label: "0$ - 200$" },
+            { y: 200, label: "0$ - 100$" },
             { y: 160, label: "$100 - $1000" },
             { y: 135, label: "$1000- $20,000" },
             { y: 27, label: "$20,000 - Above" }
@@ -159,7 +165,7 @@ export class ContainerComponent implements OnInit {
       data: [
         {
           type: "column",
-          click: function (e) {
+          click: function(e) {
             let myParamObject = {
               xvalue: e.dataPoint.x,
               yvalue: e.dataPoint.y
@@ -188,7 +194,7 @@ export class ContainerComponent implements OnInit {
       data: [
         {
           type: "column",
-          click: function (e) {
+          click: function(e) {
             let myParamObject = {
               xvalue: e.dataPoint.x,
               yvalue: e.dataPoint.y
@@ -215,7 +221,7 @@ export class ContainerComponent implements OnInit {
       data: [
         {
           type: "column",
-          click: function (e) {
+          click: function(e) {
             let myParamObject = {
               xvalue: e.dataPoint.x,
               yvalue: e.dataPoint.y

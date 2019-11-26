@@ -29,6 +29,7 @@ import { ToastComponent } from './components/toast.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { DateParserFormatter } from './date-parser-formater';
 import { ScoreCardComponent } from './components/task-management/score-card/score-card/score-card.component';
+import { AuditModeComponent } from './components/task-management/audit-mode/audit-mode.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ScoreCardComponent } from './components/task-management/score-card/scor
     YesNoModelComponent,
     ReprioritizeComponent,
     ToastComponent,
-    ScoreCardComponent
+    ScoreCardComponent,
+    AuditModeComponent
   ],
   imports: [
     BrowserModule,

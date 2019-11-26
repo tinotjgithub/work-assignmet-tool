@@ -16,39 +16,39 @@ export class ReprioritizeComponent implements OnInit {
       billedAmount: "$23220.50",
       workBasket: "Auth",
       claimSource: "EDI",
-      Age: "10"
+      Age: "27"
     },
     {
       claimId: 2019100910000000,
       claimType: "Institutional",
       billedAmount: "$23160.50",
-      workBasket: "Auth",
+      workBasket: "COB",
       claimSource: "EDI",
-      Age: "2"
+      Age: "28"
     },
     {
       claimId: 2019125800000000,
       claimType: "Institutional",
       billedAmount: "$21580.50",
-      workBasket: "Auth",
+      workBasket: "Missing Member",
       claimSource: "EDI",
-      Age: "1"
+      Age: "27"
     },
     {
       claimId: 2011250900000000,
       claimType: "Institutional",
       billedAmount: "$235620.50",
-      workBasket: "Auth",
+      workBasket: "High Dollar",
       claimSource: "EDI",
-      Age: "12"
+      Age: "22"
     },
     {
-      claimId: 2019158600000,
+      claimId: 2011250980000000,
       claimType: "Institutional",
       billedAmount: "$23250.50",
       workBasket: "Auth",
       claimSource: "EDI",
-      Age: "13"
+      Age: "21"
     }
   ];
 

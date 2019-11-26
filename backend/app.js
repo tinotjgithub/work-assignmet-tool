@@ -50,7 +50,7 @@ app.get("/api/draw-mode/draw-claim", (req, res, next) => {
   console.log(req.body);
   const claim = {
     "claimType": "Institutional",
-    "claimId": "2019110800000067",
+    "claimId": Math.floor(Math.random() * (999999999999 - 100000000000 + 1)) + 100000000000,
     "state": "Review",
     "reviewRepairReason": "Claim requires review payment total greater than $20,000.00",
     "workBasketName": "Auth",
