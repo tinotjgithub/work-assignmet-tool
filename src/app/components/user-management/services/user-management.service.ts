@@ -8,9 +8,9 @@ import { AssignWBsModel } from './../assign-wb/assign-wb.model';
 
 @Injectable({ providedIn: "root" })
 export class UserMgtService {
-    public static basicInfoDetails: BasicInfoModel;
-    public static roleIDs: AssignRolesModel;
-    public static wbs: AssignWBsModel;
+    public basicInfoDetails: BasicInfoModel;
+    public roleIDs: AssignRolesModel;
+    public wbs: AssignWBsModel;
     constructor(private http: HttpClient, private router: Router) { }
     private updateBasicInfo = new Subject<BasicInfoModel>();
     private updateRoleIDs = new Subject<AssignRolesModel>();
@@ -29,29 +29,29 @@ export class UserMgtService {
     }
 
     saveBasicInfo(basicInfo) {
-        UserMgtService.basicInfoDetails = basicInfo;
-        this.updateBasicInfo.next(UserMgtService.basicInfoDetails);
+        this.basicInfoDetails = basicInfo;
+        this.updateBasicInfo.next(this.basicInfoDetails);
     }
 
     saveRoleIDs(roleIds) {
-        UserMgtService.roleIDs = roleIds;
-        this.updateRoleIDs.next(UserMgtService.roleIDs);
+        this.roleIDs = roleIds;
+        this.updateRoleIDs.next(this.roleIDs);
     }
 
     saveWBs(wbs) {
-        UserMgtService.wbs = wbs;
-        this.updateWBs.next(UserMgtService.wbs);
+        this.wbs = wbs;
+        this.updateWBs.next(this.wbs);
     }
 
     getBasicInfo() {
-        return UserMgtService.basicInfoDetails;
+        return this.basicInfoDetails;
     }
 
     getRoleIDs() {
-        return UserMgtService.roleIDs;
+        return this.roleIDs;
     }
 
     getWBs() {
-        return UserMgtService.wbs;
+        return this.wbs;
     }
 }

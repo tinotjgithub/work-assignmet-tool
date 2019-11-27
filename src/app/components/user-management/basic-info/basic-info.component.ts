@@ -7,8 +7,7 @@ import { BasicInfoModel } from './basic-info.model';
 @Component({
   selector: 'app-basic-info',
   templateUrl: './basic-info.component.html',
-  styleUrls: ['./basic-info.component.css'],
-  providers: [BasicInfoModel, UserMgtService]
+  styleUrls: ['./basic-info.component.css']
 })
 
 export class BasicInfoComponent implements OnInit {
