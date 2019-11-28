@@ -6,6 +6,7 @@ import { TaskManagementComponent } from "./components/task-management/task-manag
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { LoginComponent } from "./components/login/login/login.component";
 import { ReprioritizeComponent } from "./components/reprioritize/reprioritize.component";
+import { ReportsComponent } from './components/reports/reports.component';
 const routes: Routes = [
   { path: "", component: LoginComponent },
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: "Reprioritize",
     component: ReprioritizeComponent
+  },
+  {
+    path: "Reports",
+    component: ReportsComponent
   }
 ];
 

@@ -1,0 +1,24 @@
+<div style="margin: 10px">
+  <div class="card text-center border-primary mb-3 ">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li *ngFor="let item of reports" class="nav-item">
+          <a class="nav-link activelink" id="{{item}}" (click)="setComponentId(item)">Report
+            {{item}} <i style="padding-left: 5px" *ngIf="item!==1" class="fa fa-close" (click)="removeReport(item)"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="team-dashboard" (click)="addReportTab()">
+            <i class="fa fa-plus"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- // REPORT TAB -->
+    <div class="card-body" style="min-height: 545px">
+      <div class="row" style="margin: 10px; min-height: 360px">
+        {{id}}
+      </div>
+    </div>
+  </div>
