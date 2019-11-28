@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "./services/auth/auth.service";
 import { Router } from "@angular/router";
-import { UserMgtService } from './components/user-management/services/user-management.service';
-import { ToastService } from './services/toast.service';
+import { UserMgtService } from "./components/user-management/services/user-management.service";
+import { ToastService } from "./services/toast.service";
 
 @Component({
   selector: "app-root",
@@ -13,7 +13,11 @@ import { ToastService } from './services/toast.service';
 export class AppComponent implements OnInit {
   title = "work-assignment-tool";
   isAuthenticated: boolean;
-  constructor(private authService: AuthService, private router: Router, public toastService: ToastService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuth();
@@ -21,7 +25,7 @@ export class AppComponent implements OnInit {
       this.isAuthenticated = isAuthed;
     });
     if (!this.isAuthenticated) {
-      this.router.navigate(['']);
+      this.router.navigate([""]);
     }
   }
   showStandard(message: string, header: string) {
@@ -33,22 +37,21 @@ export class AppComponent implements OnInit {
 
   showSuccess(message: string, header: string) {
     this.toastService.show(message, {
-      classname: 'bg-success text-light',
+      classname: "bg-success text-light",
       delay: 2000,
       autohide: true,
-      header:false,
+      header: false,
       headertext: header
     });
   }
 
   showError(message: string, header: string) {
     this.toastService.show(message, {
-      classname: 'bg-danger text-light',
+      classname: "bg-danger text-light",
       delay: 2000,
       autohide: true,
-      header:false,
+      header: false,
       headertext: header
     });
   }
-
 }

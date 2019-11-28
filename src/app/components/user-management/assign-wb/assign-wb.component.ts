@@ -12,8 +12,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-assign-wb',
   templateUrl: './assign-wb.component.html',
-  styleUrls: ['./assign-wb.component.css'],
-  providers: [UserMgtService, BaseHttpService, AssignRolesModel]
+  styleUrls: ['./assign-wb.component.css']
 })
 export class AssignWbComponent {
   @Output() previousRoleTab: EventEmitter<string> = new EventEmitter<string>();

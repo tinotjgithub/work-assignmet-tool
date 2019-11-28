@@ -14,7 +14,6 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule, NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import { AssignRolesComponent } from "./components/user-management/assign-roles/assign-roles.component";
 import { AssignWbComponent } from "./components/user-management/assign-wb/assign-wb.component";
-import { UserMgtService } from "./components/user-management/services/user-management.service";
 import { TaskManagementComponent } from "./components/task-management/task-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
@@ -70,7 +69,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
-    UserMgtService,
     BaseHttpService,
     DatePipe
   ],
