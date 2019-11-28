@@ -13,10 +13,13 @@ export class YesNoModelComponent implements OnInit {
   @Input() modalBody: string;
   @Input() modalYesButtonText: string;
   @Input() modalNoButtonText: string;
+  @Input() modeId: string;
+
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   callParentWithYes() {
     this.yesEvent.emit('yes');
