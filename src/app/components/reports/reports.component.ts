@@ -20,7 +20,7 @@ export class ReportsComponent implements OnInit, AfterViewChecked {
     this.myReportIdSubscr = this.reportService
       .myReportIdListener()
       .subscribe(ids => {
-        this.reports = ids;
+        this.reports = [...ids];
         this.setComponentId(this.reports[0]);
       });
   }

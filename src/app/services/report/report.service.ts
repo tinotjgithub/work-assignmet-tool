@@ -11,8 +11,6 @@ export class ReportService {
   private currentReportFiltersSubject = new Subject<any>();
   private myReportsIdsSub = new Subject<any>();
 
-  report: Report[] = [];
-  reportExist: boolean = false;
   currentReportId: any;
   myReportsList: any[];
   myReportIds: Number[];
@@ -33,11 +31,13 @@ export class ReportService {
   }
 
   setReport(id: any) {
-    if(this.reportExist){
-
-    }
     this.currentReportId = id;
-    this.currentReportFiltersSubject.next(this.getCurrentReportFilter(id));
+
+    if (this.reportExistForCurrentTab()) {
+      this.currentReportFiltersSubject.next(this.getCurrentReportFilter(id));
+    } else {
+      this.currentReportFiltersSubject.next({});
+    }
   }
 
   getMyReportIds() {
@@ -50,27 +50,31 @@ export class ReportService {
 
   saveReport(report) {
     this.deleteExistingSavedItem();
-    this.report.push({ reportId: this.currentReportId, report: report });
+    this.myReportsList.push({
+      reportFilter: report,
+      reportId: this.currentReportId
+    });
+    this.myReportIds.push(this.currentReportId);
   }
 
   private deleteExistingSavedItem() {
-    if (this.report !== undefined && this.report.length >= 0) {
+    if (this.myReportsList !== undefined && this.myReportsList.length >= 0) {
       let index = -1;
-      this.report.filter((item, i) => {
+      this.myReportsList.filter((item, i) => {
         if (item.reportId === this.currentReportId) {
           index = i;
         }
       });
       if (index > -1) {
-        this.report.splice(index, 1);
+        this.myReportsList.splice(index, 1);
       }
     }
   }
 
   reportExistForCurrentTab() {
     let index = -1;
-    this.report.filter((item, i) => {
-      if (item.reportId === this.currentReportId) {
+    this.myReportIds.filter((item, i) => {
+      if (item === this.currentReportId) {
         index = i;
       }
     });
@@ -83,7 +87,7 @@ export class ReportService {
         return item.reportFilter;
       }
     });
-    console.log(item[0].reportFilter)
+    console.log(item[0].reportFilter);
     return item[0].reportFilter;
   }
 

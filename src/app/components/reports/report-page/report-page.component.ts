@@ -93,11 +93,6 @@ export class ReportPageComponent implements OnInit, OnChanges {
   @Input() id: number;
 
   ngOnInit() {
-    this.reportExist = this.reportService.reportExistForCurrentTab();
-    this.currentReportFilter = this.reportService.currentReportFilters;
-    this.reportService.reportExistListener().subscribe(exist => {
-      this.reportExist = exist;
-    });
     this.reportService.getCurrentReportFilterListener().subscribe(filters => {
       this.currentReportFilter = filters;
       this.initializeForm();
