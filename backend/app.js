@@ -21,7 +21,6 @@ app.use((req, res, next) => {
 
 app.post("/api/posts", (req, res, next) => {
   const post = req.body;
-  console.log(post);
   res.status(201).json({
     message: 'Post added successfully'
   });
@@ -47,7 +46,6 @@ app.get("/api/posts", (req, res, next) => {
 });
 
 app.get("/api/draw-mode/draw-claim", (req, res, next) => {
-  console.log(req.body);
   const claim = {
     "claimType": "Institutional",
     "claimId": Math.floor(Math.random() * (999999999999 - 100000000000 + 1)) + 100000000000,
@@ -63,6 +61,13 @@ app.get("/api/draw-mode/draw-claim", (req, res, next) => {
     "rank": 0
   }
   res.status(200).json(claim);
+});
+
+app.get("/api/report/get-reports", (req, res, next) => {
+  const reports = [{ "reportFilter": { "selectedClaimids": ["100004", "100005"], "billedAmountFrom": 3432, "billedAmountTo": 32423, "allowedAmountFrom": 43242, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 34324, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 1 }, "reportId": 1 },
+  { "reportFilter": { "selectedClaimids": ["100004", "100005"], "billedAmountFrom": 3432, "billedAmountTo": 32423, "allowedAmountFrom": 43242, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 34324, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 2 }, "reportId": 2 },
+  { "reportFilter": { "selectedClaimids": ["100004", "100005"], "billedAmountFrom": 3432, "billedAmountTo": 32423, "allowedAmountFrom": 43242, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 34324, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 3 }, "reportId": 3 }]
+  res.status(200).json(reports);
 });
 
 app.post("/api/draw-mode/assign-task", (req, res, next) => {

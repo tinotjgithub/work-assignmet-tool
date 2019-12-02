@@ -1,16 +1,29 @@
 import { Component, OnInit, AfterViewChecked } from "@angular/core";
+import { ReportService } from "src/app/services/report/report.service";
+import { Subscription } from "rxjs";
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
   styleUrls: ["./reports.component.css"]
 })
 export class ReportsComponent implements OnInit, AfterViewChecked {
-  id: any = "1";
-  reports: Array<number> = [1, 2, 3];
+  id: any = "0";
+  reports: Array<number> = [];
   val = 1000;
-  constructor() {}
+  myReportIds: any;
+  myReportIdSubscr: Subscription;
 
-  ngOnInit() {}
+  constructor(private reportService: ReportService) {}
+
+  ngOnInit() {
+    this.reportService.getUserReports();
+    this.myReportIdSubscr = this.reportService
+      .myReportIdListener()
+      .subscribe(ids => {
+        this.reports = ids;
+        this.setComponentId(this.reports[0]);
+      });
+  }
 
   ngAfterViewChecked() {
     var item = $("#" + this.id);
@@ -18,8 +31,9 @@ export class ReportsComponent implements OnInit, AfterViewChecked {
     item.addClass("active");
   }
 
-  setComponentId(id) {
-    this.id = id;
+  setComponentId(reportId) {
+    this.id = reportId;
+    this.reportService.setReport(reportId);
   }
 
   removeReport(id) {

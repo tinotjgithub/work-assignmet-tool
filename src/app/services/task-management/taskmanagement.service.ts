@@ -113,7 +113,6 @@ export class TaskmanagementService {
         });
 
         this.claimDetails = claim;
-        console.log(this.claimDetails);
         this.claimDetailsSub.next(this.claimDetails);
         this.assignTask();
       });
@@ -130,7 +129,6 @@ export class TaskmanagementService {
       .post(param, "api/draw-mode/assign-task")
       .subscribe(data => {
         this.assignTaskResponse = data;
-        console.log(this.assignTaskResponse);
       });
   }
 
@@ -147,7 +145,6 @@ export class TaskmanagementService {
     };
     this.baseHTTPService.post(param, "api/draw-mode/update-task").subscribe(
       data => {
-        console.log(data);
         this.resetTaskTimer();
         this.getClaim();
       },

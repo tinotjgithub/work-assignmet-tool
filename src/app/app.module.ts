@@ -31,8 +31,11 @@ import { ScoreCardComponent } from "./components/task-management/score-card/scor
 import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
 import { ReportsComponent } from "./components/reports/reports.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
-
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { ReportPageComponent } from "./components/reports/report-page/report-page.component";
+import { ListboxModule } from "primeng/listbox";
+import {MultiSelectModule} from 'primeng/multiselect';
+import {InputTextModule} from 'primeng/inputtext';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +56,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ToastComponent,
     ScoreCardComponent,
     AuditModeComponent,
-    ReportsComponent
+    ReportsComponent,
+    ReportPageComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,9 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     HttpClientModule,
     BrowserAnimationsModule,
     ProgressSpinnerModule,
+    ListboxModule,
+    MultiSelectModule,
+    InputTextModule,
     GoogleChartsModule.forRoot()
   ],
   providers: [
