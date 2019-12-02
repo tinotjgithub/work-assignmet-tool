@@ -7,7 +7,8 @@ import { BasicInfoModel } from './../basic-info/basic-info.model';
 @Component({
   selector: 'app-assign-roles',
   templateUrl: './assign-roles.component.html',
-  styleUrls: ['./assign-roles.component.css']
+  styleUrls: ['./assign-roles.component.css'],
+  providers: [UserMgtService, BasicInfoModel]
 })
 export class AssignRolesComponent implements OnInit {
   @Output() nextRoleTab: EventEmitter<string> = new EventEmitter<string>();
