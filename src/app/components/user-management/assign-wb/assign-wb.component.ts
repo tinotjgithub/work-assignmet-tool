@@ -4,7 +4,6 @@ import { UserMgtService } from './../services/user-management.service';
 import { AssignRolesModel } from './../assign-roles/assign-roles.model';
 import { BasicInfoModel } from './../basic-info/basic-info.model';
 import { AssignWBsModel } from './../assign-wb/assign-wb.model';
-import { BaseHttpService } from "./../../../services/base-http.service";
 import { Router } from "@angular/router";
 import { AppComponent } from './../../../app.component';
 import { DatePipe } from '@angular/common';
@@ -12,8 +11,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-assign-wb',
   templateUrl: './assign-wb.component.html',
-  styleUrls: ['./assign-wb.component.css'],
-  providers: [UserMgtService, BaseHttpService, AssignRolesModel]
+  styleUrls: ['./assign-wb.component.css']
 })
 export class AssignWbComponent {
   @Output() previousRoleTab: EventEmitter<string> = new EventEmitter<string>();
@@ -23,7 +21,7 @@ export class AssignWbComponent {
   assignWbs: AssignWBsModel;
   saveResponse: any;
   wbList = Array<{ wbId: number, wbName: string, priority: number }>();
-  constructor(public datepipe: DatePipe, private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService, public baseHTTPService: BaseHttpService) {
+  constructor(public datepipe: DatePipe, private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService) {
     this.getWb();
     this.WBGroup = this.formBuilder.group({
       wbs: new FormArray([])
@@ -43,18 +41,28 @@ export class AssignWbComponent {
     });
   }
 
+  // saveToService(finalObject: any) {
+    // this.baseHTTPService
+    //   .post(finalObject, "api/user-management/create-user")
+    //   .subscribe(data => {
+    //     this.saveResponse = data;
+    //   });
+    // this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
+    // setTimeout(function () {
+    //   this.router.navigate(['/LandingPage']);
+    // }.bind(this), 2100);
+    // this.resetAll();
+    
+  // }
   saveToService(finalObject: any) {
-    this.baseHTTPService
-      .post(finalObject, "api/user-management/create-user")
-      .subscribe(data => {
-        this.saveResponse = data;
-      });
-    this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
+    this.userMgtService.saveUser(finalObject);
+        this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
     setTimeout(function () {
       this.router.navigate(['/LandingPage']);
     }.bind(this), 2100);
     this.resetAll();
   }
+
 
   resetAll() {
     let basicInfo = {

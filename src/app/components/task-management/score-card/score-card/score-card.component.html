@@ -1,41 +1,93 @@
-<div class="row" style="margin: 10px; min-height: 360px">
-    <div class="col-sm-6 m-6">
+<div style="margin: 10px">
+  <div class="card text-center border-primary mb-3">
+    <div class="row" style="margin: 10px; min-height: 250">
+      <div class="col-sm-6 m-6 xs-12">
+        <h6>My Productivity</h6>
+        <div class="card align-items-center sm-6 m-6 xs-12">
+          <div class="card-body sm-6 m-6 xs-12">
+            <google-chart #chart [title]="titleproductivity" [type]="typeproductivity" [data]="dataproductivity"
+              [options]="optionsproductivity" [width]="widthproductivity" [columnNames]="columnNamesproductivity"
+              [height]="heightproductivity">
+            </google-chart>
+            <form [formGroup]="productiveDates" (ngSubmit)="onSubmit()">
+              <div class="row" style="margin-left:30px; margin-right:30px; align-items: left; align-content: left;">
+                <div class="col-sm-3 m-3">
+                  <!-- <label lbl-stylefor="from">From Date</label> -->
+                  <div class='input-group'>
+                    <input autocomplete="off" ngbDatepicker name="d1" #d1="ngbDatepicker"
+                      formControlName="fromDateProductive" type="text" class="form-control" id="fromDateProductive"
+                      placeholder="From Date" readonly='true'>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 m-3">
+                  <!-- <label lbl-stylefor="toDateProductive">To Date</label> -->
+                  <div class='input-group'>
+                    <input autocomplete="off" ngbDatepicker name="d2" #d2="ngbDatepicker"
+                      formControlName="toDateProductive" type="text" class="form-control" id="toDateProductive"
+                      placeholder="To Date" readonly='true'>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 m-3">
+                  <button type="submit" class="btn btn-primary btn-style">OK</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 m-6">
+        <h6>My Contribution</h6>
         <div class="card align-items-center m-6">
-            <div class="card-body m-6 align-items-center" style="height: 350px">
-                <img class="img-responsive" src="./../../../../../assets/images/my-productivity.PNG">
-            </div>
+          <div class="card-body m-6">
+            <google-chart #chart [title]="titlecontribution" [type]="typecontribution" [data]="datacontribution"
+              [columnNames]="columnNamescontribution" [options]="optionscontribution" [width]="widthcontribution"
+              [height]="heightcontribution">
+            </google-chart>
+          </div>
         </div>
+      </div>
+
     </div>
-    <div class="col-sm-6 m-6">
+    <div class="row" style="margin: 10px; min-height: 360">
+      <div class="col-sm-6 m-6">
+        <h6>Audit Score</h6>
         <div class="card align-items-center m-6">
-            <div class="card-body m-6 align-items-center" style="height: 350px">
-                <img class="img-responsive" src="./../../../../../assets/images/my-contribution.PNG">
-            </div>
+          <div class="card-body m-6">
+            <google-chart #chart [title]="titleaudit" [type]="typeaudit" [data]="dataaudit" [options]="optionsaudit"
+              [width]="widthaudit" [columnNames]="columnNamesaudit" [height]="heightaudit">
+            </google-chart>
+          </div>
         </div>
-    </div>
-</div>
-<div class="row" style="margin: 10px; min-height: 360px">
-    <div class="col-sm-6 m-6">
+      </div>
+      <div class="col-sm-6 m-6">
+        <h6>Status-Date</h6>
         <div class="card align-items-center m-6">
-            <div class="card-body m-6 align-items-center" style="height: 350px">
-                <img class="img-responsive" src="./../../../../../assets/images/available-produced.PNG">
-            </div>
+          <div class="card-body m-6">
+            <google-chart #chart [title]="titlestatus" [type]="typestatus" [data]="datastatus" [options]="optionsstatus"
+              [width]="widthstatus" [columnNames]="columnNamesstatus" [height]="heightstatus">
+            </google-chart>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 m-6">
-        <div class="card align-items-center m-6">
-            <div class="card-body m-6 align-items-center" style="height: 350px">
-                <img class="img-responsive" src="./../../../../../assets/images/audit-score.PNG">
-            </div>
+    <div class="row" style="margin: 10px; min-height: 360">
+      <div class="col-sm-12 m-12">
+        <h6>Available Vs Productive</h6>
+        <div class="card align-items-center m-8">
+          <div class="card-body m-8">
+            <google-chart #chart [title]="titleavailable" [type]="typeavailable" [data]="dataavailable"
+              [options]="optionsavailable" [width]="widthavailable" [columnNames]="columnNamesavailable"
+              [height]="heightavailable">
+            </google-chart>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<div class="row" style="margin: 10px; min-height: 360px">
-    <div class="col-sm-12 m-12">
-        <div class="card align-items-center m-12">
-            <div class="card-body m-12 align-items-center" style="height: 350px">
-                <img class="img-responsive" src="./../../../../../assets/images/status-date.PNG">
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

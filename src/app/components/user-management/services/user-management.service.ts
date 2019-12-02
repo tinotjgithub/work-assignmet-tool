@@ -5,13 +5,14 @@ import { Subject } from "rxjs";
 import { BasicInfoModel } from '../basic-info/basic-info.model';
 import { AssignRolesModel } from './../assign-roles/assign-roles.model';
 import { AssignWBsModel } from './../assign-wb/assign-wb.model';
+import { BaseHttpService } from "./../../../services/base-http.service";
 
 @Injectable({ providedIn: "root" })
 export class UserMgtService {
     public static basicInfoDetails: BasicInfoModel;
     public static roleIDs: AssignRolesModel;
     public static wbs: AssignWBsModel;
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, public baseHTTPService: BaseHttpService) { }
     private updateBasicInfo = new Subject<BasicInfoModel>();
     private updateRoleIDs = new Subject<AssignRolesModel>();
     private updateWBs = new Subject<AssignWBsModel>();
@@ -54,4 +55,15 @@ export class UserMgtService {
     getWBs() {
         return UserMgtService.wbs;
     }
+
+  saveUser(finalObject) {
+    this.baseHTTPService.post(finalObject, "api/user-management/create-user").subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        // alert("Something Went Wrong");
+      }
+    );
+  }
 }

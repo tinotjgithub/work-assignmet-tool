@@ -40,9 +40,13 @@ export class BasicInfoComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.basicInformations = this.basicInfo.value;
-    this.userMgtService.saveBasicInfo(this.basicInformations);
-    this.nextBasicTab.emit('ASSIGN_ROLE');
+    if (this.basicInfo.invalid) {
+      return;
+    } else {
+      this.basicInformations = this.basicInfo.value;
+      this.userMgtService.saveBasicInfo(this.basicInformations);
+      this.nextBasicTab.emit('ASSIGN_ROLE');
+    }
   }
 
   reBuildForm() {
@@ -115,8 +119,8 @@ export class BasicInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reBuildForm();
     this.getSkillSet();
+    this.reBuildForm();
   }
 
   disableSubmit() {
