@@ -204,23 +204,20 @@ export class ScoreCardComponent implements OnInit {
 
   getDefaultProductiveDates() {
     this.taskManagementService.getProdScores("", "", "");
-    const userProductivityDto = this.taskManagementService.prodScoreResponse.userProductivityDto;
-    if (userProductivityDto && userProductivityDto.length > 0) {
-      this.getProductivityChartValue(userProductivityDto);
-    } else {
-      alert("ERROR");
+    const userProductivityDto = this.taskManagementService.prodScoreResponse;
+    if (userProductivityDto && userProductivityDto.userProductivityDto) {
+      this.getProductivityChartValue(userProductivityDto.userProductivityDto);
     }
   }
 
   getDefaultStatusDates() {
     this.taskManagementService.getStatusScores("", "", "");
-    const userStatusDto = this.taskManagementService.statusScoreResponse.userStatusDtos;
-    if (userStatusDto && userStatusDto.length > 0) {
-      userStatusDto.map(val => {
+    const userStatusDto = this.taskManagementService.statusScoreResponse;
+    this.datastatus = [];
+    if (userStatusDto && userStatusDto.userStatusDtos) {
+      userStatusDto.userStatusDtos.map(val => {
         this.datastatus.push([val.status, val.claimCount]);
       })
-    } else {
-      alert("ERROR");
     }
   }
 
@@ -283,11 +280,9 @@ export class ScoreCardComponent implements OnInit {
     actionArray = (this.actionList.filter((val => val.actionId.toString() === actionValue)));
     const action = actionArray[0].actionName;
     this.taskManagementService.getProdScores(action, formattedFromDate, formattedToDate);
-    const userProductivityDto = this.taskManagementService.prodScoreResponse.userProductivityDto;
-    if (userProductivityDto && userProductivityDto.length > 0) {
-      this.getProductivityChartValue(userProductivityDto);
-    } else {
-      alert("ERROR");
+    const userProductivityDto = this.taskManagementService.prodScoreResponse;
+    if (userProductivityDto && userProductivityDto.userProductivityDto) {
+      this.getProductivityChartValue(userProductivityDto.userProductivityDto);
     }
   }
 
@@ -298,10 +293,27 @@ export class ScoreCardComponent implements OnInit {
       { actionId: 3, actionName: 'route' }
     ];
   }
+  validateProductiveDates(): boolean {
+    let valid = true;
+    const fromDate = this.productiveDates.get('fromDateProductive').value;
+    const toDate = this.productiveDates.get('toDateProductive').value;
+    const formattedFromDate = this.datePipe.transform((fromDate.year + '-' + fromDate.month + '-' + fromDate.day), 'yyyy-MM-dd');
+    const formattedToDate = this.datePipe.transform((toDate.year + '-' + toDate.month + '-' + toDate.day), 'yyyy-MM-dd');
+    if (formattedFromDate > formattedToDate) {
+      this.productiveDates.get('fromDateProductive').setErrors({ 'incorrect': true });
+    } else {
+      this.productiveDates.get('fromDateProductive').setErrors({});
+    }
+    if (this.productiveDates.invalid) {
+      valid = false;
+    }
+    return valid;
+  }
 
   onSubmitProductive() {
     this.submittedProd = true;
-    if (this.productiveDates.invalid) {
+    const isValid = this.validateProductiveDates();
+    if (!isValid) {
       return;
     } else {
       this.getProductiveDays();

@@ -9,11 +9,14 @@
                         {{rolesList[i].roleName}}
                     </div>
                 </div>
-                <span style="font-size:14px; color: rgb(238, 11, 11);"
+                <!-- <span style="font-size:14px; color: rgb(238, 11, 11);"
                     *ngIf="submitted && roleGroup.controls[i].get('roles').errors && roleGroup.controls[i].get('roles').errors?.required">
-                    please select atleast one role</span>
+                    please select atleast one role</span> -->
             </div>
             <div class="row row-btn">
+                <span style="font-size:14px; color: rgb(238, 11, 11);"
+                    *ngIf="submittedProd && prod.actionProductive.errors && prod.actionProductive.errors.required">
+                    please select an action</span>
                 <div class="form-group col-xs-4 col-btn-style">
                     <button type="button" class="btn btn-primary prev-btn-style btn-style"
                         (click)="previousPage()">Previous</button>

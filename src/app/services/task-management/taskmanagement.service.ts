@@ -135,14 +135,19 @@ export class TaskmanagementService {
       action: action,
       fromDate: fromDate,
       toDate: toDate,
-      userId: this.userId
+      userId: 4
     };
     this.baseHTTPService
       .post(param, "api/data-dashboard/claims-per-user")
       .subscribe(data => {
         this.prodScoreResponse = data;
-        console.log(this.prodScoreResponse);
-      });
+        console.log("PRODUCTIVE DATA: ", this.prodScoreResponse);
+      },
+        error => {
+          // alert("Something Went Wrong");
+        });
+    // this.prodScoreResponse =
+    //   { "userProductivityDto": [{ "finishDate": "2019-12-02", "claimCount": 1 }, { "finishDate": "2019-12-03", "claimCount": 2 }], "userStatusDtos": null }
   }
 
   getStatusScores(action, fromDate, toDate) {
@@ -150,14 +155,36 @@ export class TaskmanagementService {
       action: action,
       fromDate: fromDate,
       toDate: toDate,
-      userId: this.userId
+      userId: 4
     };
     this.baseHTTPService
       .post(param, "api/data-dashboard/claims-per-status")
       .subscribe(data => {
         this.statusScoreResponse = data;
-        console.log(this.statusScoreResponse);
-      });
+        console.log("STATUS DATA: ", this.statusScoreResponse);
+      },
+        error => {
+          // alert("Something Went Wrong");
+        });
+    // this.statusScoreResponse = {
+    //   "userProductivityDto": null,
+    //   "userStatusDtos": [
+    //     {
+    //       "status": "complete",
+    //       "claimCount": 8
+    //     },
+    //     {
+    //       "status": "pend",
+    //       "claimCount": 5
+    //     },
+    //     {
+    //       "status": "route",
+    //       "claimCount": 1
+    //     }
+    //   ]
+    // }
+
+
   }
 
   assignTask() {

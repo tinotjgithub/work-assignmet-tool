@@ -17,6 +17,7 @@ export class AssignRolesComponent implements OnInit {
   roleGroup: FormGroup;
   rolesList = Array<{ roleId: number, roleName: string }>();
   submitted: boolean = false;
+  isValidForm: boolean = true;
   constructor(private formBuilder: FormBuilder, private userMgtService: UserMgtService) {
     this.getRoles();
     this.roleGroup = this.formBuilder.group({
@@ -56,6 +57,21 @@ export class AssignRolesComponent implements OnInit {
     });
   }
 
+  validateRoles(): boolean {
+    let valid = false;
+    this.isValidForm = false;
+    let formArr = <FormArray>this.roleGroup.controls.roles;
+    for (var i = 0; i < formArr.length; i++) {
+      if (formArr.at(i).value === true) {
+        this.isValidForm = true;
+      }
+    }
+    if (!this.isValidForm) {
+      valid = true;
+    }
+    return valid;
+  }
+
   getRoles() {
     this.rolesList = [
       { roleId: 1, roleName: 'Processor' },
@@ -66,8 +82,8 @@ export class AssignRolesComponent implements OnInit {
   }
   submit() {
     this.submitted = true;
-    debugger
-    if (this.roleGroup.invalid) {
+    const inValid = this.validateRoles();
+    if (inValid) {
       return;
     } else {
       const selectedRoleIds = this.roleGroup.value.roles
