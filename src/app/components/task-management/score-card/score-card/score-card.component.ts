@@ -3,6 +3,9 @@ import * as CanvasJS from './../../../../../assets/canvasjs.min';
 import { Router } from "@angular/router";
 import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { FormControlName, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
+import * as moment from 'moment';
 
 @Component({
   selector: "app-score-card",
@@ -12,13 +15,43 @@ import { FormControlName, FormGroup, FormBuilder, Validators } from '@angular/fo
 export class ScoreCardComponent implements OnInit {
 
   productiveDates: FormGroup;
+  contributionDates: FormGroup;
   productiveDateValue: any;
-  constructor(private router: Router, fb: FormBuilder) {
-    this.productiveDates = fb.group({
-      fromDateProductive: ['', Validators.required],
-      toDateProductive: ['', Validators.required]
+  contributionDateValue: any;
+  dataproductivity: any;
+  datastatus: any;
+  datacontribution: any;
+  submittedProd: boolean = false;
+  submittedCont: boolean = false;
+
+  actionList = Array<{ actionId: number, actionName: string }>();
+  constructor(public datePipe: DatePipe, private router: Router, fbprod: FormBuilder, fbcon: FormBuilder, private taskManagementService: TaskmanagementService) {
+    const today = new Date();
+    const current = new Date();
+    const sevenDaysBack = current.setDate(current.getDate() - 5);
+    const currentDate = {
+      year: parseInt(this.datePipe.transform(today, ('yyyy'))),
+      month: parseInt(this.datePipe.transform(today, ('MM'))),
+      day: parseInt(this.datePipe.transform(today, ('dd')))
+    }
+    const lastWeek = {
+      year: parseInt(this.datePipe.transform(sevenDaysBack, ('yyyy'))),
+      month: parseInt(this.datePipe.transform(sevenDaysBack, ('MM'))),
+      day: parseInt(this.datePipe.transform(sevenDaysBack, ('dd')))
+    }
+    this.productiveDates = fbprod.group({
+      fromDateProductive: [lastWeek, Validators.required],
+      toDateProductive: [currentDate, Validators.required],
+      actionProductive: ['', Validators.required]
+    })
+    this.contributionDates = fbcon.group({
+      fromDateContribution: [lastWeek, Validators.required],
+      toDateContribution: [currentDate, Validators.required],
+      actionContribution: ['', Validators.required]
     })
   }
+  get prod() { return this.productiveDates.controls; }
+  get cont() { return this.contributionDates.controls; }
   status: boolean = false;
   myData = [
     ["Active", 100],
@@ -36,14 +69,6 @@ export class ScoreCardComponent implements OnInit {
   productivityType = "LineChart";
   titleproductivity = "";
   typeproductivity = "LineChart";
-  dataproductivity = [
-    ["D1", 24],
-    ["D2", 19],
-    ["D3", 15],
-    ["D4", 26],
-    ["D5", 25],
-    ["D6", 20]
-  ];
   columnNamesproductivity = ["", "Count"];
   optionsproductivity = {
     hAxis: {
@@ -67,14 +92,6 @@ export class ScoreCardComponent implements OnInit {
 
   titlecontribution = "";
   typecontribution = "ColumnChart";
-  datacontribution = [
-    ["D1", 0.5, 0.5],
-    ["D2", 0.3, 0.7],
-    ["D3", 0.3, 0.7],
-    ["D4", 0.55, 0.45],
-    ["D5", 0.5, 0.5],
-    ["D6", 0.6, 0.4]
-  ];
   columnNamescontribution = ["", "Total", "Me"];
   optionscontribution = {
     hAxis: {
@@ -125,12 +142,6 @@ export class ScoreCardComponent implements OnInit {
   //Status chart
   titlestatus = "";
   typestatus = "PieChart";
-  datastatus = [
-    ["Final", 122],
-    ["Denied", 27],
-    ["Pend", 22],
-    ["Route", 9]
-  ];
   columnNamesstatus = ["Status", "Count"];
   optionsstatus = {
     pieSliceText: 'value'
@@ -184,18 +195,126 @@ export class ScoreCardComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    // this.setClassorNav();
     let that = this;
+    this.getActionList();
+    this.getDefaultProductiveDates();
+    this.getDefaultStatusDates();
+    this.getDefaultContributionDates();
   }
 
-  onSubmit() {
-    if (this.productiveDates.invalid) {
-      return;
+  getDefaultProductiveDates() {
+    this.taskManagementService.getProdScores("", "", "");
+    const userProductivityDto = this.taskManagementService.prodScoreResponse.userProductivityDto;
+    if (userProductivityDto && userProductivityDto.length > 0) {
+      this.getProductivityChartValue(userProductivityDto);
     } else {
-      debugger
-      this.productiveDateValue = this.productiveDates.value;
+      alert("ERROR");
     }
   }
 
+  getDefaultStatusDates() {
+    this.taskManagementService.getStatusScores("", "", "");
+    const userStatusDto = this.taskManagementService.statusScoreResponse.userStatusDtos;
+    if (userStatusDto && userStatusDto.length > 0) {
+      userStatusDto.map(val => {
+        this.datastatus.push([val.status, val.claimCount]);
+      })
+    } else {
+      alert("ERROR");
+    }
+  }
+
+  getProductivityChartValue(responseValue: any) {
+    let responseLength = responseValue.length;
+    this.dataproductivity = [];
+    var day = [];
+    const firstDate = moment(responseValue[0].finishDate);
+    const secondDate = moment(responseValue[responseLength - 1].finishDate);
+    for (var index = 0; index < responseLength; index++) {
+      const firstDay: Date = responseValue[0].finishDate;
+      let dates = new Date(firstDay);
+      const day = this.datePipe.transform(responseValue[index].finishDate, 'EEEE');
+      this.dataproductivity.push([day, responseValue[index].claimCount]);
+    }
+  }
+
+  getDefaultContributionDates() {
+    this.contributionDateValue = this.contributionDates.value;
+    const formattedDate = this.contributionDateValue.fromDateContribution.year + '-' + this.contributionDateValue.fromDateContribution.month + '-' + this.contributionDateValue.fromDateContribution.day;
+    var day = [];
+    for (var conDate = 7; conDate > 0; conDate--) {
+      var dates = new Date(formattedDate);
+      const contributionDays = dates.setDate(dates.getDate() - conDate);
+      day.push(this.datePipe.transform(contributionDays, 'EEEE'));
+    }
+    this.datacontribution = [
+      [day[0], 0.5, 0.5],
+      [day[1], 0.3, 0.7],
+      [day[2], 0.3, 0.7],
+      [day[3], 0.55, 0.45],
+      [day[4], 0.5, 0.5],
+      [day[5], 0.6, 0.4]
+    ];
+  }
+
+  getContributionDays() {
+    this.contributionDateValue = this.contributionDates.value;
+    const formattedDate = this.contributionDateValue.fromDateContribution.year + '-' + this.contributionDateValue.fromDateContribution.month + '-' + this.contributionDateValue.fromDateContribution.day;
+    var day = [];
+    for (var conDate = 2; conDate > 0; conDate--) {
+      var dates = new Date(formattedDate);
+      const contributionDays = dates.setDate(dates.getDate() - conDate);
+      day.push(this.datePipe.transform(contributionDays, 'EEEE'));
+    }
+    this.datacontribution = [
+      [day[0], 0.5, 0.5],
+      [day[1], 0.3, 0.7],
+    ];
+  }
+
+  getProductiveDays() {
+    //incoming response from service 
+    const actionValue = this.productiveDates.get('actionProductive').value;
+    const fromDateValue = this.productiveDates.get('fromDateProductive').value;
+    const toDateValue = this.productiveDates.get('toDateProductive').value;
+    const formattedFromDate = this.datePipe.transform((fromDateValue.year + '-' + fromDateValue.month + '-' + fromDateValue.day), 'yyyy-MM-dd');
+    const formattedToDate = this.datePipe.transform((toDateValue.year + '-' + toDateValue.month + '-' + toDateValue.day), 'yyyy-MM-dd');
+    let actionArray = [];
+    actionArray = (this.actionList.filter((val => val.actionId.toString() === actionValue)));
+    const action = actionArray[0].actionName;
+    this.taskManagementService.getProdScores(action, formattedFromDate, formattedToDate);
+    const userProductivityDto = this.taskManagementService.prodScoreResponse.userProductivityDto;
+    if (userProductivityDto && userProductivityDto.length > 0) {
+      this.getProductivityChartValue(userProductivityDto);
+    } else {
+      alert("ERROR");
+    }
+  }
+
+  getActionList() {
+    this.actionList = [
+      { actionId: 1, actionName: 'complete' },
+      { actionId: 2, actionName: 'pend' },
+      { actionId: 3, actionName: 'route' }
+    ];
+  }
+
+  onSubmitProductive() {
+    this.submittedProd = true;
+    if (this.productiveDates.invalid) {
+      return;
+    } else {
+      this.getProductiveDays();
+    }
+  }
+
+  onSubmitContribution() {
+    this.submittedCont = true;
+    if (this.contributionDates.invalid) {
+      return;
+    } else {
+      this.getContributionDays();
+    }
+  }
 
 }

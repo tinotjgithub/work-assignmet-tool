@@ -10,6 +10,8 @@ const BACKEND_URL = "http://localhost:3000/";
 export class TaskmanagementService {
   private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
+  private prodScoresFetch = new Subject<any[]>();
+  private statusScoresFetch = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
   private userId = "abc@abc.com";
   private taskTimerSub = new Subject<{
@@ -34,7 +36,9 @@ export class TaskmanagementService {
   timerStarted: boolean = false;
 
   claimDetails: any;
+  prodScoreResponse: any;
   assignTaskResponse: any;
+  statusScoreResponse: any;
   seconds: number;
 
   constructor(public baseHTTPService: BaseHttpService) {
@@ -43,6 +47,14 @@ export class TaskmanagementService {
 
   getTaskListener() {
     return this.taskUpdatedSub.asObservable();
+  }
+
+  getProdScoresListner() {
+    return this.prodScoresFetch.asObservable();
+  }
+
+  getStatusScoresListner() {
+    return this.statusScoresFetch.asObservable();
   }
 
   getTaskTimerListener() {
@@ -111,11 +123,40 @@ export class TaskmanagementService {
             new Date(claim.receiptDate)
           )
         });
-
         this.claimDetails = claim;
         console.log(this.claimDetails);
         this.claimDetailsSub.next(this.claimDetails);
         this.assignTask();
+      });
+  }
+
+  getProdScores(action, fromDate, toDate) {
+    const param = {
+      action: action,
+      fromDate: fromDate,
+      toDate: toDate,
+      userId: this.userId
+    };
+    this.baseHTTPService
+      .post(param, "api/data-dashboard/claims-per-user")
+      .subscribe(data => {
+        this.prodScoreResponse = data;
+        console.log(this.prodScoreResponse);
+      });
+  }
+
+  getStatusScores(action, fromDate, toDate) {
+    const param = {
+      action: action,
+      fromDate: fromDate,
+      toDate: toDate,
+      userId: this.userId
+    };
+    this.baseHTTPService
+      .post(param, "api/data-dashboard/claims-per-status")
+      .subscribe(data => {
+        this.statusScoreResponse = data;
+        console.log(this.statusScoreResponse);
       });
   }
 

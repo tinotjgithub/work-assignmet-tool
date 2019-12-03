@@ -18,7 +18,7 @@ export class BasicInfoComponent implements OnInit {
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
-  submitted = false;
+  submitted: boolean = false;
   skillList = Array<{ skillId: number, skillName: string }>();
   basicInformations: BasicInfoModel;
   constructor(fb: FormBuilder,

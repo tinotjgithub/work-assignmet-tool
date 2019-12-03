@@ -1,12 +1,17 @@
 <div class="container card">
     <div class="card-body">
         <form [formGroup]="roleGroup" (ngSubmit)="submit()">
-            <div class="row row-style" formArrayName="roles"
-                *ngFor="let roles of roleGroup.controls.roles.controls; let i = index">
-                <div class="col-sm-4 txt-style">
-                    <input class="checkbox-style" id="{{roles}}-{{i}}" type="checkbox" [formControlName]="i" >
-                    {{rolesList[i].roleName}}
+            <div>
+                <div class="row row-style" formArrayName="roles"
+                    *ngFor="let roles of roleGroup.controls.roles.controls; let i = index">
+                    <div class="col-sm-4 txt-style">
+                        <input class="checkbox-style" id="{{roles}}-{{i}}" type="checkbox" [formControlName]="i">
+                        {{rolesList[i].roleName}}
+                    </div>
                 </div>
+                <span style="font-size:14px; color: rgb(238, 11, 11);"
+                    *ngIf="submitted && roleGroup.controls[i].get('roles').errors && roleGroup.controls[i].get('roles').errors?.required">
+                    please select atleast one role</span>
             </div>
             <div class="row row-btn">
                 <div class="form-group col-xs-4 col-btn-style">

@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { UserMgtService } from './../services/user-management.service';
 import { BasicInfoModel } from './../basic-info/basic-info.model';
 
@@ -20,7 +20,7 @@ export class AssignRolesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userMgtService: UserMgtService) {
     this.getRoles();
     this.roleGroup = this.formBuilder.group({
-      roles: new FormArray([])
+      roles: new FormArray([], [Validators.required])
     });
     this.addCheckboxes();
   }
@@ -42,7 +42,7 @@ export class AssignRolesComponent implements OnInit {
       for (var i = 0; i < savedInformation.length; i++) {
         for (var j = i; j <= this.roleGroup.controls.roles.value.length; j++) {
           if (j === savedInformation[i]) {
-              formArr.at(j - 1).setValue(true);
+            formArr.at(j - 1).setValue(true);
           }
         }
       }
@@ -66,11 +66,16 @@ export class AssignRolesComponent implements OnInit {
   }
   submit() {
     this.submitted = true;
-    const selectedRoleIds = this.roleGroup.value.roles
-      .map((v, i) => v ? this.rolesList[i].roleId : null)
-      .filter(v => v !== null);
-    this.userMgtService.saveRoleIDs(selectedRoleIds);
-    this.nextRoleTab.emit('WB');
+    debugger
+    if (this.roleGroup.invalid) {
+      return;
+    } else {
+      const selectedRoleIds = this.roleGroup.value.roles
+        .map((v, i) => v ? this.rolesList[i].roleId : null)
+        .filter(v => v !== null);
+      this.userMgtService.saveRoleIDs(selectedRoleIds);
+      this.nextRoleTab.emit('WB');
+    }
   }
   previousPage() {
     this.previousBasicTab.emit('INFO');
