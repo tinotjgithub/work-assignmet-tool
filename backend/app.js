@@ -64,9 +64,9 @@ app.get("/api/draw-mode/draw-claim", (req, res, next) => {
 });
 
 app.get("/api/report/get-reports", (req, res, next) => {
-  const reports = [{ "reportFilter": { "selectedClaimids": ["100004", "100005"], "billedAmountFrom": 3432, "billedAmountTo": 32423, "allowedAmountFrom": 43242, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 34324, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 1 }, "reportId": 1 },
-  { "reportFilter": { "selectedClaimids": ["100004", "100005"], "billedAmountFrom": 3432, "billedAmountTo": 32423, "allowedAmountFrom": 43242, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 34324, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 2 }, "reportId": 2 },
-  { "reportFilter": { "selectedClaimids": ["100004", "100005"], "billedAmountFrom": 3432, "billedAmountTo": 32423, "allowedAmountFrom": 43242, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 34324, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 3 }, "reportId": 3 }]
+  const reports = [{ "reportFilter": { "selectedClaimids": ["100003", "100004"], "billedAmountFrom": 1000, "billedAmountTo": 2000, "allowedAmountFrom": 7500, "allowedAmountTo": 68900, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 5", "Claim Source 4"], "age": 25, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 1 }, "reportId": 1 },
+  { "reportFilter": { "selectedClaimids": ["100001", "100006"], "billedAmountFrom": 2000, "billedAmountTo": 3000, "allowedAmountFrom": 10000, "allowedAmountTo": 145620, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 1", "Claim Source 2"], "age": 15, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 2 }, "reportId": 2 },
+  { "reportFilter": { "selectedClaimids": ["100002", "100005"], "billedAmountFrom": 3000, "billedAmountTo": 4000, "allowedAmountFrom": 30000, "allowedAmountTo": 423432, "selectedWbids": ["WB4", "WB5"], "selectedClaimsources": ["Claim Source 3", "Claim Source 5"], "age": 10, "selectedSupplierName": ["Supplier 2", "Supplier 4"], "last": 3 }, "reportId": 3 }]
   res.status(200).json(reports);
 });
 

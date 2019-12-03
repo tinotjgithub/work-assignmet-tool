@@ -36,6 +36,8 @@ import { ReportPageComponent } from "./components/reports/report-page/report-pag
 import { ListboxModule } from "primeng/listbox";
 import {MultiSelectModule} from 'primeng/multiselect';
 import {InputTextModule} from 'primeng/inputtext';
+import {SidebarModule} from 'primeng/sidebar';
+import {PanelMenuModule} from 'primeng/panelmenu';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,6 +73,8 @@ import {InputTextModule} from 'primeng/inputtext';
     ListboxModule,
     MultiSelectModule,
     InputTextModule,
+    SidebarModule,
+    PanelMenuModule,
     GoogleChartsModule.forRoot()
   ],
   providers: [
