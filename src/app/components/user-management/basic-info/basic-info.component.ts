@@ -7,7 +7,8 @@ import { BasicInfoModel } from './basic-info.model';
 @Component({
   selector: 'app-basic-info',
   templateUrl: './basic-info.component.html',
-  styleUrls: ['./basic-info.component.css']
+  styleUrls: ['./basic-info.component.css'],
+  providers: [BasicInfoModel, UserMgtService]
 })
 
 export class BasicInfoComponent implements OnInit {
@@ -17,7 +18,7 @@ export class BasicInfoComponent implements OnInit {
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
-  submitted = false;
+  submitted: boolean = false;
   skillList = Array<{ skillId: number, skillName: string }>();
   basicInformations: BasicInfoModel;
   constructor(fb: FormBuilder,
@@ -39,9 +40,13 @@ export class BasicInfoComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.basicInformations = this.basicInfo.value;
-    this.userMgtService.saveBasicInfo(this.basicInformations);
-    this.nextBasicTab.emit('ASSIGN_ROLE');
+    if (this.basicInfo.invalid) {
+      return;
+    } else {
+      this.basicInformations = this.basicInfo.value;
+      this.userMgtService.saveBasicInfo(this.basicInformations);
+      this.nextBasicTab.emit('ASSIGN_ROLE');
+    }
   }
 
   reBuildForm() {
@@ -114,8 +119,8 @@ export class BasicInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reBuildForm();
     this.getSkillSet();
+    this.reBuildForm();
   }
 
   disableSubmit() {

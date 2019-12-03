@@ -1,13 +1,14 @@
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { UserMgtService } from './../services/user-management.service';
 import { BasicInfoModel } from './../basic-info/basic-info.model';
 
 @Component({
   selector: 'app-assign-roles',
   templateUrl: './assign-roles.component.html',
-  styleUrls: ['./assign-roles.component.css']
+  styleUrls: ['./assign-roles.component.css'],
+  providers: [UserMgtService, BasicInfoModel]
 })
 export class AssignRolesComponent implements OnInit {
   @Output() nextRoleTab: EventEmitter<string> = new EventEmitter<string>();
@@ -16,10 +17,11 @@ export class AssignRolesComponent implements OnInit {
   roleGroup: FormGroup;
   rolesList = Array<{ roleId: number, roleName: string }>();
   submitted: boolean = false;
+  isValidForm: boolean = true;
   constructor(private formBuilder: FormBuilder, private userMgtService: UserMgtService) {
     this.getRoles();
     this.roleGroup = this.formBuilder.group({
-      roles: new FormArray([])
+      roles: new FormArray([], [Validators.required])
     });
     this.addCheckboxes();
   }
@@ -41,7 +43,7 @@ export class AssignRolesComponent implements OnInit {
       for (var i = 0; i < savedInformation.length; i++) {
         for (var j = i; j <= this.roleGroup.controls.roles.value.length; j++) {
           if (j === savedInformation[i]) {
-              formArr.at(j - 1).setValue(true);
+            formArr.at(j - 1).setValue(true);
           }
         }
       }
@@ -55,6 +57,21 @@ export class AssignRolesComponent implements OnInit {
     });
   }
 
+  validateRoles(): boolean {
+    let valid = false;
+    this.isValidForm = false;
+    let formArr = <FormArray>this.roleGroup.controls.roles;
+    for (var i = 0; i < formArr.length; i++) {
+      if (formArr.at(i).value === true) {
+        this.isValidForm = true;
+      }
+    }
+    if (!this.isValidForm) {
+      valid = true;
+    }
+    return valid;
+  }
+
   getRoles() {
     this.rolesList = [
       { roleId: 1, roleName: 'Processor' },
@@ -65,11 +82,16 @@ export class AssignRolesComponent implements OnInit {
   }
   submit() {
     this.submitted = true;
-    const selectedRoleIds = this.roleGroup.value.roles
-      .map((v, i) => v ? this.rolesList[i].roleId : null)
-      .filter(v => v !== null);
-    this.userMgtService.saveRoleIDs(selectedRoleIds);
-    this.nextRoleTab.emit('WB');
+    const inValid = this.validateRoles();
+    if (inValid) {
+      return;
+    } else {
+      const selectedRoleIds = this.roleGroup.value.roles
+        .map((v, i) => v ? this.rolesList[i].roleId : null)
+        .filter(v => v !== null);
+      this.userMgtService.saveRoleIDs(selectedRoleIds);
+      this.nextRoleTab.emit('WB');
+    }
   }
   previousPage() {
     this.previousBasicTab.emit('INFO');

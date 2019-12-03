@@ -5,13 +5,14 @@ import { Subject } from "rxjs";
 import { BasicInfoModel } from '../basic-info/basic-info.model';
 import { AssignRolesModel } from './../assign-roles/assign-roles.model';
 import { AssignWBsModel } from './../assign-wb/assign-wb.model';
+import { BaseHttpService } from "./../../../services/base-http.service";
 
 @Injectable({ providedIn: "root" })
 export class UserMgtService {
-    public basicInfoDetails: BasicInfoModel;
-    public roleIDs: AssignRolesModel;
-    public wbs: AssignWBsModel;
-    constructor(private http: HttpClient, private router: Router) { }
+    public static basicInfoDetails: BasicInfoModel;
+    public static roleIDs: AssignRolesModel;
+    public static wbs: AssignWBsModel;
+    constructor(private http: HttpClient, private router: Router, public baseHTTPService: BaseHttpService) { }
     private updateBasicInfo = new Subject<BasicInfoModel>();
     private updateRoleIDs = new Subject<AssignRolesModel>();
     private updateWBs = new Subject<AssignWBsModel>();
@@ -29,29 +30,40 @@ export class UserMgtService {
     }
 
     saveBasicInfo(basicInfo) {
-        this.basicInfoDetails = basicInfo;
-        this.updateBasicInfo.next(this.basicInfoDetails);
+        UserMgtService.basicInfoDetails = basicInfo;
+        this.updateBasicInfo.next(UserMgtService.basicInfoDetails);
     }
 
     saveRoleIDs(roleIds) {
-        this.roleIDs = roleIds;
-        this.updateRoleIDs.next(this.roleIDs);
+        UserMgtService.roleIDs = roleIds;
+        this.updateRoleIDs.next(UserMgtService.roleIDs);
     }
 
     saveWBs(wbs) {
-        this.wbs = wbs;
-        this.updateWBs.next(this.wbs);
+        UserMgtService.wbs = wbs;
+        this.updateWBs.next(UserMgtService.wbs);
     }
 
     getBasicInfo() {
-        return this.basicInfoDetails;
+        return UserMgtService.basicInfoDetails;
     }
 
     getRoleIDs() {
-        return this.roleIDs;
+        return UserMgtService.roleIDs;
     }
 
     getWBs() {
-        return this.wbs;
+        return UserMgtService.wbs;
     }
+
+  saveUser(finalObject) {
+    this.baseHTTPService.post(finalObject, "api/user-management/create-user").subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        // alert("Something Went Wrong");
+      }
+    );
+  }
 }

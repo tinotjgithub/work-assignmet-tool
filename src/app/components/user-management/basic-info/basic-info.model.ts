@@ -1,4 +1,4 @@
-export interface BasicInfoModel {
+export class BasicInfoModel {
     firstName: string;
     lastName: string;
     // userID: string;
