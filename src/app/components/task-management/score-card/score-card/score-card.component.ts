@@ -25,6 +25,8 @@ export class ScoreCardComponent implements OnInit {
   submittedCont: boolean = false;
 
   actionList = Array<{ actionId: number, actionName: string }>();
+  userProductivityDto: any;
+  userStatusDto: any;
   constructor(public datePipe: DatePipe, private router: Router, fbprod: FormBuilder, fbcon: FormBuilder, private taskManagementService: TaskmanagementService) {
     const today = new Date();
     const current = new Date();
@@ -204,18 +206,25 @@ export class ScoreCardComponent implements OnInit {
 
   getDefaultProductiveDates() {
     this.taskManagementService.getProdScores("", "", "");
-    const userProductivityDto = this.taskManagementService.prodScoreResponse;
-    if (userProductivityDto && userProductivityDto.userProductivityDto) {
-      this.getProductivityChartValue(userProductivityDto.userProductivityDto);
+    this.userProductivityDto = this.taskManagementService.prodScoreResponse;
+    this.taskManagementService.getProdScoresListner().subscribe(data => {
+      this.userProductivityDto = data;
+    })
+    if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
+      this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
     }
   }
 
   getDefaultStatusDates() {
     this.taskManagementService.getStatusScores("", "", "");
-    const userStatusDto = this.taskManagementService.statusScoreResponse;
+    this.userStatusDto = this.taskManagementService.statusScoreResponse;
+    this.taskManagementService.getStatusScoresListner().subscribe(data => {
+      this.userStatusDto = data;
+    })
+
     this.datastatus = [];
-    if (userStatusDto && userStatusDto.userStatusDtos) {
-      userStatusDto.userStatusDtos.map(val => {
+    if (this.userStatusDto && this.userStatusDto.userStatusDtos) {
+      this.userStatusDto.userStatusDtos.map(val => {
         this.datastatus.push([val.status, val.claimCount]);
       })
     }
@@ -280,9 +289,12 @@ export class ScoreCardComponent implements OnInit {
     actionArray = (this.actionList.filter((val => val.actionId.toString() === actionValue)));
     const action = actionArray[0].actionName;
     this.taskManagementService.getProdScores(action, formattedFromDate, formattedToDate);
-    const userProductivityDto = this.taskManagementService.prodScoreResponse;
-    if (userProductivityDto && userProductivityDto.userProductivityDto) {
-      this.getProductivityChartValue(userProductivityDto.userProductivityDto);
+    this.userProductivityDto = this.taskManagementService.prodScoreResponse;
+    this.taskManagementService.getProdScoresListner().subscribe(data => {
+      this.userProductivityDto = data;
+    })
+    if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
+      this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
     }
   }
 
