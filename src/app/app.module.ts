@@ -9,11 +9,11 @@ import { ContainerComponent } from "./components/dashboard/container.component";
 import { NavigationBarComponent } from "./components/navigation-bar/navigation-bar.component";
 import bootstrap from "bootstrap";
 import { SidebarDirective } from "./sidebar.directive";
-import { BasicInfoComponent } from './components/user-management/basic-info/basic-info.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { AssignRolesComponent } from './components/user-management/assign-roles/assign-roles.component';
-import { AssignWbComponent } from './components/user-management/assign-wb/assign-wb.component';
+import { BasicInfoComponent } from "./components/user-management/basic-info/basic-info.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { NgbModule, NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
+import { AssignRolesComponent } from "./components/user-management/assign-roles/assign-roles.component";
+import { AssignWbComponent } from "./components/user-management/assign-wb/assign-wb.component";
 import { TaskManagementComponent } from "./components/task-management/task-management.component";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
@@ -22,14 +22,22 @@ import { AuthInterceptor } from "./services/auth/auth.interceptor";
 import { LoginComponent } from "./components/login/login/login.component";
 import { BaseHttpService } from "./services/base-http.service";
 import { DatePipe } from "@angular/common";
-import { YesNoModelComponent } from './components/yes-no-model/yes-no-model.component';
-import { ReprioritizeComponent } from './components/reprioritize/reprioritize.component';
-import { ToastComponent } from './components/toast.component';
-import { GoogleChartsModule } from 'angular-google-charts';
-import { DateParserFormatter } from './date-parser-formater';
-import { ScoreCardComponent } from './components/task-management/score-card/score-card/score-card.component';
-import { AuditModeComponent } from './components/task-management/audit-mode/audit-mode.component';
-
+import { YesNoModelComponent } from "./components/yes-no-model/yes-no-model.component";
+import { ReprioritizeComponent } from "./components/reprioritize/reprioritize.component";
+import { ToastComponent } from "./components/toast.component";
+import { GoogleChartsModule } from "angular-google-charts";
+import { DateParserFormatter } from "./date-parser-formater";
+import { ScoreCardComponent } from "./components/task-management/score-card/score-card/score-card.component";
+import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
+import { ReportsComponent } from "./components/reports/reports.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { ReportPageComponent } from "./components/reports/report-page/report-page.component";
+import { ListboxModule } from "primeng/listbox";
+import {MultiSelectModule} from 'primeng/multiselect';
+import {InputTextModule} from 'primeng/inputtext';
+import {SidebarModule} from 'primeng/sidebar';
+import {PanelMenuModule} from 'primeng/panelmenu';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +57,9 @@ import { AuditModeComponent } from './components/task-management/audit-mode/audi
     ReprioritizeComponent,
     ToastComponent,
     ScoreCardComponent,
-    AuditModeComponent
+    AuditModeComponent,
+    ReportsComponent,
+    ReportPageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +68,14 @@ import { AuditModeComponent } from './components/task-management/audit-mode/audi
     FormsModule,
     NgbModule,
     HttpClientModule,
-    GoogleChartsModule.forRoot(),
+    BrowserAnimationsModule,
+    ProgressSpinnerModule,
+    ListboxModule,
+    MultiSelectModule,
+    InputTextModule,
+    SidebarModule,
+    PanelMenuModule,
+    GoogleChartsModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -67,6 +84,5 @@ import { AuditModeComponent } from './components/task-management/audit-mode/audi
     DatePipe
   ],
   bootstrap: [AppComponent]
-  })
-
-  export class AppModule {}
+})
+export class AppModule {}

@@ -143,7 +143,6 @@ export class AssignWbComponent {
       "roleId": this.roleIDs,
       "userWorkBasketRequestDtos": this.assignWbs
     }];
-    console.log("finalObject: ", finalObject[0]);
     this.saveToService(finalObject[0]);
   }
 

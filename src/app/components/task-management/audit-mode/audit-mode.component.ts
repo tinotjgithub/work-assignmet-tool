@@ -28,29 +28,6 @@ export class AuditModeComponent implements OnInit, OnDestroy {
   comments: "";
   private claimDetailsSubscription: Subscription;
 
-  breakReasons: Array<BreakReasons> = [
-    {
-      value: 1,
-      label: "Coffee break"
-    },
-    {
-      value: 2,
-      label: "Lunch/dinner break"
-    },
-    {
-      value: 3,
-      label: "team Meeting"
-    },
-    {
-      value: 3,
-      label: "Personal Time"
-    },
-    {
-      value: 4,
-      label: "Done for the day"
-    }
-  ];
-
   ngOnInit() {
     (<any>$("[data-toggle=tooltip")).tooltip();
     this.taskTimerSubscription = this.taskManagementService
@@ -109,9 +86,4 @@ export class AuditModeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.taskTimerSubscription.unsubscribe();
   }
-}
-
-class BreakReasons {
-  value: number;
-  label: string;
 }
