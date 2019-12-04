@@ -10,7 +10,6 @@ import { AppComponent } from './../../../app.component';
   styleUrls: ["./audit-mode.component.css"]
 })
 export class AuditModeComponent implements OnInit, OnDestroy {
-  private taskTimerSubscription: Subscription;
   action: any;
 
   constructor(
@@ -57,6 +56,6 @@ export class AuditModeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.taskTimerSubscription.unsubscribe();
+
   }
 }

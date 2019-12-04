@@ -38,6 +38,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {InputTextModule} from 'primeng/inputtext';
 import {SidebarModule} from 'primeng/sidebar';
 import {PanelMenuModule} from 'primeng/panelmenu';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +76,7 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     InputTextModule,
     SidebarModule,
     PanelMenuModule,
+    BreadcrumbModule,
     GoogleChartsModule.forRoot()
   ],
   providers: [

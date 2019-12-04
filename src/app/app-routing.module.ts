@@ -15,42 +15,66 @@ const routes: Routes = [
   {
     path: "LandingPage",
     component: ScoreCardComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Home'}, {label: 'My Scorecard'}]
+    }
   },
   {
     path: "Dashboard",
     component: ContainerComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Dashboard'}, {label: 'My Dashboard'}]
+    }
   },
   {
     path: "UserManagement",
     component: UserManagementComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'User Management'}, {label: 'Manage Users'}]
+    }
   },
   {
     path: "Reprioritize",
     component: ReprioritizeComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Prioritization'}, {label: 'Reprioritize'}]
+    }
   },
   {
     path: "Reports",
     component: ReportsComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Reports'}, {label: 'My Reports'}]
+    }
   },
   {
     path: "MyScorecard",
     component: ScoreCardComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Actions'}, {label: 'My Scorecard'}]
+    }
   },
   {
     path: "DrawMode",
     component: DrawModeComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Actions'}, {label: 'Draw Mode'}]
+    }
   },
   {
     path: "AuditMode",
     component: AuditModeComponent,
-    canActivate: [RouteGuard]
+    canActivate: [RouteGuard],
+    data: {
+      breadcrumb: [{label: 'Actions'}, {label: 'Audit Mode'}]
+    }
   }
 ];
 

@@ -92,4 +92,24 @@ app.post("/api/draw-mode/update-task", (req, res, next) => {
   res.status(200).json(claim);
 });
 
+
+app.get("/api/audit-mode/audit-claim", (req, res, next) => {
+  const claim = {
+    "billedAmount": 0,
+    "claimId": "123",
+    "claimSource": "Source",
+    "claimType": "Type",
+    "entryDate": "2019-12-04T11:52:49.474Z",
+    "finalizedBy": "Me",
+    "finalizedDate": "2019-12-04T11:52:49.474Z",
+    "receiptDate": "2019-12-04T11:52:49.474Z",
+    "reviewRepairReason": "NO Reason",
+    "state": "state",
+    "workBasketName": "WB",
+    "taskAssignmentId": 3
+  }
+  res.status(200).json(claim);
+});
+
+
 module.exports = app;

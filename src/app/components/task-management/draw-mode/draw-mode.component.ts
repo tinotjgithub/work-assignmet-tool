@@ -3,6 +3,7 @@ import { TaskmanagementService } from "src/app/services/task-management/taskmana
 import { Subscription } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { AppComponent } from "./../../../app.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-draw-mode",
@@ -16,7 +17,8 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   constructor(
     private taskManagementService: TaskmanagementService,
     private datePype: DatePipe,
-    public app: AppComponent
+    public app: AppComponent,
+    private route: ActivatedRoute
   ) {}
   // These are important variables
   pause: boolean = false;
@@ -52,6 +54,8 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit() {
+    // Data:  { title: 'Company' }
+  this.route.data.subscribe(data => console.log(data));
     // Fetching first claim
     this.taskManagementService.getClaim();
 

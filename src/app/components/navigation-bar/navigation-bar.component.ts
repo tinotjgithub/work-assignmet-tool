@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuItem } from "primeng/api";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { HeaderService } from "src/app/services/header/header.service";
 
 @Component({
@@ -12,7 +12,11 @@ export class NavigationBarComponent implements OnInit {
   visibleSidebar1: boolean = false;
   items: MenuItem[];
 
-  constructor(private router: Router, private headerService: HeaderService) {}
+  constructor(
+    private router: Router,
+    private headerService: HeaderService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.visibleSidebar1 = this.headerService.openSideMenu;
@@ -31,6 +35,8 @@ export class NavigationBarComponent implements OnInit {
             command: e => {
               this.router.navigateByUrl("MyScorecard");
               this.visibleSidebar1 = false;
+              // Data:  { title: 'Company' }
+              this.route.data.subscribe(data => console.log(data));
             }
           },
           {
