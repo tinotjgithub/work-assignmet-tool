@@ -140,6 +140,7 @@ export class TaskmanagementService {
       .post(param, "api/data-dashboard/claims-per-user")
       .subscribe(data => {
         this.prodScoreResponse = data;
+        this.prodScoresFetch.next(this.prodScoreResponse);
         console.log("PRODUCTIVE DATA: ", this.prodScoreResponse);
       },
         error => {
@@ -160,6 +161,7 @@ export class TaskmanagementService {
       .post(param, "api/data-dashboard/claims-per-status")
       .subscribe(data => {
         this.statusScoreResponse = data;
+        this.statusScoresFetch.next(this.statusScoreResponse);
         console.log("STATUS DATA: ", this.statusScoreResponse);
       },
         error => {
