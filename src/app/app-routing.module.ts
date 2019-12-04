@@ -6,12 +6,15 @@ import { TaskManagementComponent } from "./components/task-management/task-manag
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { LoginComponent } from "./components/login/login/login.component";
 import { ReprioritizeComponent } from "./components/reprioritize/reprioritize.component";
-import { ReportsComponent } from './components/reports/reports.component';
+import { ReportsComponent } from "./components/reports/reports.component";
+import { ScoreCardComponent } from "./components/task-management/score-card/score-card/score-card.component";
+import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
+import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
 const routes: Routes = [
   { path: "", component: LoginComponent },
   {
     path: "LandingPage",
-    component: TaskManagementComponent,
+    component: ScoreCardComponent,
     canActivate: [RouteGuard]
   },
   {
@@ -32,6 +35,21 @@ const routes: Routes = [
   {
     path: "Reports",
     component: ReportsComponent,
+    canActivate: [RouteGuard]
+  },
+  {
+    path: "MyScorecard",
+    component: ScoreCardComponent,
+    canActivate: [RouteGuard]
+  },
+  {
+    path: "DrawMode",
+    component: DrawModeComponent,
+    canActivate: [RouteGuard]
+  },
+  {
+    path: "AuditMode",
+    component: AuditModeComponent,
     canActivate: [RouteGuard]
   }
 ];

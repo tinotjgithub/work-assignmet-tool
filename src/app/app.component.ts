@@ -13,6 +13,7 @@ import { ToastService } from "./services/toast.service";
 export class AppComponent implements OnInit {
   title = "work-assignment-tool";
   isAuthenticated: boolean;
+  clicked = false;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -53,5 +54,10 @@ export class AppComponent implements OnInit {
       header: false,
       headertext: header
     });
+  }
+
+  menuClickedEvent(clicked) {
+    this.clicked = clicked;
+    alert(this.clicked);
   }
 }

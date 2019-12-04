@@ -1,20 +1,40 @@
 :host ::ng-deep .ui-panelmenu .ui-panelmenu-content {
   border: none;
   background-color: transparent;
-
 }
 
 :host ::ng-deep .ui-panelmenu .ui-panelmenu-header > a {
   border: none;
   background-color: transparent;
   color: white;
-  margin-top: 50px;
 }
 
-:host ::ng-deep .ui-sidebar{
+:host ::ng-deep .ui-sidebar {
   background-color: #0f477e;
 }
 
-:host ::ng-deep .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link {
+:host
+  ::ng-deep
+  .ui-panelmenu
+  .ui-panelmenu-content
+  .ui-menuitem
+  .ui-menuitem-link {
+  color: white;
+}
+
+:host ::ng-deep .ui-menuitem {
+  padding-left: 15px;
+}
+
+:host ::ng-deep .ui-menuitem-text {
+  margin-left: 10px;
+}
+
+:host ::ng-deep .ui-menuitem-link:focus {
+  color: #eaeaea;
+}
+
+
+:host ::ng-deep .pi-times:before {
   color: white;
 }
