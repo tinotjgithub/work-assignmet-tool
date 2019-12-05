@@ -2,7 +2,7 @@
   <div>
     <button type="button" data-toggle="modal" data-target="#audit-mode-modal" class="btn btn-success m-2">Accept</button>
 
-    <button (click)="setAction('pend')" type="button" class="btn btn-secondary m-2 " data-toggle="collapse"
+    <button (click)="setAction('REJECT')" type="button" class="btn btn-secondary m-2 " data-toggle="collapse"
       href="#collapseRoute">Deny</button>
   </div>
 </div>
@@ -35,9 +35,9 @@
             style="margin: 15px" #userinput>
         </div>
         <div class="row">
-            <input class="form-control col" type="text" value="Reviewed By" readonly style="margin: 15px">
-            <input class="form-control col readonly" type="text" value={{claimDetails.reviewedBy}} readonly
-              style="margin: 15px" #userinput>
+            <input class="form-control col" type="text" value="Finalized By" readonly style="margin: 15px">
+            <input class="form-control col readonly" type="text" value={{claimDetails.finalizedBy}} readonly
+              style="margin: 15px">
           </div>
         <div class="row">
           <input class="form-control col" type="text" value="Type" readonly style="margin: 15px">
@@ -104,9 +104,9 @@
             readonly style="margin: 15px">
         </div>
         <div class="row">
-          <input class="form-control col" type="text" value="Age" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="{{claimDetails.age}}" style="margin: 15px"
-            readonly>
+          <input class="form-control col" type="text" value="Finalized Date" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text"
+            value="{{claimDetails.finalizedDate | date: 'dd/MM/yyyy'}} " readonly style="margin: 15px">
         </div>
       </div>
     </div>
@@ -114,5 +114,5 @@
 
 
   <app-yes-no-model modeId = "audit-mode-modal" modalTitle="Complete Claim?" modalBody="Accept Claim and move to next Claim ?"
-    modalYesButtonText="OK" modalNoButtonText="Cancel">
+    modalYesButtonText="OK" modalNoButtonText="Cancel" (yesEvent)="triggerClaimCompletion('ACCEPT')" >
   </app-yes-no-model>

@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { BaseHttpService } from "../base-http.service";
-
-const BACKEND_URL = "http://localhost:3000/";
+import AuditClaim from "./models/AuditClaim";
+import AssignAuditTask from "./models/AuditAssingTask";
 @Injectable({
   providedIn: "root"
 })
@@ -15,6 +15,9 @@ export class TaskmanagementService {
   private claimDetailsSub = new Subject<any>();
   private conScoresFetch = new Subject<any>();
   private userId = "abc@abc.com";
+  private auditClaimDetailsSub = new Subject<AuditClaim>();
+
+  private loggedInUserEmail = "admin@promt.com";
   private taskTimerSub = new Subject<{
     timer: string;
     timerColor: string;
@@ -42,6 +45,8 @@ export class TaskmanagementService {
   statusScoreResponse: any;
   conScoreResponse: any;
   seconds: number;
+  auditClaimDetails: AuditClaim;
+  assignAuditTaskResponse: AssignAuditTask;
 
   constructor(public baseHTTPService: BaseHttpService) {
     this.startTimer();
@@ -70,6 +75,10 @@ export class TaskmanagementService {
 
   getClaimDetailsListener() {
     return this.claimDetailsSub.asObservable();
+  }
+
+  getAuditClaimDetailsListener() {
+    return this.auditClaimDetailsSub.asObservable();
   }
 
   resetTaskTimer() {
@@ -188,7 +197,8 @@ export class TaskmanagementService {
       },
         error => {
           // alert("Something Went Wrong");
-        });
+        }
+      );
     // this.statusScoreResponse = {
     //   "userProductivityDto": null,
     //   "userStatusDtos": [
@@ -206,15 +216,13 @@ export class TaskmanagementService {
     //     }
     //   ]
     // }
-
-
   }
 
   assignTask() {
     const param = {
       workItemType: this.claimDetails.claimType,
       workItemId: this.claimDetails.claimId,
-      primaryEmail: this.userId,
+      primaryEmail: this.loggedInUserEmail,
       startTime: new Date()
     };
     this.baseHTTPService
@@ -229,7 +237,7 @@ export class TaskmanagementService {
       taskId: this.assignTaskResponse.taskId,
       workItemId: this.assignTaskResponse.workItemId,
       workItemType: this.assignTaskResponse.workItemType,
-      primaryEmail: this.userId,
+      primaryEmail: this.loggedInUserEmail,
       startTime: this.assignTaskResponse.startTime,
       action,
       finishTime: timeStamp,
@@ -244,5 +252,46 @@ export class TaskmanagementService {
         alert("Something Went Wrong");
       }
     );
+  }
+
+  getAuditClaim() {
+    this.baseHTTPService
+      .get("api/audit-mode/audit-claim?primaryEmail=admin@promt.com")
+      .subscribe(claim => {
+        this.auditClaimDetails = claim;
+        this.auditClaimDetailsSub.next(this.auditClaimDetails);
+        this.assignAuditTask();
+      });
+  }
+
+  assignAuditTask() {
+    const param = {
+      taskAssignmentId: this.auditClaimDetails.taskAssignmentId,
+      auditorPrimaryEmail: this.loggedInUserEmail
+    };
+
+    this.baseHTTPService
+      .post(param, "api/audit-mode/assign-task")
+      .subscribe(data => {
+        this.assignAuditTaskResponse = data;
+      });
+  }
+
+  saveAndNavigateToNextAuditClaim(action, timeStamp, comments) {
+    this.assignAuditTaskResponse["auditorComments"] = comments;
+    this.assignAuditTaskResponse["auditorAction"] = action;
+    this.assignAuditTaskResponse[
+      "auditorPrimaryEmail"
+    ] = this.loggedInUserEmail;
+    this.baseHTTPService
+      .post(this.assignAuditTaskResponse, "api/draw-mode/update-task")
+      .subscribe(
+        data => {
+          this.getAuditClaim();
+        },
+        error => {
+          alert("Something Went Wrong");
+        }
+      );
   }
 }
