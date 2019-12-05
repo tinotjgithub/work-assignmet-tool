@@ -15,7 +15,7 @@ export class TaskmanagementService {
   private claimDetailsSub = new Subject<any>();
   private auditClaimDetailsSub = new Subject<AuditClaim>();
 
-  private loggedInUserEmail = "abc@abc.com";
+  private loggedInUserEmail = "admin@promt.com";
   private taskTimerSub = new Subject<{
     timer: string;
     timerColor: string;
@@ -236,7 +236,7 @@ export class TaskmanagementService {
 
   getAuditClaim() {
     this.baseHTTPService
-      .get("api/audit-mode/audit-claim?primaryEmail=abc@abc.com")
+      .get("api/audit-mode/audit-claim?primaryEmail=admin@promt.com")
       .subscribe(claim => {
         this.auditClaimDetails = claim;
         this.auditClaimDetailsSub.next(this.auditClaimDetails);
