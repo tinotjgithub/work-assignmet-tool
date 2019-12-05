@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
 import { Subscription } from "rxjs";
 import { DatePipe } from "@angular/common";
-import { AppComponent } from './../../../app.component';
+import { AppComponent } from "./../../../app.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-draw-mode",
@@ -16,7 +17,8 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   constructor(
     private taskManagementService: TaskmanagementService,
     private datePype: DatePipe,
-    public app: AppComponent
+    public app: AppComponent,
+    private route: ActivatedRoute
   ) {}
   // These are important variables
   pause: boolean = false;
@@ -52,6 +54,11 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit() {
+    // Data:  { title: 'Company' }
+  this.route.data.subscribe(data => console.log(data));
+    // Fetching first claim
+    this.taskManagementService.getClaim();
+
     (<any>$("[data-toggle=tooltip")).tooltip();
     this.taskTimerSubscription = this.taskManagementService
       .getTaskTimerListener()
@@ -103,7 +110,10 @@ export class DrawModeComponent implements OnInit, OnDestroy {
       comments
     );
     this.comments = "";
-    this.app.showSuccess("Claim(s) moved to "+ action +" status successfully!!", "SUCCESS");
+    this.app.showSuccess(
+      "Claim(s) moved to " + action + " status successfully!!",
+      "SUCCESS"
+    );
   }
 
   ngOnDestroy(): void {

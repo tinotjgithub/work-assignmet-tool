@@ -1,41 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;margin-top: 10px">
-  <button class="openbtn" (click)="visibleSidebar1 = true">☰</button>
-  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="'/LandingPage'">Home<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/Dashboard'">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/UserManagement'">User Management</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/Reports'">Reports</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/Reprioritize'">Reprioritize</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " [routerLink]="'/Administration'">Administration</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/Administration'">Help</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-          aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-        </div>
-      </li>
-    </ul>
+<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+  <div style="margin-top: 50px">
+    <p-panelMenu [model]="items" [multiple]="false"></p-panelMenu>
   </div>
-</nav>
-
-<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000" [showCloseIcon] = "false" >
-  <p-panelMenu [model]="items" [multiple] = "false"></p-panelMenu>
 </p-sidebar>

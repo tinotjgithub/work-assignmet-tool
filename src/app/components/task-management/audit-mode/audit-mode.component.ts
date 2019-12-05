@@ -10,7 +10,6 @@ import { AppComponent } from './../../../app.component';
   styleUrls: ["./audit-mode.component.css"]
 })
 export class AuditModeComponent implements OnInit, OnDestroy {
-  private taskTimerSubscription: Subscription;
   action: any;
 
   constructor(
@@ -18,11 +17,7 @@ export class AuditModeComponent implements OnInit, OnDestroy {
     private datePype: DatePipe,
     public app: AppComponent
   ) {}
-  // These are important variables
-  pause: boolean = false;
-  timer: string = "00:00:00";
-  timerColor: string = "#00bf96";
-  timerFadeColor: string = "#00816a";
+
   claimDetails: any;
   showCompleteClaimModal = false;
   comments: "";
@@ -30,19 +25,6 @@ export class AuditModeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     (<any>$("[data-toggle=tooltip")).tooltip();
-    this.taskTimerSubscription = this.taskManagementService
-      .getTaskTimerListener()
-      .subscribe(
-        (timerDetails: {
-          timer: string;
-          timerColor: string;
-          timerFadeColor: string;
-        }) => {
-          this.timer = timerDetails.timer;
-          this.timerColor = timerDetails.timerColor;
-          this.timerFadeColor = timerDetails.timerFadeColor;
-        }
-      );
 
     this.claimDetails = this.taskManagementService.claimDetails;
     this.claimDetailsSubscription = this.taskManagementService
@@ -50,16 +32,6 @@ export class AuditModeComponent implements OnInit, OnDestroy {
       .subscribe((claimDetails: any) => {
         this.claimDetails = claimDetails;
       });
-  }
-
-  setPause() {
-    this.pause = !this.pause;
-    if (this.pause) {
-      this.taskManagementService.pauseTimer();
-    } else {
-      this.taskManagementService.startTimer();
-      this.taskTimerSubscription.add();
-    }
   }
 
   setAction(value) {
@@ -84,6 +56,6 @@ export class AuditModeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.taskTimerSubscription.unsubscribe();
+
   }
 }
