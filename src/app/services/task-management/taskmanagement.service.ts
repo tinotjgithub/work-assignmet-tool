@@ -265,7 +265,7 @@ export class TaskmanagementService {
       "auditorPrimaryEmail"
     ] = this.loggedInUserEmail;
     this.baseHTTPService
-      .post(this.assignAuditTaskResponse, "api/draw-mode/update-task")
+      .post(this.assignAuditTaskResponse, "api/audit-mode/update-auditor-task")
       .subscribe(
         data => {
           this.getAuditClaim();
