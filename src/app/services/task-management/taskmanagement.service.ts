@@ -64,7 +64,6 @@ export class TaskmanagementService {
     return this.statusScoresFetch.asObservable();
   }
 
-
   getConScoresListner() {
     return this.conScoresFetch.asObservable();
   }
@@ -130,9 +129,8 @@ export class TaskmanagementService {
 
   getClaim() {
     this.baseHTTPService
-      .get("api/draw-mode/draw-claim?primaryEmail="+ this.loggedInUserEmail)
+      .get("api/draw-mode/draw-claim?primaryEmail=" + this.loggedInUserEmail)
       .subscribe(claim => {
-        console.log(claim)
         let clonedObject = claim;
         Object.assign(clonedObject, {
           age: this.getDiffDays(
@@ -155,15 +153,16 @@ export class TaskmanagementService {
     };
     this.baseHTTPService
       .post(param, "api/data-dashboard/claims-per-user")
-      .subscribe(data => {
-        this.prodScoreResponse = data;
-        this.prodScoresFetch.next(this.prodScoreResponse);
-      },
+      .subscribe(
+        data => {
+          this.prodScoreResponse = data;
+          this.prodScoresFetch.next(this.prodScoreResponse);
+        },
         error => {
           // alert("Something Went Wrong");
-        });
+        }
+      );
   }
-
 
   getConScores(action, fromDate, toDate) {
     const param = {
@@ -174,13 +173,15 @@ export class TaskmanagementService {
     };
     this.baseHTTPService
       .post(param, "api/data-dashboard/claims-per-contribution")
-      .subscribe(data => {
-        this.conScoreResponse = data;
-        this.conScoresFetch.next(this.conScoreResponse);
-      },
+      .subscribe(
+        data => {
+          this.conScoreResponse = data;
+          this.conScoresFetch.next(this.conScoreResponse);
+        },
         error => {
           // alert("Something Went Wrong");
-        });
+        }
+      );
   }
 
   getStatusScores(action, fromDate, toDate) {
@@ -192,10 +193,11 @@ export class TaskmanagementService {
     };
     this.baseHTTPService
       .post(param, "api/data-dashboard/claims-per-status")
-      .subscribe(data => {
-        this.statusScoreResponse = data;
-        this.statusScoresFetch.next(this.statusScoreResponse);
-      },
+      .subscribe(
+        data => {
+          this.statusScoreResponse = data;
+          this.statusScoresFetch.next(this.statusScoreResponse);
+        },
         error => {
           // alert("Something Went Wrong");
         }
@@ -256,13 +258,11 @@ export class TaskmanagementService {
   }
 
   getAuditClaim() {
-    this.baseHTTPService
-      .get("api/audit-mode/audit-claim")
-      .subscribe(claim => {
-        this.auditClaimDetails = claim;
-        this.auditClaimDetailsSub.next(this.auditClaimDetails);
-        this.assignAuditTask();
-      });
+    this.baseHTTPService.get("api/audit-mode/audit-claim").subscribe(claim => {
+      this.auditClaimDetails = claim;
+      this.auditClaimDetailsSub.next(this.auditClaimDetails);
+      this.assignAuditTask();
+    });
   }
 
   assignAuditTask() {
@@ -284,6 +284,9 @@ export class TaskmanagementService {
     this.assignAuditTaskResponse[
       "auditorPrimaryEmail"
     ] = this.loggedInUserEmail;
+    this.assignAuditTaskResponse[
+      "processorPrimaryEmail"
+    ] = this.auditClaimDetails.finalizedBy;
     this.baseHTTPService
       .post(this.assignAuditTaskResponse, "api/audit-mode/update-auditor-task")
       .subscribe(
