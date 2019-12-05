@@ -23,11 +23,13 @@ export class ScoreCardComponent implements OnInit {
   datacontribution: any;
   submittedProd: boolean = false;
   isProdRendered: boolean = false;
+  isConRendered: boolean = false;
   isStatusRendered: boolean = false;
-  submittedCont: boolean = false;
+  submittedCon: boolean = false;
 
   actionList = Array<{ actionId: number, actionName: string }>();
   userProductivityDto: any;
+  userContributionDto: any;
   userStatusDto: any;
   constructor(public datePipe: DatePipe, private router: Router, fbprod: FormBuilder, fbcon: FormBuilder, private taskManagementService: TaskmanagementService) {
     const today = new Date();
@@ -46,16 +48,16 @@ export class ScoreCardComponent implements OnInit {
     this.productiveDates = fbprod.group({
       fromDateProductive: [lastWeek, Validators.required],
       toDateProductive: [currentDate, Validators.required],
-      actionProductive: ['', Validators.required]
+      actionProductive: ['']
     })
     this.contributionDates = fbcon.group({
       fromDateContribution: [lastWeek, Validators.required],
       toDateContribution: [currentDate, Validators.required],
-      actionContribution: ['', Validators.required]
+      actionContribution: ['']
     })
   }
   get prod() { return this.productiveDates.controls; }
-  get cont() { return this.contributionDates.controls; }
+  get con() { return this.contributionDates.controls; }
   status: boolean = false;
   myData = [
     ["Active", 100],
@@ -214,11 +216,21 @@ export class ScoreCardComponent implements OnInit {
       if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
         this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
       }
-      console.log("this.dataproductivity : ", this.dataproductivity);
       this.isProdRendered = true;
-      //  this.dataproductivity = [["Monday", 1], ["Tuesday", 2], ["Wednesday", 3]];       
     })
 
+  }
+
+  getDefaultContributionDates() {
+    this.taskManagementService.getConScores("", "", "");
+    this.userContributionDto = this.taskManagementService.conScoreResponse;
+    this.taskManagementService.getConScoresListner().subscribe(data => {
+      this.userContributionDto = data;
+      if (this.userContributionDto && this.userContributionDto.userContributionDtos) {
+        this.getContributionChartValue(this.userContributionDto.userContributionDtos);
+      }
+      this.isConRendered = true;
+    })
   }
 
   getDefaultStatusDates() {
@@ -235,6 +247,24 @@ export class ScoreCardComponent implements OnInit {
       this.isStatusRendered = true;
     })
   }
+  getContributionChartValue(responseValue: any) {
+    let responseLength = responseValue.length;
+    this.datacontribution = [];
+    var day = [];
+    const firstDate = moment(responseValue[0].finishDate);
+    const secondDate = moment(responseValue[responseLength - 1].finishDate);
+    for (var index = 0; index < responseLength; index++) {
+      const firstDay: Date = responseValue[0].finishDate;
+      let dates = new Date(firstDay);
+      const day = this.datePipe.transform(responseValue[index].finishDate, 'EEEE');
+      const totalClaims = (responseValue[index].userClaimCount + responseValue[index].teamClaimCount);
+      const userClaimPercentage = (responseValue[index].userClaimCount / totalClaims).toFixed(2);
+      const teamClaimPercentage = (responseValue[index].teamClaimCount / totalClaims).toFixed(2);
+      const usr = parseFloat(userClaimPercentage);
+      const team = parseFloat(teamClaimPercentage);
+      this.datacontribution.push([day, team, usr]);
+    }
+  }
 
   getProductivityChartValue(responseValue: any) {
     let responseLength = responseValue.length;
@@ -250,38 +280,23 @@ export class ScoreCardComponent implements OnInit {
     }
   }
 
-  getDefaultContributionDates() {
-    this.contributionDateValue = this.contributionDates.value;
-    const formattedDate = this.contributionDateValue.fromDateContribution.year + '-' + this.contributionDateValue.fromDateContribution.month + '-' + this.contributionDateValue.fromDateContribution.day;
-    var day = [];
-    for (var conDate = 7; conDate > 0; conDate--) {
-      var dates = new Date(formattedDate);
-      const contributionDays = dates.setDate(dates.getDate() - conDate);
-      day.push(this.datePipe.transform(contributionDays, 'EEEE'));
-    }
-    this.datacontribution = [
-      [day[0], 0.5, 0.5],
-      [day[1], 0.3, 0.7],
-      [day[2], 0.3, 0.7],
-      [day[3], 0.55, 0.45],
-      [day[4], 0.5, 0.5],
-      [day[5], 0.6, 0.4]
-    ];
-  }
-
   getContributionDays() {
-    this.contributionDateValue = this.contributionDates.value;
-    const formattedDate = this.contributionDateValue.fromDateContribution.year + '-' + this.contributionDateValue.fromDateContribution.month + '-' + this.contributionDateValue.fromDateContribution.day;
-    var day = [];
-    for (var conDate = 2; conDate > 0; conDate--) {
-      var dates = new Date(formattedDate);
-      const contributionDays = dates.setDate(dates.getDate() - conDate);
-      day.push(this.datePipe.transform(contributionDays, 'EEEE'));
-    }
-    this.datacontribution = [
-      [day[0], 0.5, 0.5],
-      [day[1], 0.3, 0.7],
-    ];
+    const actionValue = this.contributionDates.get('actionContribution').value;
+    const fromDateValue = this.contributionDates.get('fromDateContribution').value;
+    const toDateValue = this.contributionDates.get('toDateContribution').value;
+    const formattedFromDate = this.datePipe.transform((fromDateValue.year + '-' + fromDateValue.month + '-' + fromDateValue.day), 'yyyy-MM-dd');
+    const formattedToDate = this.datePipe.transform((toDateValue.year + '-' + toDateValue.month + '-' + toDateValue.day), 'yyyy-MM-dd');
+    let actionArray = [];
+    actionArray = (this.actionList.filter((val => val.actionId.toString() === actionValue)));
+    const action = actionArray && actionArray[0] && actionArray[0].actionName ? actionArray[0].actionName : '';
+    this.taskManagementService.getConScores(action, formattedFromDate, formattedToDate);
+    this.userContributionDto = this.taskManagementService.conScoreResponse;
+    this.taskManagementService.getConScoresListner().subscribe(data => {
+      this.userContributionDto = data;
+      if (this.userContributionDto && this.userContributionDto.userContributionDtos) {
+        this.getContributionChartValue(this.userContributionDto.userContributionDtos);
+      }
+    })
   }
 
   getProductiveDays() {
@@ -293,7 +308,7 @@ export class ScoreCardComponent implements OnInit {
     const formattedToDate = this.datePipe.transform((toDateValue.year + '-' + toDateValue.month + '-' + toDateValue.day), 'yyyy-MM-dd');
     let actionArray = [];
     actionArray = (this.actionList.filter((val => val.actionId.toString() === actionValue)));
-    const action = actionArray[0].actionName;
+    const action = actionArray && actionArray[0] && actionArray[0].actionName ? actionArray[0].actionName : '';
     this.taskManagementService.getProdScores(action, formattedFromDate, formattedToDate);
     this.userProductivityDto = this.taskManagementService.prodScoreResponse;
     this.taskManagementService.getProdScoresListner().subscribe(data => {
@@ -311,29 +326,57 @@ export class ScoreCardComponent implements OnInit {
       { actionId: 3, actionName: 'route' }
     ];
   }
-  validateProductiveDates(): boolean {
-    let valid = true;
-    const fromDate = this.productiveDates.get('fromDateProductive').value;
-    const toDate = this.productiveDates.get('toDateProductive').value;
+
+  validateDates(fromDate: any, toDate: any): any {
     const formattedFromDate = this.datePipe.transform((fromDate.year + '-' + fromDate.month + '-' + fromDate.day), 'yyyy-MM-dd');
     const formattedToDate = this.datePipe.transform((toDate.year + '-' + toDate.month + '-' + toDate.day), 'yyyy-MM-dd');
-
     const firstDate = moment(formattedFromDate);
     const secondDate = moment(formattedToDate);
     const diffInDays = Math.abs(firstDate.diff(secondDate, 'days'))
-    if (firstDate > secondDate || diffInDays >= 6) {
-      this.productiveDates.get('fromDateProductive').setErrors({ 'incorrect': true });
-    }
-    if (this.productiveDates.invalid) {
+    return { "firstDate": firstDate, "secondDate": secondDate, "difference": diffInDays };
+  }
+
+  validateProdDates(DateObj: any) {
+    let valid = true;
+    if (DateObj.firstDate > DateObj.secondDate) {
+      this.productiveDates.get('fromDateProductive').setErrors({ 'incorrectLimit': true });
       valid = false;
+    }
+    else if (DateObj.difference > 5) {
+      this.productiveDates.get('fromDateProductive').setErrors({ 'incorrectDiff': true });
+      valid = false;
+    }
+    else {
+      this.productiveDates.get('fromDateProductive').setErrors({ 'incorrectDiff': false });
+      this.productiveDates.get('fromDateProductive').setErrors({ 'incorrectLimit': false });
+      valid = true;
+    }
+    return valid;
+  }
+
+  validateConDates(dateObj: any) {
+    let valid = true;
+    if (dateObj.firstDate > dateObj.secondDate) {
+      this.contributionDates.get('fromDateContribution').setErrors({ 'incorrectLimit': true });
+      valid = false;
+    }
+    else if (dateObj.difference > 5) {
+      this.contributionDates.get('fromDateContribution').setErrors({ 'incorrectDiff': true });
+      valid = false;
+    } else {
+      this.contributionDates.get('fromDateContribution').setErrors({ 'incorrectDiff': false });
+      this.contributionDates.get('fromDateContribution').setErrors({ 'incorrectLimit': false });
+      valid = true;
     }
     return valid;
   }
 
   onSubmitProductive() {
     this.submittedProd = true;
-    // this.getProductiveDays();
-    const isValid = this.validateProductiveDates();
+    const fromDate = this.productiveDates.get('fromDateProductive').value;
+    const toDate = this.productiveDates.get('toDateProductive').value;
+    const dateObj = this.validateDates(fromDate, toDate);
+    const isValid = this.validateProdDates(dateObj);
     if (!isValid) {
       return;
     } else {
@@ -342,8 +385,12 @@ export class ScoreCardComponent implements OnInit {
   }
 
   onSubmitContribution() {
-    this.submittedCont = true;
-    if (this.contributionDates.invalid) {
+    this.submittedCon = true;
+    const fromDate = this.contributionDates.get('fromDateContribution').value;
+    const toDate = this.contributionDates.get('toDateContribution').value;
+    const dateObj = this.validateDates(fromDate, toDate);
+    const isValid = this.validateConDates(dateObj);
+    if (!isValid) {
       return;
     } else {
       this.getContributionDays();
