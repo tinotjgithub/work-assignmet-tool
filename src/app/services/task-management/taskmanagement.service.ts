@@ -122,8 +122,9 @@ export class TaskmanagementService {
 
   getClaim() {
     this.baseHTTPService
-      .get("api/draw-mode/draw-claim?primaryEmail=abc@abc.com")
+      .get("api/draw-mode/draw-claim?primaryEmail="+ this.loggedInUserEmail)
       .subscribe(claim => {
+        console.log(claim)
         let clonedObject = claim;
         Object.assign(clonedObject, {
           age: this.getDiffDays(
@@ -236,7 +237,7 @@ export class TaskmanagementService {
 
   getAuditClaim() {
     this.baseHTTPService
-      .get("api/audit-mode/audit-claim?primaryEmail=admin@promt.com")
+      .get("api/audit-mode/audit-claim")
       .subscribe(claim => {
         this.auditClaimDetails = claim;
         this.auditClaimDetailsSub.next(this.auditClaimDetails);
