@@ -104,7 +104,7 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   }
 
   triggerClaimCompletion(action = "complete", comments = this.comments) {
-    this.taskManagementService.saveAndNavigateToNextAuditClaim(
+    this.taskManagementService.saveAndNavigateToNextClaim(
       action,
       new Date(),
       comments

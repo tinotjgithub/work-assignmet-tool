@@ -113,25 +113,25 @@ app.get("/api/audit-mode/audit-claim", (req, res, next) => {
 
 app.post("/api/audit-mode/assign-task", (req, res, next) => {
   const claim = {
-      "auditTaskId":1,
-      "auditorAction": null,
-      "auditorComments": null,
-      "auditorID": "bbb@abc.com",
-      "createdAt": "2019-12-05T09:22:24.635Z",
-      "auditorPrimaryEmail": "bbb@abc.com",
-      "processorPrimaryEmail": "abc@abc.com",
-      "processorAction": "Accept",
-      "processorComments": "No Comments",
-      "processorId": "abc@abc.com",
-      "taskAssignmentId": 3,
-      "verificationCriteria": "No Idea"
-    }
+    "auditTaskId": 1,
+    "auditorAction": null,
+    "auditorComments": null,
+    "auditorID": "bbb@abc.com",
+    "createdAt": "2019-12-05T09:22:24.635Z",
+    "auditorPrimaryEmail": "bbb@abc.com",
+    "processorPrimaryEmail": "abc@abc.com",
+    "processorAction": "Accept",
+    "processorComments": "No Comments",
+    "processorId": "abc@abc.com",
+    "taskAssignmentId": 3,
+    "verificationCriteria": "No Idea"
+  }
   res.status(200).json(claim);
 });
 
-app.post("/api/draw-mode/update-task", (req, res, next) => {
+app.post("/api/audit-mode/update-auditor-task", (req, res, next) => {
   console.log(req.body);
-  res.status(200).json(claim);
+  res.status(200).json({ success: true });
 });
 
 module.exports = app;
