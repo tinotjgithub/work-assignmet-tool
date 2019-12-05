@@ -35,8 +35,8 @@
             style="margin: 15px" #userinput>
         </div>
         <div class="row">
-            <input class="form-control col" type="text" value="Reviewed By" readonly style="margin: 15px">
-            <input class="form-control col readonly" type="text" value={{claimDetails.reviewedBy}} readonly
+            <input class="form-control col" type="text" value="Finalized By" readonly style="margin: 15px">
+            <input class="form-control col readonly" type="text" value={{claimDetails.finalizedBy}} readonly
               style="margin: 15px" #userinput>
           </div>
         <div class="row">
@@ -104,9 +104,9 @@
             readonly style="margin: 15px">
         </div>
         <div class="row">
-          <input class="form-control col" type="text" value="Age" readonly style="margin: 15px">
-          <input class="form-control col readonly" type="text" value="{{claimDetails.age}}" style="margin: 15px"
-            readonly>
+          <input class="form-control col" type="text" value="Finalized Date" readonly style="margin: 15px">
+          <input class="form-control col readonly" type="text"
+            value="{{claimDetails.finalizedDate | date: 'dd/MM/yyyy'}} " readonly style="margin: 15px">
         </div>
       </div>
     </div>

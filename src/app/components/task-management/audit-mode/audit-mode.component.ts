@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
 import { Subscription } from "rxjs";
 import { DatePipe } from "@angular/common";
-import { AppComponent } from './../../../app.component';
+import { AppComponent } from "./../../../app.component";
+import AuditClaim from "src/app/services/task-management/models/AuditClaim";
 
 @Component({
   selector: "app-audit-mode",
@@ -18,20 +19,20 @@ export class AuditModeComponent implements OnInit, OnDestroy {
     public app: AppComponent
   ) {}
 
-  claimDetails: any;
+  claimDetails: AuditClaim;
   showCompleteClaimModal = false;
   comments: "";
   private claimDetailsSubscription: Subscription;
 
   ngOnInit() {
     (<any>$("[data-toggle=tooltip")).tooltip();
-
-    this.claimDetails = this.taskManagementService.claimDetails;
+    this.claimDetails = this.taskManagementService.auditClaimDetails;
     this.claimDetailsSubscription = this.taskManagementService
-      .getClaimDetailsListener()
-      .subscribe((claimDetails: any) => {
+      .getAuditClaimDetailsListener()
+      .subscribe((claimDetails: AuditClaim) => {
         this.claimDetails = claimDetails;
       });
+    this.taskManagementService.getAuditClaim();
   }
 
   setAction(value) {
@@ -46,16 +47,17 @@ export class AuditModeComponent implements OnInit, OnDestroy {
   }
 
   triggerClaimCompletion(action = "complete", comments = this.comments) {
-    this.taskManagementService.saveAndNavigateToNextClaim(
+    this.taskManagementService.saveAndNavigateToNextAuditClaim(
       action,
       new Date(),
       comments
     );
     this.comments = "";
-    this.app.showSuccess("Claim(s) moved to "+ action +" status successfully!!", "SUCCESS");
+    this.app.showSuccess(
+      "Claim(s) moved to " + action + " status successfully!!",
+      "SUCCESS"
+    );
   }
 
-  ngOnDestroy(): void {
-
-  }
+  ngOnDestroy(): void {}
 }
