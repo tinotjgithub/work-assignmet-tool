@@ -46,7 +46,7 @@ export class AuditModeComponent implements OnInit, OnDestroy {
     inputElement.setSelectionRange(0, 0);
   }
 
-  triggerClaimCompletion(action = "complete", comments = this.comments) {
+  triggerClaimCompletion(action = "ACCEPT", comments = this.comments) {
     this.taskManagementService.saveAndNavigateToNextAuditClaim(
       action,
       new Date(),

@@ -254,8 +254,6 @@ export class TaskmanagementService {
       .post(param, "api/audit-mode/assign-task")
       .subscribe(data => {
         this.assignAuditTaskResponse = data;
-        console.log("Assign Resp", this.assignAuditTaskResponse);
-        this.saveAndNavigateToNextAuditClaim("accept", new Date(), " ");
       });
   }
 
@@ -269,7 +267,7 @@ export class TaskmanagementService {
       .post(this.assignAuditTaskResponse, "api/draw-mode/update-task")
       .subscribe(
         data => {
-          // this.getAuditClaim();
+          this.getAuditClaim();
         },
         error => {
           alert("Something Went Wrong");

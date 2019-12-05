@@ -113,7 +113,7 @@ app.get("/api/audit-mode/audit-claim", (req, res, next) => {
 
 app.post("/api/audit-mode/assign-task", (req, res, next) => {
   const claim = {
-      "auditTaskId": null,
+      "auditTaskId":1,
       "auditorAction": null,
       "auditorComments": null,
       "auditorID": "bbb@abc.com",
