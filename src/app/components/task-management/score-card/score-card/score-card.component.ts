@@ -112,7 +112,7 @@ export class ScoreCardComponent implements OnInit {
       easing: 'out',
       startup: true
     },
-    isStacked: true
+    isStacked: 'percent'
   };
   widthcontribution = 700;
   heightcontribution = 350;
@@ -257,12 +257,7 @@ export class ScoreCardComponent implements OnInit {
       const firstDay: Date = responseValue[0].finishDate;
       let dates = new Date(firstDay);
       const day = this.datePipe.transform(responseValue[index].finishDate, 'EEEE');
-      const totalClaims = (responseValue[index].userClaimCount + responseValue[index].teamClaimCount);
-      const userClaimPercentage = (responseValue[index].userClaimCount / totalClaims).toFixed(2);
-      const teamClaimPercentage = (responseValue[index].teamClaimCount / totalClaims).toFixed(2);
-      const usr = parseFloat(userClaimPercentage);
-      const team = parseFloat(teamClaimPercentage);
-      this.datacontribution.push([day, team, usr]);
+      this.datacontribution.push([day, responseValue[index].teamClaimCount, responseValue[index].userClaimCount]);
     }
   }
 
