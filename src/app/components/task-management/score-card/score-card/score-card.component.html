@@ -7,9 +7,9 @@
         </div>
         <div class="card sm-6 m-6 xs-12">
           <div class="card-body sm-6 m-6 xs-12">
-            <google-chart #chart [title]="titleproductivity" *ngIf="isProdRendered" [type]="typeproductivity" [data]="dataproductivity"
-              [options]="optionsproductivity" [width]="widthproductivity" [columnNames]="columnNamesproductivity"
-              [height]="heightproductivity">
+            <google-chart #chart [title]="titleproductivity" *ngIf="isProdRendered" [type]="typeproductivity"
+              [data]="dataproductivity" [options]="optionsproductivity" [width]="widthproductivity"
+              [columnNames]="columnNamesproductivity" [height]="heightproductivity">
             </google-chart>
             <form [formGroup]="productiveDates" (ngSubmit)="onSubmitProductive()">
               <div class="row" style="margin-left:30px; margin-right:30px;">
@@ -24,8 +24,11 @@
                     </div>
                   </div>
                   <span style="font-size:14px; color: rgb(238, 11, 11);"
-                    *ngIf="submittedProd && prod.fromDateProductive.errors && prod.fromDateProductive.errors.incorrect">
-                    from date greater that to date</span>
+                    *ngIf="submittedProd && prod.fromDateProductive.errors && prod.fromDateProductive.errors.incorrectLimit">
+                    from date greater than to date</span>
+                  <span style="font-size:14px; color: rgb(238, 11, 11);"
+                    *ngIf="submittedProd && prod.fromDateProductive.errors && prod.fromDateProductive.errors.incorrectDiff">
+                    maximum date limit exceeded</span>
                 </div>
                 <div class="lbl">
                   <label>to</label>
@@ -46,14 +49,11 @@
                     <!-- <label lbl-stylefor="actionProductive">Action</label> -->
                     <select placeholder="select an action" formControlName="actionProductive" type="select"
                       class="form-control" id="actionProductive">
-                      <option value="">---action---</option>
+                      <option value="">---All---</option>
                       <option *ngFor="let action of actionList" value={{action.actionId}}>
                         {{action.actionName}}
                       </option>
                     </select>
-                    <span style="font-size:14px; color: rgb(238, 11, 11);"
-                      *ngIf="submittedProd && prod.actionProductive.errors && prod.actionProductive.errors.required">
-                      please select an action</span>
                   </div>
                 </div>
                 <div class="btn-prop">
@@ -70,9 +70,9 @@
         </div>
         <div class="card sm-6 m-6 xs-12">
           <div class="card-body sm-6 m-6 xs-12">
-            <google-chart #chart [title]="titlecontribution" [type]="typecontribution" [data]="datacontribution"
-              [columnNames]="columnNamescontribution" [options]="optionscontribution" [width]="widthcontribution"
-              [height]="heightcontribution">
+            <google-chart #chart [title]="titlecontribution" *ngIf="isConRendered" [type]="typecontribution"
+              [data]="datacontribution" [columnNames]="columnNamescontribution" [options]="optionscontribution"
+              [width]="widthcontribution" [height]="heightcontribution">
             </google-chart>
             <form [formGroup]="contributionDates" (ngSubmit)="onSubmitContribution()">
               <div class="row" style="margin-left:30px; margin-right:30px; align-items: left; align-content: left;">
@@ -86,6 +86,12 @@
                       <button class="btn btn-outline-secondary calendar" (click)="d3.toggle()" type="button"></button>
                     </div>
                   </div>
+                  <span style="font-size:14px; color: rgb(238, 11, 11);"
+                    *ngIf="submittedCon && con.fromDateContribution.errors && con.fromDateContribution.errors.incorrectLimit">
+                    from date greater than to date</span>
+                  <span style="font-size:14px; color: rgb(238, 11, 11);"
+                    *ngIf="submittedCon && con.fromDateContribution.errors && con.fromDateContribution.errors.incorrectDiff">
+                    date range exceeded</span>
                 </div>
                 <div class="lbl">
                   <label>to</label>
@@ -106,14 +112,11 @@
                     <!-- <label lbl-stylefor="actionContribution">Action</label> -->
                     <select placeholder="select an action" formControlName="actionContribution" type="select"
                       class="form-control" id="actionContribution">
-                      <option value="">---action---</option>
+                      <option value="">---All---</option>
                       <option *ngFor="let action of actionList" value={{action.actionId}}>
                         {{action.actionName}}
                       </option>
                     </select>
-                    <span style="font-size:14px; color: rgb(238, 11, 11);"
-                      *ngIf="submittedCont && cont.actionContribution.errors && cont.actionContribution.errors.required">
-                      please select an action</span>
                   </div>
                 </div>
                 <div class="btn-prop">
@@ -141,8 +144,8 @@
         <h6>Status-Date</h6>
         <div class="card align-items-center m-6">
           <div class="card-body m-6">
-            <google-chart #chart [title]="titlestatus" *ngIf="isStatusRendered" [type]="typestatus" [data]="datastatus" [options]="optionsstatus"
-              [width]="widthstatus" [columnNames]="columnNamesstatus" [height]="heightstatus">
+            <google-chart #chart [title]="titlestatus" *ngIf="isStatusRendered" [type]="typestatus" [data]="datastatus"
+              [options]="optionsstatus" [width]="widthstatus" [columnNames]="columnNamesstatus" [height]="heightstatus">
             </google-chart>
           </div>
         </div>

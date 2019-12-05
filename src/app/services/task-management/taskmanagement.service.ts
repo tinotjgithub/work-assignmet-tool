@@ -13,6 +13,7 @@ export class TaskmanagementService {
   private prodScoresFetch = new Subject<any[]>();
   private statusScoresFetch = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
+  private conScoresFetch = new Subject<any>();
   private userId = "abc@abc.com";
   private taskTimerSub = new Subject<{
     timer: string;
@@ -39,6 +40,7 @@ export class TaskmanagementService {
   prodScoreResponse: any;
   assignTaskResponse: any;
   statusScoreResponse: any;
+  conScoreResponse: any;
   seconds: number;
 
   constructor(public baseHTTPService: BaseHttpService) {
@@ -55,6 +57,11 @@ export class TaskmanagementService {
 
   getStatusScoresListner() {
     return this.statusScoresFetch.asObservable();
+  }
+
+
+  getConScoresListner() {
+    return this.conScoresFetch.asObservable();
   }
 
   getTaskTimerListener() {
@@ -141,13 +148,29 @@ export class TaskmanagementService {
       .subscribe(data => {
         this.prodScoreResponse = data;
         this.prodScoresFetch.next(this.prodScoreResponse);
-        console.log("PRODUCTIVE DATA: ", this.prodScoreResponse);
       },
         error => {
           // alert("Something Went Wrong");
         });
-    // this.prodScoreResponse =
-    //   { "userProductivityDto": [{ "finishDate": "2019-12-02", "claimCount": 1 }, { "finishDate": "2019-12-03", "claimCount": 2 }], "userStatusDtos": null }
+  }
+
+
+  getConScores(action, fromDate, toDate) {
+    const param = {
+      action: action,
+      fromDate: fromDate,
+      toDate: toDate,
+      userId: 4
+    };
+    this.baseHTTPService
+      .post(param, "api/data-dashboard/claims-per-contribution")
+      .subscribe(data => {
+        this.conScoreResponse = data;
+        this.conScoresFetch.next(this.conScoreResponse);
+      },
+        error => {
+          // alert("Something Went Wrong");
+        });
   }
 
   getStatusScores(action, fromDate, toDate) {
@@ -162,7 +185,6 @@ export class TaskmanagementService {
       .subscribe(data => {
         this.statusScoreResponse = data;
         this.statusScoresFetch.next(this.statusScoreResponse);
-        console.log("STATUS DATA: ", this.statusScoreResponse);
       },
         error => {
           // alert("Something Went Wrong");
