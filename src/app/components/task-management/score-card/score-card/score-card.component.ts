@@ -22,6 +22,8 @@ export class ScoreCardComponent implements OnInit {
   datastatus: any;
   datacontribution: any;
   submittedProd: boolean = false;
+  isProdRendered: boolean = false;
+  isStatusRendered: boolean = false;
   submittedCont: boolean = false;
 
   actionList = Array<{ actionId: number, actionName: string }>();
@@ -209,10 +211,14 @@ export class ScoreCardComponent implements OnInit {
     this.userProductivityDto = this.taskManagementService.prodScoreResponse;
     this.taskManagementService.getProdScoresListner().subscribe(data => {
       this.userProductivityDto = data;
+      if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
+        this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
+      }
+      console.log("this.dataproductivity : ", this.dataproductivity);
+      this.isProdRendered = true;
+      //  this.dataproductivity = [["Monday", 1], ["Tuesday", 2], ["Wednesday", 3]];       
     })
-    if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
-      this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
-    }
+
   }
 
   getDefaultStatusDates() {
@@ -220,14 +226,14 @@ export class ScoreCardComponent implements OnInit {
     this.userStatusDto = this.taskManagementService.statusScoreResponse;
     this.taskManagementService.getStatusScoresListner().subscribe(data => {
       this.userStatusDto = data;
+      this.datastatus = [];
+      if (this.userStatusDto && this.userStatusDto.userStatusDtos) {
+        this.userStatusDto.userStatusDtos.map(val => {
+          this.datastatus.push([val.status, val.claimCount]);
+        })
+      }
+      this.isStatusRendered = true;
     })
-
-    this.datastatus = [];
-    if (this.userStatusDto && this.userStatusDto.userStatusDtos) {
-      this.userStatusDto.userStatusDtos.map(val => {
-        this.datastatus.push([val.status, val.claimCount]);
-      })
-    }
   }
 
   getProductivityChartValue(responseValue: any) {
@@ -292,10 +298,10 @@ export class ScoreCardComponent implements OnInit {
     this.userProductivityDto = this.taskManagementService.prodScoreResponse;
     this.taskManagementService.getProdScoresListner().subscribe(data => {
       this.userProductivityDto = data;
+      if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
+        this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
+      }
     })
-    if (this.userProductivityDto && this.userProductivityDto.userProductivityDto) {
-      this.getProductivityChartValue(this.userProductivityDto.userProductivityDto);
-    }
   }
 
   getActionList() {
@@ -311,10 +317,12 @@ export class ScoreCardComponent implements OnInit {
     const toDate = this.productiveDates.get('toDateProductive').value;
     const formattedFromDate = this.datePipe.transform((fromDate.year + '-' + fromDate.month + '-' + fromDate.day), 'yyyy-MM-dd');
     const formattedToDate = this.datePipe.transform((toDate.year + '-' + toDate.month + '-' + toDate.day), 'yyyy-MM-dd');
-    if (formattedFromDate > formattedToDate) {
+
+    const firstDate = moment(formattedFromDate);
+    const secondDate = moment(formattedToDate);
+    const diffInDays = Math.abs(firstDate.diff(secondDate, 'days'))
+    if (firstDate > secondDate || diffInDays >= 6) {
       this.productiveDates.get('fromDateProductive').setErrors({ 'incorrect': true });
-    } else {
-      this.productiveDates.get('fromDateProductive').setErrors({});
     }
     if (this.productiveDates.invalid) {
       valid = false;
@@ -324,6 +332,7 @@ export class ScoreCardComponent implements OnInit {
 
   onSubmitProductive() {
     this.submittedProd = true;
+    // this.getProductiveDays();
     const isValid = this.validateProductiveDates();
     if (!isValid) {
       return;
@@ -340,5 +349,5 @@ export class ScoreCardComponent implements OnInit {
       this.getContributionDays();
     }
   }
-
 }
+

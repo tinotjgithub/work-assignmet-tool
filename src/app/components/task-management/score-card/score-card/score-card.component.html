@@ -7,7 +7,7 @@
         </div>
         <div class="card sm-6 m-6 xs-12">
           <div class="card-body sm-6 m-6 xs-12">
-            <google-chart #chart [title]="titleproductivity" [type]="typeproductivity" [data]="dataproductivity"
+            <google-chart #chart [title]="titleproductivity" *ngIf="isProdRendered" [type]="typeproductivity" [data]="dataproductivity"
               [options]="optionsproductivity" [width]="widthproductivity" [columnNames]="columnNamesproductivity"
               [height]="heightproductivity">
             </google-chart>
@@ -141,7 +141,7 @@
         <h6>Status-Date</h6>
         <div class="card align-items-center m-6">
           <div class="card-body m-6">
-            <google-chart #chart [title]="titlestatus" [type]="typestatus" [data]="datastatus" [options]="optionsstatus"
+            <google-chart #chart [title]="titlestatus" *ngIf="isStatusRendered" [type]="typestatus" [data]="datastatus" [options]="optionsstatus"
               [width]="widthstatus" [columnNames]="columnNamesstatus" [height]="heightstatus">
             </google-chart>
           </div>
