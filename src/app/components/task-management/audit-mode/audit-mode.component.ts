@@ -47,16 +47,15 @@ export class AuditModeComponent implements OnInit, OnDestroy {
   }
 
   triggerClaimCompletion(action = "ACCEPT", comments = this.comments) {
-    this.taskManagementService.saveAndNavigateToNextAuditClaim(
-      action,
-      new Date(),
-      comments
-    );
-    this.comments = "";
-    this.app.showSuccess(
-      "Claim(s) moved to " + action + " status successfully!!",
-      "SUCCESS"
-    );
+    this.taskManagementService
+      .saveAndNavigateToNextAuditClaim(action, new Date(), comments)
+      .then(() => {
+        this.comments = "";
+        this.app.showSuccess(
+          "Claim(s) moved to " + action + " status successfully!!",
+          "SUCCESS"
+        );
+      });
   }
 
   ngOnDestroy(): void {}

@@ -3,7 +3,7 @@ import { TaskmanagementService } from "src/app/services/task-management/taskmana
 import { Subscription } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { AppComponent } from "./../../../app.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-draw-mode",
@@ -21,10 +21,10 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
   // These are important variables
-  pause: boolean = false;
-  timer: string = "00:00:00";
-  timerColor: string = "#00bf96";
-  timerFadeColor: string = "#00816a";
+  pause = false;
+  timer = "00:00:00";
+  timerColor = "#00bf96";
+  timerFadeColor = "#00816a";
   claimDetails: any;
   showCompleteClaimModal = false;
   comments: "";
@@ -55,10 +55,11 @@ export class DrawModeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Data:  { title: 'Company' }
-  this.route.data.subscribe(data => console.log(data));
+    this.route.data.subscribe(data => console.log(data));
     // Fetching first claim
     this.taskManagementService.getClaim();
 
+    // tslint:disable-next-line: no-angle-bracket-type-assertion
     (<any>$("[data-toggle=tooltip")).tooltip();
     this.taskTimerSubscription = this.taskManagementService
       .getTaskTimerListener()
@@ -104,16 +105,21 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   }
 
   triggerClaimCompletion(action = "complete", comments = this.comments) {
-    this.taskManagementService.saveAndNavigateToNextClaim(
-      action,
-      new Date(),
-      comments
-    );
-    this.comments = "";
-    this.app.showSuccess(
-      "Claim(s) moved to " + action + " status successfully!!",
-      "SUCCESS"
-    );
+    this.taskManagementService
+      .saveAndNavigateToNextClaim(action, new Date(), comments)
+      .then(() => {
+        this.comments = "";
+        this.app.showSuccess(
+          "Claim(s) moved to " + action + " status successfully!!",
+          "SUCCESS"
+        );
+      })
+      .catch(() => {
+        this.app.showFailure(
+          "Claim(s) falied moving to " + action + " status!!",
+          "WARNING"
+        );
+      });
   }
 
   ngOnDestroy(): void {

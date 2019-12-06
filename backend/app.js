@@ -81,7 +81,6 @@ app.post("/api/draw-mode/assign-task", (req, res, next) => {
     "finishTime": null,
     "comments": null
   }
-
   res.status(200).json(claim);
 });
 
@@ -130,8 +129,8 @@ app.post("/api/audit-mode/assign-task", (req, res, next) => {
 });
 
 app.post("/api/audit-mode/update-auditor-task", (req, res, next) => {
-  console.log(req.body);
   res.status(200).json({ success: true });
+  // res.status(500).send({error: 'you have an error'});
 });
 
 module.exports = app;
