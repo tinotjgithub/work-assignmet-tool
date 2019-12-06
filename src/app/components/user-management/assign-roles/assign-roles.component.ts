@@ -17,6 +17,7 @@ export class AssignRolesComponent implements OnInit {
   roleGroup: FormGroup;
   rolesList = Array<{ roleId: number, roleName: string }>();
   submitted: boolean = false;
+  inValid: boolean = false;
   isValidForm: boolean = true;
   constructor(private formBuilder: FormBuilder, private userMgtService: UserMgtService) {
     this.getRoles();
@@ -25,7 +26,7 @@ export class AssignRolesComponent implements OnInit {
     });
     this.addCheckboxes();
   }
-
+  get rol() { return this.roleGroup.controls; }
   ngOnInit() {
     this.rebuildForm();
     this.basicInfo = this.userMgtService.getBasicInfo();
@@ -66,9 +67,7 @@ export class AssignRolesComponent implements OnInit {
         this.isValidForm = true;
       }
     }
-    if (!this.isValidForm) {
-      valid = true;
-    }
+    valid = !this.isValidForm ? true : false;
     return valid;
   }
 
@@ -82,8 +81,8 @@ export class AssignRolesComponent implements OnInit {
   }
   submit() {
     this.submitted = true;
-    const inValid = this.validateRoles();
-    if (inValid) {
+    this.inValid = this.validateRoles();
+    if (this.inValid) {
       return;
     } else {
       const selectedRoleIds = this.roleGroup.value.roles

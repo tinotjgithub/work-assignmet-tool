@@ -39,6 +39,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {SidebarModule} from 'primeng/sidebar';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {TableModule} from 'primeng/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +68,7 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    TableModule,
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
