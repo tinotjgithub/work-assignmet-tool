@@ -236,25 +236,27 @@ export class TaskmanagementService {
   }
 
   saveAndNavigateToNextClaim(action, timeStamp, comments) {
-    const param = {
-      taskId: this.assignTaskResponse.taskId,
-      workItemId: this.assignTaskResponse.workItemId,
-      workItemType: this.assignTaskResponse.workItemType,
-      primaryEmail: this.loggedInUserEmail,
-      startTime: this.assignTaskResponse.startTime,
-      action,
-      finishTime: timeStamp,
-      comments
-    };
-    this.baseHTTPService.post(param, "api/draw-mode/update-task").subscribe(
-      data => {
-        this.resetTaskTimer();
-        this.getClaim();
-      },
-      error => {
-        alert("Something Went Wrong");
-      }
-    );
+    const promise = new Promise((resolve, reject) => {
+      const param = {
+        taskId: this.assignTaskResponse.taskId,
+        workItemId: this.assignTaskResponse.workItemId,
+        workItemType: this.assignTaskResponse.workItemType,
+        primaryEmail: this.loggedInUserEmail,
+        startTime: this.assignTaskResponse.startTime,
+        action,
+        finishTime: timeStamp,
+        comments
+      };
+      this.baseHTTPService
+        .post(param, "api/draw-mode/update-task")
+        .toPromise()
+        .then(() => {
+          this.resetTaskTimer();
+          this.getClaim();
+          resolve();
+        });
+    });
+    return promise;
   }
 
   getAuditClaim() {
@@ -279,23 +281,30 @@ export class TaskmanagementService {
   }
 
   saveAndNavigateToNextAuditClaim(action, timeStamp, comments) {
-    this.assignAuditTaskResponse["auditorComments"] = comments;
-    this.assignAuditTaskResponse["auditorAction"] = action;
-    this.assignAuditTaskResponse[
-      "auditorPrimaryEmail"
-    ] = this.loggedInUserEmail;
-    this.assignAuditTaskResponse[
-      "processorPrimaryEmail"
-    ] = this.auditClaimDetails.finalizedBy;
-    this.baseHTTPService
-      .post(this.assignAuditTaskResponse, "api/audit-mode/update-auditor-task")
-      .subscribe(
-        data => {
+    const promise = new Promise((resolve, reject) => {
+      this.assignAuditTaskResponse["auditorComments"] = comments;
+      this.assignAuditTaskResponse["auditorAction"] = action;
+      this.assignAuditTaskResponse[
+        "auditorPrimaryEmail"
+      ] = this.loggedInUserEmail;
+      this.assignAuditTaskResponse[
+        "processorPrimaryEmail"
+      ] = this.auditClaimDetails.finalizedBy;
+      this.baseHTTPService
+        .post(
+          this.assignAuditTaskResponse,
+          "api/audit-mode/update-auditor-task"
+        )
+        .toPromise()
+        .then(data => {
           this.getAuditClaim();
-        },
-        error => {
-          alert("Something Went Wrong");
-        }
-      );
+          resolve();
+        })
+        .catch(err => {
+          alert("Something went wrong!");
+        });
+    });
+
+    return promise;
   }
 }

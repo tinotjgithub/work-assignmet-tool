@@ -78,13 +78,24 @@ export class AppComponent implements OnInit {
 
   showSuccess(message: string, header: string) {
     this.toastService.show(message, {
-      classname: "bg-success text-light",
+      classname: "bg-success text-dark",
       delay: 2000,
       autohide: true,
       header: false,
       headertext: header
     });
   }
+
+  showFailure(message: string, header: string) {
+    this.toastService.show(message, {
+      classname: "bg-danger text-dark",
+      delay: 2000,
+      autohide: true,
+      header: false,
+      headertext: header
+    });
+  }
+
 
   showError(message: string, header: string) {
     this.toastService.show(message, {
