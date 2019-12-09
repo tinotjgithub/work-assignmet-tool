@@ -19,16 +19,19 @@ export class ScoreCardComponent implements OnInit {
   productiveDateValue: any;
   contributionDateValue: any;
   dataproductivity: any;
+  dataaudit: any;
   datastatus: any;
   datacontribution: any;
   submittedProd: boolean = false;
   isProdRendered: boolean = false;
+  isAuditRendered: boolean = false;
   isConRendered: boolean = false;
   isStatusRendered: boolean = false;
   submittedCon: boolean = false;
 
   actionList = Array<{ actionId: number, actionName: string }>();
   userProductivityDto: any;
+  userAuditScoreDto: any;
   userContributionDto: any;
   userStatusDto: any;
   constructor(public datePipe: DatePipe, private router: Router, fbprod: FormBuilder, fbcon: FormBuilder, private taskManagementService: TaskmanagementService) {
@@ -121,14 +124,14 @@ export class ScoreCardComponent implements OnInit {
 
   titleaudit = "";
   typeaudit = "ColumnChart";
-  dataaudit = [
-    ["W1", 180, 180],
-    ["W2", 173, 173],
-    ["W3", 168, 168],
-    ["W4", 189, 188],
-    ["W5", 177, 174],
-    ["W6", 186, 185]
-  ];
+  // dataaudit = [
+  //   ["W1", 180, 180],
+  //   ["W2", 173, 173],
+  //   ["W3", 168, 168],
+  //   ["W4", 189, 188],
+  //   ["W5", 177, 174],
+  //   ["W6", 186, 185]
+  // ];
   columnNamesaudit = ["", "Completed", "Audit Success"];
   optionsaudit = {
     hAxis: {
@@ -206,6 +209,7 @@ export class ScoreCardComponent implements OnInit {
     this.getDefaultProductiveDates();
     this.getDefaultStatusDates();
     this.getDefaultContributionDates();
+    this.getDefaultAuditDates();
   }
 
   getDefaultProductiveDates() {
@@ -218,7 +222,18 @@ export class ScoreCardComponent implements OnInit {
       }
       this.isProdRendered = true;
     })
+  }
 
+  getDefaultAuditDates() {
+    this.taskManagementService.getAuditScores("", "", "");
+    this.userAuditScoreDto = this.taskManagementService.auditScoreResponse;
+    this.taskManagementService.getAuditScoresListner().subscribe(data => {
+      this.userAuditScoreDto = data;
+      if (this.userAuditScoreDto && this.userAuditScoreDto.userAuditScoreDto) {
+        this.getAuditChartValue(this.userAuditScoreDto.userAuditScoreDto);
+      }
+      this.isAuditRendered = true;
+    })
   }
 
   getDefaultContributionDates() {
@@ -272,6 +287,17 @@ export class ScoreCardComponent implements OnInit {
       let dates = new Date(firstDay);
       const day = this.datePipe.transform(responseValue[index].finishDate, 'EEEE');
       this.dataproductivity.push([day, responseValue[index].claimCount]);
+    }
+  }
+
+
+  getAuditChartValue(responseValue: any) {
+    debugger
+    let responseLength = responseValue.length;
+    this.dataaudit = [];
+    for (var index = 0; index < responseLength; index++) {
+      const day = this.datePipe.transform(responseValue[index].startDate, 'dd-MM-yyyy');
+      this.dataaudit.push([day, responseValue[index].completedAuditCount, responseValue[index].successAuditCount]);
     }
   }
 
