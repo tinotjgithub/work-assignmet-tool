@@ -133,4 +133,12 @@ app.post("/api/audit-mode/update-auditor-task", (req, res, next) => {
   // res.status(500).send({error: 'you have an error'});
 });
 
+app.get("/api/authentication/login", (req, res, next) => {
+  if (req.body.userId === "admin" && req.body.password === "admin") {
+    res.status(200).json({ success: true, token: 'THIS_IS_SAMPLE_TOKEN', roleId: "ADMIN" });
+  } else {
+    res.status(200).json({ success: false, token: null, roleId: null });
+  }
+});
+
 module.exports = app;

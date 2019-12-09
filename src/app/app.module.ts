@@ -34,11 +34,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { ReportPageComponent } from "./components/reports/report-page/report-page.component";
 import { ListboxModule } from "primeng/listbox";
-import {MultiSelectModule} from 'primeng/multiselect';
-import {InputTextModule} from 'primeng/inputtext';
-import {SidebarModule} from 'primeng/sidebar';
-import {PanelMenuModule} from 'primeng/panelmenu';
-import {BreadcrumbModule} from 'primeng/breadcrumb';
+import { MultiSelectModule } from "primeng/multiselect";
+import { InputTextModule } from "primeng/inputtext";
+import { SidebarModule } from "primeng/sidebar";
+import { PanelMenuModule } from "primeng/panelmenu";
+import { BreadcrumbModule } from "primeng/breadcrumb";
+import { AuthenticationModule } from "./modules/authentication/authentication.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
     SidebarModule,
     PanelMenuModule,
     BreadcrumbModule,
-    GoogleChartsModule.forRoot()
+    GoogleChartsModule.forRoot(),
+    AuthenticationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
