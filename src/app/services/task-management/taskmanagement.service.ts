@@ -14,6 +14,7 @@ export class TaskmanagementService {
   private statusScoresFetch = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
   private conScoresFetch = new Subject<any>();
+  private auditScoresFetch = new Subject<any>();
   private userId = "abc@abc.com";
   private auditClaimDetailsSub = new Subject<AuditClaim>();
 
@@ -41,6 +42,7 @@ export class TaskmanagementService {
 
   claimDetails: any;
   prodScoreResponse: any;
+  auditScoreResponse: any;
   assignTaskResponse: any;
   statusScoreResponse: any;
   conScoreResponse: any;
@@ -58,6 +60,10 @@ export class TaskmanagementService {
 
   getProdScoresListner() {
     return this.prodScoresFetch.asObservable();
+  }
+
+  getAuditScoresListner() {
+    return this.auditScoresFetch.asObservable();
   }
 
   getStatusScoresListner() {
@@ -157,6 +163,26 @@ export class TaskmanagementService {
         data => {
           this.prodScoreResponse = data;
           this.prodScoresFetch.next(this.prodScoreResponse);
+        },
+        error => {
+          // alert("Something Went Wrong");
+        }
+      );
+  }
+
+  getAuditScores(action, fromDate, toDate) {
+    const param = {
+      action: action,
+      fromDate: fromDate,
+      toDate: toDate,
+      userId: 4
+    };
+    this.baseHTTPService
+      .post(param, "api/data-dashboard/claims-audited-per-user")
+      .subscribe(
+        data => {
+          this.auditScoreResponse = data;
+          this.auditScoresFetch.next(this.auditScoreResponse);
         },
         error => {
           // alert("Something Went Wrong");

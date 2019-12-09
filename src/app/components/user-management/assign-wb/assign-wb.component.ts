@@ -19,7 +19,10 @@ export class AssignWbComponent {
   roleIDs: AssignRolesModel;
   basicInfo: BasicInfoModel;
   assignWbs: AssignWBsModel;
+  submitted: boolean = false;
+  inValid: boolean = false;
   saveResponse: any;
+  isValidForm: boolean = true;
   wbList = Array<{ wbId: number, wbName: string, priority: number }>();
   constructor(public datepipe: DatePipe, private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService) {
     this.getWb();
@@ -42,21 +45,21 @@ export class AssignWbComponent {
   }
 
   // saveToService(finalObject: any) {
-    // this.baseHTTPService
-    //   .post(finalObject, "api/user-management/create-user")
-    //   .subscribe(data => {
-    //     this.saveResponse = data;
-    //   });
-    // this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
-    // setTimeout(function () {
-    //   this.router.navigate(['/LandingPage']);
-    // }.bind(this), 2100);
-    // this.resetAll();
-    
+  // this.baseHTTPService
+  //   .post(finalObject, "api/user-management/create-user")
+  //   .subscribe(data => {
+  //     this.saveResponse = data;
+  //   });
+  // this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
+  // setTimeout(function () {
+  //   this.router.navigate(['/LandingPage']);
+  // }.bind(this), 2100);
+  // this.resetAll();
+
   // }
   saveToService(finalObject: any) {
     this.userMgtService.saveUser(finalObject);
-        this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
+    this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
     setTimeout(function () {
       this.router.navigate(['/LandingPage']);
     }.bind(this), 2100);
@@ -102,31 +105,50 @@ export class AssignWbComponent {
     ];
   }
 
-  submit() {
-    let wBasket = [];
-    let wbListed = [];
-    const selectedWBIds = this.WBGroup.value.wbs
-      .map((v, i) => v ? this.wbList[i].wbId : null)
-      .filter(v => v !== null);
-
-    if (selectedWBIds) {
-      for (var i = 0; i < selectedWBIds.length; i++) {
-        wBasket.push(this.wbList.filter(wb => wb.wbId === selectedWBIds[i])[0]);
+  validateWb(): boolean {
+    let valid = false;
+    this.isValidForm = false;
+    let formArr = <FormArray>this.WBGroup.controls.wbs;
+    for (var i = 0; i < formArr.length; i++) {
+      if (formArr.at(i).value === true) {
+        this.isValidForm = true;
       }
     }
-    let WB = []
-    for (i = 0; i < wBasket.length; i++) {
-      WB.push({
-        workBasketID: wBasket[i].wbId,
-        priority: wBasket[i].priority
+    valid = !this.isValidForm ? true : false;
+    return valid;
+  }
+
+  submit() {
+    this.submitted = true;
+    this.inValid = this.validateWb();
+    if (this.inValid) {
+      return;
+    } else {
+      let wBasket = [];
+      let wbListed = [];
+      const selectedWBIds = this.WBGroup.value.wbs
+        .map((v, i) => v ? this.wbList[i].wbId : null)
+        .filter(v => v !== null);
+
+      if (selectedWBIds) {
+        for (var i = 0; i < selectedWBIds.length; i++) {
+          wBasket.push(this.wbList.filter(wb => wb.wbId === selectedWBIds[i])[0]);
+        }
+      }
+      let WB = []
+      for (i = 0; i < wBasket.length; i++) {
+        WB.push({
+          workBasketID: wBasket[i].wbId,
+          priority: wBasket[i].priority
+        });
+      }
+      this.userMgtService.saveWBs(WB);
+      this.assignWbs = this.userMgtService.getWBs();
+      this.userMgtService.updateWBsListener().subscribe((assignWbs: any) => {
+        this.assignWbs = assignWbs;
       });
+      this.createFinalOnject();
     }
-    this.userMgtService.saveWBs(WB);
-    this.assignWbs = this.userMgtService.getWBs();
-    this.userMgtService.updateWBsListener().subscribe((assignWbs: any) => {
-      this.assignWbs = assignWbs;
-    });
-    this.createFinalOnject();
   }
 
   createFinalOnject() {

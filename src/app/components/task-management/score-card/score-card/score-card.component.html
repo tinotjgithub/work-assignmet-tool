@@ -25,10 +25,10 @@
                   </div>
                   <span style="font-size:14px; color: rgb(238, 11, 11);"
                     *ngIf="submittedProd && prod.fromDateProductive.errors && prod.fromDateProductive.errors.incorrectLimit">
-                    from date greater than to date</span>
+                    from date is greater</span>
                   <span style="font-size:14px; color: rgb(238, 11, 11);"
                     *ngIf="submittedProd && prod.fromDateProductive.errors && prod.fromDateProductive.errors.incorrectDiff">
-                    maximum date limit exceeded</span>
+                    date range exceeded</span>
                 </div>
                 <div class="lbl">
                   <label>to</label>
@@ -88,7 +88,7 @@
                   </div>
                   <span style="font-size:14px; color: rgb(238, 11, 11);"
                     *ngIf="submittedCon && con.fromDateContribution.errors && con.fromDateContribution.errors.incorrectLimit">
-                    from date greater than to date</span>
+                    from date is greater</span>
                   <span style="font-size:14px; color: rgb(238, 11, 11);"
                     *ngIf="submittedCon && con.fromDateContribution.errors && con.fromDateContribution.errors.incorrectDiff">
                     date range exceeded</span>
@@ -134,8 +134,8 @@
         <h6>Audit Score</h6>
         <div class="card align-items-center m-6">
           <div class="card-body m-6">
-            <google-chart #chart [title]="titleaudit" [type]="typeaudit" [data]="dataaudit" [options]="optionsaudit"
-              [width]="widthaudit" [columnNames]="columnNamesaudit" [height]="heightaudit">
+            <google-chart *ngIf="isAuditRendered" #chart [title]="titleaudit" [type]="typeaudit" [data]="dataaudit"
+              [options]="optionsaudit" [width]="widthaudit" [columnNames]="columnNamesaudit" [height]="heightaudit">
             </google-chart>
           </div>
         </div>
@@ -151,7 +151,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style="margin: 10px; min-height: 360">
+    <!-- <div class="row" style="margin: 10px; min-height: 360">
       <div class="col-sm-12 m-12">
         <h6>Available Vs Productive</h6>
         <div class="card align-items-center m-8">
@@ -163,6 +163,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -17,8 +17,6 @@
                         <div class="col-sm-4 txt-style">
                             <input class="checkbox-style" id="{{wb}}-{{i}}" type="checkbox" [formControlName]="i">
                             {{wbList[i].wbName}}
-                            <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please assign
-                                atleast one workbasket</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number" min="1"
@@ -27,6 +25,13 @@
                                 a priority for the selected workbasket</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="row row-span">
+                <div class="col-xs-4">
+                    <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="submitted && inValid">
+                        please assign a work basket</span>
                 </div>
             </div>
             <div class="row row-btn">
@@ -41,3 +46,22 @@
         </form>
     </div>
 </div>
+
+  <!-- <ng-template pTemplate="body" let-assign>
+                    <tr formArrayName="wbs" *ngFor="let wb of WBGroup.controls.wbs.controls; let i = index">
+                        <td>
+
+                            <input class="checkbox-style" id="{{wb}}-{{i}}" type="checkbox" [formControlName]="i">
+                        </td>
+                        <td  style="text-align: left">
+                            {{wbList[i].wbName}}
+                        </td>
+
+                        <td style="text-align: left">
+                            <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number" min="1"
+                                max="100" class="form-control textbox-style">
+                            <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
+                                a priority for the selected workbasket</span>
+                        </td>
+                    </tr>
+                </ng-template> -->

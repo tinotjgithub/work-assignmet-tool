@@ -34,12 +34,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { ReportPageComponent } from "./components/reports/report-page/report-page.component";
 import { ListboxModule } from "primeng/listbox";
-import { MultiSelectModule } from "primeng/multiselect";
-import { InputTextModule } from "primeng/inputtext";
-import { SidebarModule } from "primeng/sidebar";
-import { PanelMenuModule } from "primeng/panelmenu";
-import { BreadcrumbModule } from "primeng/breadcrumb";
 import { AuthenticationModule } from "./modules/authentication/authentication.module";
+import {MultiSelectModule} from 'primeng/multiselect';
+import {InputTextModule} from 'primeng/inputtext';
+import {SidebarModule} from 'primeng/sidebar';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {TableModule} from 'primeng/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +69,7 @@ import { AuthenticationModule } from "./modules/authentication/authentication.mo
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    TableModule,
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
