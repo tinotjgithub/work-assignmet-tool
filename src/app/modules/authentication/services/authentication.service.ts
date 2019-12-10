@@ -20,9 +20,14 @@ export class AuthenticationService {
       username,
       password
     };
-    this.http.get("api/authentication/login", param).subscribe(res => {
-      this.setLogin(res);
-    });
+
+    // This should be replaced with actual back end call
+
+    // this.http.get("api/authentication/login", param).subscribe(res => {
+    //   this.setLogin(res);
+    // });
+
+    this.setLogin({ success: true, token: 'THIS_IS_SAMPLE_TOKEN', roleId: "ADMIN" });
   }
 
   setLogin(loginRes) {
