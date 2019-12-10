@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { Router } from "@angular/router";
+import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
 
 @Component({
   selector: "app-login",
@@ -9,8 +8,6 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
-
   form = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [
@@ -18,15 +15,19 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6)
     ])
   });
+  constructor(private AuthService: AuthenticationService) {}
 
-  get firstname() {
-    return this.form.get("firstName");
+  get email() {
+    return this.form.get("email");
+  }
+
+  get password() {
+    return this.form.get("password");
   }
 
   ngOnInit() {}
 
   onSubmit() {
-      this.authService.setLogin();
-      this.router.navigateByUrl("LandingPage");
+    this.AuthService.login(this.email, this.password);
   }
 }

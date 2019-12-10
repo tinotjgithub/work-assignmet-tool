@@ -8,80 +8,90 @@ import { ReportsComponent } from "./components/reports/reports.component";
 import { ScoreCardComponent } from "./components/task-management/score-card/score-card/score-card.component";
 import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
 import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
-import { LoginComponent } from './components/login/login/login.component';
+import { LoginComponent } from "./components/login/login/login.component";
+import { AuthGuard } from "./services/auth.guard/auth.guard";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: LoginComponent
   },
   {
-    path: 'Login',
-    loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+    path: "Login",
+    loadChildren:
+      "./modules/authentication/authentication.module#AuthenticationModule"
   },
 
   {
-    path: "LandingPage",
+    path: "MyScorecard",
     component: ScoreCardComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Home'}, {label: 'My Scorecard'}]
+      breadcrumb: [{ label: "Actions" }, { label: "My Scorecard" }],
+      expectedRoles: ["ADMIN", "AUDITOR", "PROCESSOR"]
     }
   },
   {
     path: "Dashboard",
     component: ContainerComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Dashboard'}, {label: 'My Dashboard'}]
+      breadcrumb: [{ label: "Dashboard" }, { label: "My Dashboard" }],
+      expectedRoles: ["ADMIN", "AUDITOR"]
     }
   },
   {
     path: "UserManagement",
     component: UserManagementComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'User Management'}, {label: 'Manage Users'}]
+      breadcrumb: [{ label: "User Management" }, { label: "Manage Users" }],
+      expectedRoles: ["ADMIN"]
     }
   },
   {
     path: "Reprioritize",
     component: ReprioritizeComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Prioritization'}, {label: 'Reprioritize'}]
+      breadcrumb: [{ label: "Prioritization" }, { label: "Reprioritize" }],
+      expectedRoles: ["ADMIN"]
     }
   },
   {
     path: "Reports",
     component: ReportsComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Reports'}, {label: 'My Reports'}]
+      breadcrumb: [{ label: "Reports" }, { label: "My Reports" }],
+      expectedRoles: ["ADMIN", "AUDITOR"]
     }
   },
   {
     path: "MyScorecard",
     component: ScoreCardComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Actions'}, {label: 'My Scorecard'}]
+      breadcrumb: [{ label: "Actions" }, { label: "My Scorecard" }],
+      expectedRoles: ["ADMIN", "AUDITOR", "PROCESSOR"]
     }
   },
   {
     path: "DrawMode",
     component: DrawModeComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Actions'}, {label: 'Draw Mode'}]
+      breadcrumb: [{ label: "Actions" }, { label: "Draw Mode" }],
+      expectedRoles: ["ADMIN", "AUDITOR", "PROCESSOR"]
     }
   },
   {
     path: "AuditMode",
     component: AuditModeComponent,
-    canActivate: [RouteGuard],
+    canActivate: [RouteGuard, AuthGuard],
     data: {
-      breadcrumb: [{label: 'Actions'}, {label: 'Audit Mode'}]
+      breadcrumb: [{ label: "Actions" }, { label: "Audit Mode" }],
+      expectedRoles: ["ADMIN", "AUDITOR"]
     }
   }
 ];
@@ -91,6 +101,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [RouteGuard]
 })
-export class AppRoutingModule {
-}
-
+export class AppRoutingModule {}

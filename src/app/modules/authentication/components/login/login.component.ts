@@ -21,11 +21,8 @@ export class LoginComponent implements OnInit {
   get firstname() {
     return this.form.get("firstName");
   }
-  ngOnInit() {
-    alert('hai')
-  }
+  ngOnInit() {}
 
   onSubmit() {
-    alert(JSON.stringify(this.form.value));
   }
 }

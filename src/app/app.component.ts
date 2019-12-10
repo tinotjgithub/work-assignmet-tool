@@ -6,6 +6,8 @@ import { ToastService } from "./services/toast.service";
 import { MenuItem } from "primeng/api";
 import { filter } from "rxjs/operators";
 import { isNullOrUndefined } from "util";
+import { AuthenticationService } from "./modules/authentication/services/authentication.service";
+import { NotifierService } from "./services/notifier.service";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -18,10 +20,11 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean;
   clicked = false;
   constructor(
-    private authService: AuthService,
+    private authService: AuthenticationService,
     private router: Router,
     public toastService: ToastService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notifierService: NotifierService
   ) {}
 
   ngOnInit() {
@@ -31,13 +34,16 @@ export class AppComponent implements OnInit {
         this.items = this.createBreadcrumbs(this.activatedRoute.root);
       });
 
-    this.isAuthenticated = this.authService.getIsAuth();
-    this.authService.authUpdatedListener().subscribe((isAuthed: boolean) => {
-      this.isAuthenticated = isAuthed;
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.authService.authUpdatedListener().subscribe(data => {
+      this.isAuthenticated = data.isAuthenticated;
     });
     if (!this.isAuthenticated) {
       this.router.navigate([""]);
     }
+    this.notifierService.getNotifierListener().subscribe(res => {
+      this.showError(res.message, "Exception Occured");
+    });
   }
 
   private createBreadcrumbs(
@@ -96,7 +102,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-
   showError(message: string, header: string) {
     this.toastService.show(message, {
       classname: "bg-danger text-light",
@@ -109,6 +114,5 @@ export class AppComponent implements OnInit {
 
   menuClickedEvent(clicked) {
     this.clicked = clicked;
-    alert(this.clicked);
   }
 }

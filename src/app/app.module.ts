@@ -41,6 +41,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {TableModule} from 'primeng/table';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,6 +86,7 @@ import {TableModule} from 'primeng/table';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
     BaseHttpService,
     DatePipe
