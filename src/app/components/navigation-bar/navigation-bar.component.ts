@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { HeaderService } from "src/app/services/header/header.service";
-
+import { AuthGuard } from "src/app/services/auth.guard/auth.guard";
+import { AuthenticationService } from "src/app/modules/authentication/services/authentication.service";
+import { ROLES } from "../../shared/constants.js";
 @Component({
   selector: "app-navigation-bar",
   templateUrl: "./navigation-bar.component.html",
@@ -15,7 +17,8 @@ export class NavigationBarComponent implements OnInit {
   constructor(
     private router: Router,
     private headerService: HeaderService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -48,6 +51,7 @@ export class NavigationBarComponent implements OnInit {
             }
           },
           {
+            visible: ROLES.admin === this.authService.userRole || ROLES.auditor === this.authService.userRole,
             label: "Audit Mode",
             icon: "fa fa-check-square",
             command: e => {
@@ -58,6 +62,7 @@ export class NavigationBarComponent implements OnInit {
         ]
       },
       {
+        visible: ROLES.admin === this.authService.userRole || ROLES.auditor === this.authService.userRole,
         label: "Dashboard",
         icon: "fa fa-pie-chart",
         items: [
@@ -72,6 +77,7 @@ export class NavigationBarComponent implements OnInit {
         ]
       },
       {
+        visible: ROLES.admin === this.authService.userRole,
         label: "User Management",
         icon: "fa fa-user-circle",
         items: [
@@ -86,6 +92,7 @@ export class NavigationBarComponent implements OnInit {
         ]
       },
       {
+        visible: ROLES.admin === this.authService.userRole,
         label: "Reports",
         icon: "fa fa-print",
         items: [
@@ -100,6 +107,7 @@ export class NavigationBarComponent implements OnInit {
         ]
       },
       {
+        visible: ROLES.admin === this.authService.userRole,
         label: "Prioritization",
         icon: "fa fa-exclamation-triangle",
         items: [

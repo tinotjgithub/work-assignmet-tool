@@ -3,10 +3,12 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json())
 
+app.use(bodyParser.json());
 app.use((req, res, next) => {
+  res.header("Content-Type", 'application/json');
+  req.header("Content-Type", 'application/json');
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -131,6 +133,24 @@ app.post("/api/audit-mode/assign-task", (req, res, next) => {
 app.post("/api/audit-mode/update-auditor-task", (req, res, next) => {
   res.status(200).json({ success: true });
   // res.status(500).send({error: 'you have an error'});
+});
+
+app.get("/api/authentication/login", (req, res, next) => {
+  res.status(200).json({ success: true, token: 'THIS_IS_SAMPLE_TOKEN', roleId: "PROCESSOR" });
+});
+
+
+app.post("/api/data-dashboard/claims-per-user", (req, res, next) => {
+  res.status(200).json({ success: true});
+});
+app.post("/api/data-dashboard/claims-per-status", (req, res, next) => {
+  res.status(200).json({ success: true});
+});
+app.post("/api/data-dashboard/claims-per-contribution", (req, res, next) => {
+  res.status(200).json({ success: true});
+});
+app.post("/api/data-dashboard/claims-audited-per-user", (req, res, next) => {
+  res.status(200).json({ success: true});
 });
 
 module.exports = app;

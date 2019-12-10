@@ -41,7 +41,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { AuthenticationModule } from "./modules/authentication/authentication.module";
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,10 +83,12 @@ import { CheckboxModule } from 'primeng/checkbox';
     SidebarModule,
     PanelMenuModule,
     BreadcrumbModule,
-    GoogleChartsModule.forRoot()
+    GoogleChartsModule.forRoot(),
+    AuthenticationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
     BaseHttpService,
     DatePipe
