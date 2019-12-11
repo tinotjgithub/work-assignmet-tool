@@ -4,7 +4,6 @@ import {
   HttpHandler,
   HttpEvent
 } from "@angular/common/http";
-import { AuthService } from "./auth.service";
 import { Injectable } from "@angular/core";
 import { AuthenticationService } from "src/app/modules/authentication/services/authentication.service";
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import * as $ from "jquery";
 import { TaskmanagementService } from "src/app/services/task-management/taskmanagement.service";
-import { AuthService } from "src/app/services/auth/auth.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -11,8 +10,7 @@ import { Subscription } from "rxjs";
 })
 export class TaskManagementComponent implements OnInit, OnDestroy {
   constructor(
-    private taskManagementService: TaskmanagementService,
-    private authService: AuthService
+    private taskManagementService: TaskmanagementService
   ) {}
 
   id: string = "SCORE_CARD";
