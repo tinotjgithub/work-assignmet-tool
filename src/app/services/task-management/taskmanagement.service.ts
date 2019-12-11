@@ -36,6 +36,8 @@ export class TaskmanagementService {
   timerRedFadeColor: string = "#00b0b621";
   timerAmberColor: string = "#FFBF00";
   timerAmberFadeColor: string = "#00b0b621";
+
+  // This will be passed to component
   timerColor: string = "#00bf96";
   timerFadeColor: string = "#00816a";
   timerStarted: boolean = false;
@@ -91,6 +93,7 @@ export class TaskmanagementService {
   }
 
   startTimer() {
+    this.pause = false;
     this.interval = setInterval(() => {
       this.timerStarted = true;
       this.timeLeft++;
@@ -107,7 +110,24 @@ export class TaskmanagementService {
     }, 1000);
   }
 
+  get timerValue() {
+    return this.timer;
+  }
+
+  get timerColorValue() {
+    return this.timerColor;
+  }
+
+  get timerFadeColorValue() {
+    return this.timerFadeColor;
+  }
+
+  get pauseValue() {
+    return this.pause;
+  }
+
   pauseTimer() {
+    this.pause = true;
     clearInterval(this.interval);
   }
 

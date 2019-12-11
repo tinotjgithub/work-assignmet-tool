@@ -8,20 +8,14 @@ import { ReportsComponent } from "./components/reports/reports.component";
 import { ScoreCardComponent } from "./components/task-management/score-card/score-card/score-card.component";
 import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
 import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
-import { LoginComponent } from "./components/login/login/login.component";
 import { AuthGuard } from "./guards/auth.guard/auth.guard";
 
 const routes: Routes = [
   {
     path: "",
-    component: LoginComponent
-  },
-  {
-    path: "Login",
     loadChildren:
       "./modules/authentication/authentication.module#AuthenticationModule"
   },
-
   {
     path: "MyScorecard",
     component: ScoreCardComponent,

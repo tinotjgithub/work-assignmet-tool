@@ -21,7 +21,7 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
   // These are important variables
-  pause = false;
+  pause: boolean;
   timer = "00:00:00";
   timerColor = "#00bf96";
   timerFadeColor = "#00816a";
@@ -54,6 +54,11 @@ export class DrawModeComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit() {
+    this.pause = this.taskManagementService.pauseValue;
+    this.timer = this.taskManagementService.timerValue;
+    this.timerColor = this.taskManagementService.timerColorValue;
+    this.timerFadeColor = this.taskManagementService.timerFadeColorValue;
+
     // Data:  { title: 'Company' }
     this.route.data.subscribe(data => console.log(data));
     // Fetching first claim
