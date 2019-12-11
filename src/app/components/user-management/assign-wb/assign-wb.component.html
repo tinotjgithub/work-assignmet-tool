@@ -50,13 +50,13 @@
                         <td style="width:80px;">
                             <p-tableCheckbox [value]="wbsList"></p-tableCheckbox>
                         </td>
-                        <td style="text-align: left; ">
+                        <td style="text-align: left; width:300px;">
                             {{wbsList.wbName}}
                         </td>
 
                         <td style="text-align: left; width:150px;">
                             <input #txtid (change)="onChange(txtid,wbsList.wbId)" [value]="wbsList.priority"
-                                [disabled]="!wbsList.selected" type="number" min="1" max="100"
+                                [disabled]="!wbsList.selected" onkeydown="return false" type="number" min="1" max="100"
                                 class="form-control textbox-style">
                             <!-- <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
                                 a priority for the selected workbasket</span> -->
@@ -66,14 +66,17 @@
             </p-table>
             <div class="row row-span">
                 <div class="col-xs-4">
-                    <span style="font-size:14px; color: rgb(238, 11, 11);"
-                        *ngIf="submitted && inValid && wbRequired && !priorityRequired">
+                    <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="wbRequired && !priorityRequired">
                         please assign at least one work basket</span>
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-size:14px; color: rgb(238, 11, 11);"
-                        *ngIf="submitted && inValid && priorityRequired && !wbRequired">
+                    <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="priorityRequired && !wbRequired">
                         please assign at priority for the selected work baskets</span>
+                </div>
+                <div class="col-xs-4">
+                    <span style="font-size:14px; color: rgb(238, 11, 11);"
+                        *ngIf="!priorityRequired && !wbRequired && duplicatePriority">
+                        priority already assigned to another workbasket</span>
                 </div>
             </div>
             <div class="row row-btn">

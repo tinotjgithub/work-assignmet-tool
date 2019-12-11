@@ -23,6 +23,7 @@ export class AssignWbComponent {
   inValid: boolean = false;
   wbRequired: boolean = false;
   priorityRequired: boolean = false;
+  duplicatePriority: boolean = false;
   saveResponse: any;
   isValidForm: boolean = true;
   wbList = Array<{ wbId: number, wbName: string, priority: string, selected: boolean }>();
@@ -106,11 +107,23 @@ export class AssignWbComponent {
     return inValid;
   }
 
+  validateDuplicate(): boolean {
+    let isDuplicate = false;
+    for (var i = 0; i < this.wbList.length; i++) {
+      for (var j = i; j < this.wbList.length; j++) {
+        if (i != j && this.wbList[i].priority == this.wbList[j].priority && this.wbList[i].priority !== null && this.wbList[i].priority !== "") {
+          isDuplicate = true;
+        }
+      }
+    }
+    return isDuplicate;
+  }
+
   //priority required for selected ones
   validatePriority(): boolean {
     let inValid = false;
     for (var i = 0; i < this.wbList.length; i++) {
-      if (this.wbList[i].selected === true && (this.wbList[i].priority === null || this.wbList[i].priority === '') ){
+      if (this.wbList[i].selected === true && (this.wbList[i].priority === null || this.wbList[i].priority === '')) {
         inValid = true;
       }
     }
@@ -122,7 +135,8 @@ export class AssignWbComponent {
     this.submitted = true;
     this.wbRequired = this.validateWb();
     this.priorityRequired = this.validatePriority();
-    this.inValid = (this.wbRequired || this.priorityRequired) ? true : false;
+    this.duplicatePriority = this.validateDuplicate();
+    this.inValid = (this.wbRequired || this.priorityRequired || this.duplicatePriority) ? true : false;
     if (this.inValid) {
       return;
     } else {
@@ -178,7 +192,8 @@ export class AssignWbComponent {
       }
     })
     this.wbRequired = this.validateWb();
-    this.inValid = this.wbRequired  ? true : false;
+    this.priorityRequired = this.validatePriority();
+    this.duplicatePriority = this.validateDuplicate();
     // this.wbListSelected.push({ wbId: event.data.wbId, wbName: event.data.wbName, priority: event.data.priority });
   }
 
@@ -187,18 +202,20 @@ export class AssignWbComponent {
       if (wb.wbId === event.data.wbId) {
         wb.wbId = event.data.wbId;
         wb.wbName = event.data.wbName;
-        wb.priority = event.data.priority;
+        wb.priority = "";
         wb.selected = false;
       }
     })
     this.wbRequired = this.validateWb();
-    this.inValid = this.wbRequired  ? true : false;
+    this.priorityRequired = this.validatePriority();
+    this.duplicatePriority = this.validateDuplicate();
     // this.wbListSelected.push({ wbId: event.data.wbId, wbName: event.data.wbName, priority: event.data.priority });
   }
 
   onChange(txtId, i) {
     this.wbList[i - 1].priority = txtId.value;
+    this.wbRequired = this.validateWb();
     this.priorityRequired = this.validatePriority();
-    this.inValid = this.priorityRequired  ? true : false;
+    this.duplicatePriority = this.validateDuplicate();
   }
 }
