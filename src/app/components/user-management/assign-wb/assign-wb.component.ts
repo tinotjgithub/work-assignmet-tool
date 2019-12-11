@@ -21,9 +21,12 @@ export class AssignWbComponent {
   assignWbs: AssignWBsModel;
   submitted: boolean = false;
   inValid: boolean = false;
+  wbRequired: boolean = false;
+  priorityRequired: boolean = false;
   saveResponse: any;
   isValidForm: boolean = true;
-  wbList = Array<{ wbId: number, wbName: string, priority: number }>();
+  wbList = Array<{ wbId: number, wbName: string, priority: string, selected: boolean }>();
+  // wbListSelected = Array<{ wbId: number, wbName: string, priority: number }>();
   constructor(public datepipe: DatePipe, private app: AppComponent, private formBuilder: FormBuilder, private router: Router, private userMgtService: UserMgtService) {
     this.getWb();
     this.WBGroup = this.formBuilder.group({
@@ -44,19 +47,6 @@ export class AssignWbComponent {
     });
   }
 
-  // saveToService(finalObject: any) {
-  // this.baseHTTPService
-  //   .post(finalObject, "api/user-management/create-user")
-  //   .subscribe(data => {
-  //     this.saveResponse = data;
-  //   });
-  // this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
-  // setTimeout(function () {
-  //   this.router.navigate(['/LandingPage']);
-  // }.bind(this), 2100);
-  // this.resetAll();
-
-  // }
   saveToService(finalObject: any) {
     this.userMgtService.saveUser(finalObject);
     this.app.showSuccess("User Details saved successfully!!", "SUCCESS");
@@ -96,51 +86,56 @@ export class AssignWbComponent {
 
   getWb() {
     this.wbList = [
-      { wbId: 1, wbName: 'Missing Member WB', priority: null },
-      { wbId: 2, wbName: 'Alternate Pricing WB', priority: null },
-      { wbId: 3, wbName: 'COB WB', priority: null },
-      { wbId: 4, wbName: 'High $ WB', priority: null },
-      { wbId: 5, wbName: 'Non-Payment of Premiums WB', priority: null },
-      { wbId: 6, wbName: 'Missing Provider WB', priority: null },
+      { wbId: 1, wbName: 'Missing Member WB', priority: null, selected: false },
+      { wbId: 2, wbName: 'Alternate Pricing WB', priority: null, selected: false },
+      { wbId: 3, wbName: 'COB WB', priority: null, selected: false },
+      { wbId: 4, wbName: 'High $ WB', priority: null, selected: false },
+      { wbId: 5, wbName: 'Non-Payment of Premiums WB', priority: null, selected: false },
+      { wbId: 6, wbName: 'Missing Provider WB', priority: null, selected: false },
     ];
   }
 
+  //at least 1 wb required 
   validateWb(): boolean {
-    let valid = false;
-    this.isValidForm = false;
-    let formArr = <FormArray>this.WBGroup.controls.wbs;
-    for (var i = 0; i < formArr.length; i++) {
-      if (formArr.at(i).value === true) {
-        this.isValidForm = true;
+    let inValid = true;
+    for (var i = 0; i < this.wbList.length; i++) {
+      if (this.wbList[i].selected === true) {
+        inValid = false;
       }
     }
-    valid = !this.isValidForm ? true : false;
-    return valid;
+    return inValid;
   }
+
+  //priority required for selected ones
+  validatePriority(): boolean {
+    let inValid = false;
+    for (var i = 0; i < this.wbList.length; i++) {
+      if (this.wbList[i].selected === true && (this.wbList[i].priority === null || this.wbList[i].priority === '') ){
+        inValid = true;
+      }
+    }
+    return inValid;
+  }
+
 
   submit() {
     this.submitted = true;
-    this.inValid = this.validateWb();
+    this.wbRequired = this.validateWb();
+    this.priorityRequired = this.validatePriority();
+    this.inValid = (this.wbRequired || this.priorityRequired) ? true : false;
     if (this.inValid) {
       return;
     } else {
-      let wBasket = [];
-      let wbListed = [];
-      const selectedWBIds = this.WBGroup.value.wbs
-        .map((v, i) => v ? this.wbList[i].wbId : null)
-        .filter(v => v !== null);
-
-      if (selectedWBIds) {
-        for (var i = 0; i < selectedWBIds.length; i++) {
-          wBasket.push(this.wbList.filter(wb => wb.wbId === selectedWBIds[i])[0]);
+      let WB = [];
+      if (this.wbList && this.wbList.length > 0) {
+        for (var i = 0; i < this.wbList.length; i++) {
+          if (this.wbList[i].selected) {
+            WB.push({
+              workBasketID: this.wbList[i].wbId,
+              priority: this.wbList[i].priority
+            });
+          }
         }
-      }
-      let WB = []
-      for (i = 0; i < wBasket.length; i++) {
-        WB.push({
-          workBasketID: wBasket[i].wbId,
-          priority: wBasket[i].priority
-        });
       }
       this.userMgtService.saveWBs(WB);
       this.assignWbs = this.userMgtService.getWBs();
@@ -165,22 +160,45 @@ export class AssignWbComponent {
       "roleId": this.roleIDs,
       "userWorkBasketRequestDtos": this.assignWbs
     }];
+    console.log(finalObject[0]);
     this.saveToService(finalObject[0]);
   }
-
 
   previousPage() {
     this.previousRoleTab.emit('ASSIGN_ROLE');
   }
 
-  onChange(txtId) {
-    for (var i = 0; i < this.wbList.length; i++) {
-      if (txtId.id === i.toString()) {
-        if (i !== 0)
-          this.wbList[i - 1].priority = txtId.value;
-        else
-          this.wbList[0].priority = txtId.value;
+  onRowSelect(event) {
+    this.wbList.filter((wb) => {
+      if (wb.wbId === event.data.wbId) {
+        wb.wbId = event.data.wbId;
+        wb.wbName = event.data.wbName;
+        wb.priority = event.data.priority;
+        wb.selected = true;
       }
-    }
+    })
+    this.wbRequired = this.validateWb();
+    this.inValid = this.wbRequired  ? true : false;
+    // this.wbListSelected.push({ wbId: event.data.wbId, wbName: event.data.wbName, priority: event.data.priority });
+  }
+
+  onRowUnselect(event) {
+    this.wbList.filter((wb) => {
+      if (wb.wbId === event.data.wbId) {
+        wb.wbId = event.data.wbId;
+        wb.wbName = event.data.wbName;
+        wb.priority = event.data.priority;
+        wb.selected = false;
+      }
+    })
+    this.wbRequired = this.validateWb();
+    this.inValid = this.wbRequired  ? true : false;
+    // this.wbListSelected.push({ wbId: event.data.wbId, wbName: event.data.wbName, priority: event.data.priority });
+  }
+
+  onChange(txtId, i) {
+    this.wbList[i - 1].priority = txtId.value;
+    this.priorityRequired = this.validatePriority();
+    this.inValid = this.priorityRequired  ? true : false;
   }
 }

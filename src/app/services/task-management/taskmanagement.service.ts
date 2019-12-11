@@ -158,7 +158,7 @@ export class TaskmanagementService {
       userId: 4
     };
     this.baseHTTPService
-      .post(param, "api/data-dashboard/claims-per-user")
+      .post(param, "api/resource-dashboard/claims-per-user")
       .subscribe(
         data => {
           this.prodScoreResponse = data;
@@ -178,7 +178,7 @@ export class TaskmanagementService {
       userId: 4
     };
     this.baseHTTPService
-      .post(param, "api/data-dashboard/claims-audited-per-user")
+      .post(param, "api/resource-dashboard/claims-audited-per-user")
       .subscribe(
         data => {
           this.auditScoreResponse = data;
@@ -198,7 +198,7 @@ export class TaskmanagementService {
       userId: 4
     };
     this.baseHTTPService
-      .post(param, "api/data-dashboard/claims-per-contribution")
+      .post(param, "api/resource-dashboard/claims-per-contribution")
       .subscribe(
         data => {
           this.conScoreResponse = data;
@@ -218,7 +218,7 @@ export class TaskmanagementService {
       userId: 4
     };
     this.baseHTTPService
-      .post(param, "api/data-dashboard/claims-per-status")
+      .post(param, "api/resource-dashboard/claims-per-status")
       .subscribe(
         data => {
           this.statusScoreResponse = data;

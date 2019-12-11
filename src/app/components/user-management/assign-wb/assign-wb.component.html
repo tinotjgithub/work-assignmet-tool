@@ -1,7 +1,7 @@
 <div class="container card">
     <div class="card-body">
         <form [formGroup]="WBGroup" (ngSubmit)="submit()">
-            <div>
+            <!-- <div>
                 <div class="row">
                     <div class="col-sm-2">
                         <h5>Work Basket</h5>
@@ -26,12 +26,54 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div> -->
+            <p-table #dt1 [columns]="cols" [value]="wbList" [paginator]="true" [rows]="5" [resizableColumns]="true"
+                dataKey="wbId" [reorderableColumns]="true" [scrollable]="true" (onRowSelect)="onRowSelect($event)"
+                (onRowUnselect)="onRowUnselect($event)">
+                <ng-template pTemplate="header">
+                    <tr style="text-align:left;">
+                        <th style="width:80px;">
+                            Select
+                        </th>
+                        <th style="width:300px;">
+                            Work Baskets
+                        </th>
+                        <th style="width:150px;">
+                            Priority
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-wbsList
+                    *ngFor="let wb of WBGroup.controls.wbs.controls; let i = index">
+                    <tr formArrayName="wbs" style="text-align:left; align-items: left; align-content: left;"
+                        [pSelectableRow]="wbsList">
+                        <td style="width:80px;">
+                            <p-tableCheckbox [value]="wbsList"></p-tableCheckbox>
+                        </td>
+                        <td style="text-align: left; ">
+                            {{wbsList.wbName}}
+                        </td>
+
+                        <td style="text-align: left; width:150px;">
+                            <input #txtid (change)="onChange(txtid,wbsList.wbId)" [value]="wbsList.priority"
+                                [disabled]="!wbsList.selected" type="number" min="1" max="100"
+                                class="form-control textbox-style">
+                            <!-- <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
+                                a priority for the selected workbasket</span> -->
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
             <div class="row row-span">
                 <div class="col-xs-4">
-                    <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="submitted && inValid">
-                        please assign a work basket</span>
+                    <span style="font-size:14px; color: rgb(238, 11, 11);"
+                        *ngIf="submitted && inValid && wbRequired && !priorityRequired">
+                        please assign at least one work basket</span>
+                </div>
+                <div class="col-xs-4">
+                    <span style="font-size:14px; color: rgb(238, 11, 11);"
+                        *ngIf="submitted && inValid && priorityRequired && !wbRequired">
+                        please assign at priority for the selected work baskets</span>
                 </div>
             </div>
             <div class="row row-btn">
@@ -46,22 +88,3 @@
         </form>
     </div>
 </div>
-
-  <!-- <ng-template pTemplate="body" let-assign>
-                    <tr formArrayName="wbs" *ngFor="let wb of WBGroup.controls.wbs.controls; let i = index">
-                        <td>
-
-                            <input class="checkbox-style" id="{{wb}}-{{i}}" type="checkbox" [formControlName]="i">
-                        </td>
-                        <td  style="text-align: left">
-                            {{wbList[i].wbName}}
-                        </td>
-
-                        <td style="text-align: left">
-                            <input #txtid (change)="onChange(txtid)" id="{{wbList[i].wbId}}" type="number" min="1"
-                                max="100" class="form-control textbox-style">
-                            <span style="font-size:14px; color: rgb(238, 11, 11);" *ngIf="!WBGroup.valid">Please enter
-                                a priority for the selected workbasket</span>
-                        </td>
-                    </tr>
-                </ng-template> -->

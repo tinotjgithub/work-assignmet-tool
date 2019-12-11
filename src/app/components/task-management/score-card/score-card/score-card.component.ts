@@ -292,7 +292,6 @@ export class ScoreCardComponent implements OnInit {
 
 
   getAuditChartValue(responseValue: any) {
-    debugger
     let responseLength = responseValue.length;
     this.dataaudit = [];
     for (var index = 0; index < responseLength; index++) {

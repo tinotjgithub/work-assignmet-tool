@@ -35,6 +35,13 @@ export class AssignRolesComponent implements OnInit {
     });
   }
 
+  roleChange(e) {
+    this.inValid = this.validateRoles();
+    if (this.inValid) {
+      return;
+    }
+  }
+
   rebuildForm() {
     let savedInfo = [];
     savedInfo.push(this.userMgtService.getRoleIDs());
