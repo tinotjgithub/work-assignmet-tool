@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
+import { AuthenticationService } from "src/app/modules/authentication/services/authentication.service";
 
 @Component({
   selector: "app-login",
@@ -12,7 +12,11 @@ export class LoginComponent implements OnInit {
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [
       Validators.required,
-      Validators.minLength(6)
+      Validators.minLength(8),
+      Validators.maxLength(20),
+      Validators.pattern(
+        "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}"
+      )
     ])
   });
   constructor(private AuthService: AuthenticationService) {}
@@ -25,7 +29,9 @@ export class LoginComponent implements OnInit {
     return this.form.get("password");
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.AuthService.logout();
+  }
 
   onSubmit() {
     this.AuthService.login(this.email, this.password);

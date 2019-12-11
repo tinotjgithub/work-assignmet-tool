@@ -1,48 +1,44 @@
-<div class="container">
-
-  <div>
-    <div class="container" style="margin-top: 55px">
-      <div class="d-flex justify-content-center h-100">
-        <div class="card">
-          <div class="card-header">
-            <h3>Sign In</h3>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-10">
-                <div >
-                  <form name="form" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="text" class="form-control" formControlName="email"
-                        [ngClass]="{'is-invalid':form.get('email').touched && form.get('email').invalid}" />
-                      <div *ngIf="form.get('email').touched && form.get('email').invalid" class="invalid-feedback">
-                        <div *ngIf="form.get('email').errors.required">Email Name is required</div>
-                        <div *ngIf="form.get('email').errors.email">Email must be a valid email Address</div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" formControlName="password"
-                        [ngClass]="{'is-invalid':form.get('password').touched && form.get('password').invalid}" />
-                      <div *ngIf="form.get('password').touched && form.get('password').invalid"
-                        class="invalid-feedback">
-                        <div *ngIf="form.get('password').errors.required">Password is required</div>
-                        <div *ngIf="form.get('password').errors.minlength">Password must be a letaset 6 charector</div>
-                      </div>
-
-                    </div>
-                    <div class="form-group">
-                      <button class="btn btn-primary" [disabled]="!form.valid">Login</button>
-                    </div>
-                  </form>
+<div class="container" style="margin-top: 55px">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3>Sign In</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div>
+              <form name="form" [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="text" class="form-control" formControlName="email"
+                    [ngClass]="{'is-invalid':form.get('email').touched && form.get('email').invalid}" />
+                  <div *ngIf="form.get('email').touched && form.get('email').invalid" class="invalid-feedback">
+                    <div *ngIf="form.get('email').errors.required">Email Name is required</div>
+                    <div *ngIf="form.get('email').errors.email">Email must be a valid email Address</div>
+                  </div>
                 </div>
-              </div>
+                <div class="form-group" style="overflow:hidden">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" formControlName="password"
+                    [ngClass]="{'is-invalid':form.get('password').touched && form.get('password').invalid}" />
+                  <div *ngIf="form.get('password').touched && form.get('password').invalid" class="invalid-feedback">
+                    <div *ngIf="form.get('password').errors.required">Password is required</div>
+                    <div *ngIf="form.get('password').errors.minlength">- Password must be a letaset 6 charector</div>
+                    <div *ngIf="form.get('password').errors.maxlength">- Password must be less than or equal to 20
+                      charectors</div>
+                    <div *ngIf="form.get('password').errors.pattern">- Password should conatin atleast one special
+                      charactor, upper case letter, lower case letter and a number</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" [disabled]="!form.valid">Login</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
