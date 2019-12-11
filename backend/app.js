@@ -140,16 +140,16 @@ app.get("/api/authentication/login", (req, res, next) => {
 });
 
 
-app.post("/api/data-dashboard/claims-per-user", (req, res, next) => {
+app.post("/api/resource-dashboard/claims-per-user", (req, res, next) => {
   res.status(200).json({ success: true});
 });
-app.post("/api/data-dashboard/claims-per-status", (req, res, next) => {
+app.post("/api/resource-dashboard/claims-per-status", (req, res, next) => {
   res.status(200).json({ success: true});
 });
-app.post("/api/data-dashboard/claims-per-contribution", (req, res, next) => {
+app.post("/api/resource-dashboard/claims-per-contribution", (req, res, next) => {
   res.status(200).json({ success: true});
 });
-app.post("/api/data-dashboard/claims-audited-per-user", (req, res, next) => {
+app.post("/api/resource-dashboard/claims-audited-per-user", (req, res, next) => {
   res.status(200).json({ success: true});
 });
 

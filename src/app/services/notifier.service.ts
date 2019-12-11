@@ -12,7 +12,6 @@ export class NotifierService {
   }
 
   throwNotification(notification) {
-    alert('sdsadsad not')
     this.notifierListener.next({
       type: notification.type,
       message: notification.message
