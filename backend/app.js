@@ -132,13 +132,7 @@ app.post("/api/audit-mode/assign-task", (req, res, next) => {
 
 app.post("/api/audit-mode/update-auditor-task", (req, res, next) => {
   res.status(200).json({ success: true });
-  // res.status(500).send({error: 'you have an error'});
 });
-
-app.get("/api/authentication/login", (req, res, next) => {
-  res.status(200).json({ success: true, token: 'THIS_IS_SAMPLE_TOKEN', roleId: "PROCESSOR" });
-});
-
 
 app.post("/api/resource-dashboard/claims-per-user", (req, res, next) => {
   const userProductivityDto = {
@@ -226,5 +220,14 @@ app.post("/api/resource-dashboard/claims-per-contribution", (req, res, next) => 
   }
   res.status(200).json(userContributionDto);
 });
+
+
+app.get("/token/authenticate", (req, res, next) => {
+  const token = {
+    "jwttoken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhYmNAYWJjLmNvbSIsInNjb3BlcyI6IlJPTEVfQ2xhaW0gUHJvY2Vzc29yIiwiaWF0IjoxNTc2MTQyMzExLCJleHAiOjE1NzYxNjAzMTF9.ety5pq5D6PQ6lTOlkdvTYx6Vhd49NJq1Z_uD58e7GO2WjSqa6G9ZMFo5N6TMVk_W"
+  }
+  res.status(200).json(token);
+});
+
 
 module.exports = app;
