@@ -141,16 +141,90 @@ app.get("/api/authentication/login", (req, res, next) => {
 
 
 app.post("/api/resource-dashboard/claims-per-user", (req, res, next) => {
-  res.status(200).json({ success: true});
+  const userProductivityDto = {
+    "userProductivityDto": [
+      {
+        "finishDate": "2019-12-02",
+        "claimCount": 1
+      },
+      {
+        "finishDate": "2019-12-03",
+        "claimCount": 6
+      },
+      {
+        "finishDate": "2019-12-04",
+        "claimCount": 9
+      }
+    ]
+  }
+  res.status(200).json(userProductivityDto);
 });
+
 app.post("/api/resource-dashboard/claims-per-status", (req, res, next) => {
-  res.status(200).json({ success: true});
+  const userStatusDto = {
+    "userStatusDtos": [
+      {
+        "status": "complete",
+        "claimCount": 8
+      },
+      {
+        "status": "pend",
+        "claimCount": 6
+      },
+      {
+        "status": "route",
+        "claimCount": 1
+      }
+    ]
+  }
+  res.status(200).json(userStatusDto);
 });
-app.post("/api/resource-dashboard/claims-per-contribution", (req, res, next) => {
-  res.status(200).json({ success: true});
-});
+
 app.post("/api/resource-dashboard/claims-audited-per-user", (req, res, next) => {
-  res.status(200).json({ success: true});
+  const userAuditDto = {
+    "userAuditScoreDto": [
+      {
+        "startDate": "2019-10-07",
+        "completedAuditCount": 5,
+        "successAuditCount": 3
+      },
+      {
+        "startDate": "2019-11-04",
+        "completedAuditCount": 5,
+        "successAuditCount": 3
+      },
+      {
+        "startDate": "2019-12-02",
+        "completedAuditCount": 7,
+        "successAuditCount": 5
+      }
+    ]
+  }
+
+  res.status(200).json(userAuditDto);
+});
+
+app.post("/api/resource-dashboard/claims-per-contribution", (req, res, next) => {
+  const userContributionDto = {
+    "userContributionDtos": [
+      {
+        "finishDate": "2019-12-02",
+        "userClaimCount": 1,
+        "teamClaimCount": 4
+      },
+      {
+        "finishDate": "2019-12-03",
+        "userClaimCount": 2,
+        "teamClaimCount": 8
+      },
+      {
+        "finishDate": "2019-12-04",
+        "userClaimCount": 1,
+        "teamClaimCount": 5
+      }
+    ]
+  }
+  res.status(200).json(userContributionDto);
 });
 
 module.exports = app;
