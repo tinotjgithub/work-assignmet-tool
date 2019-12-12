@@ -8,7 +8,6 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { ContainerComponent } from "./components/dashboard/container.component";
 import { NavigationBarComponent } from "./components/navigation-bar/navigation-bar.component";
 import bootstrap from "bootstrap";
-import { SidebarDirective } from "./sidebar.directive";
 import { BasicInfoComponent } from "./components/user-management/basic-info/basic-info.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule, NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
@@ -49,7 +48,6 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     FooterComponent,
     ContainerComponent,
     NavigationBarComponent,
-    SidebarDirective,
     BasicInfoComponent,
     TaskManagementComponent,
     UserManagementComponent,
