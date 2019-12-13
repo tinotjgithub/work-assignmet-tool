@@ -19,7 +19,7 @@ export class NavigationBarComponent implements OnInit {
     private headerService: HeaderService,
     private route: ActivatedRoute,
     private authService: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.visibleSidebar1 = this.headerService.openSideMenu;
@@ -50,6 +50,16 @@ export class NavigationBarComponent implements OnInit {
               this.visibleSidebar1 = false;
             }
           },
+          //draw-score --b
+          {
+            label: "Draw Score",
+            icon: "fa fa-file",
+            command: e => {
+              this.router.navigateByUrl("DrawScore");
+              this.visibleSidebar1 = false;
+            }
+          },
+          //draw-score --e
           {
             visible: ROLES.admin === this.authService.userRole || ROLES.auditor === this.authService.userRole,
             label: "Audit Mode",

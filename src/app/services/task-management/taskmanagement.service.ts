@@ -11,6 +11,9 @@ export class TaskmanagementService {
   private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
   private prodScoresFetch = new Subject<any[]>();
+   //draw-score --b
+  private myProdScoresFetch = new Subject<any[]>();
+   //draw-score --e
   private statusScoresFetch = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
   private conScoresFetch = new Subject<any>();
@@ -44,6 +47,9 @@ export class TaskmanagementService {
 
   claimDetails: any;
   prodScoreResponse: any;
+   //draw-score --b
+  myprodScoreResponse: any;
+   //draw-score --e
   auditScoreResponse: any;
   assignTaskResponse: any;
   statusScoreResponse: any;
@@ -63,6 +69,11 @@ export class TaskmanagementService {
   getProdScoresListner() {
     return this.prodScoresFetch.asObservable();
   }
+  //draw-score --b
+  getMyProdScoresListner() {
+    return this.myProdScoresFetch.asObservable();
+  }
+  //draw-score --e
 
   getAuditScoresListner() {
     return this.auditScoresFetch.asObservable();
@@ -189,6 +200,29 @@ export class TaskmanagementService {
         }
       );
   }
+
+  //draw-score --b
+
+  getMyProdScores(action) {
+    const param = {
+      action: action,
+      userId: 4
+    };
+    this.baseHTTPService
+      .post(param, "api/resource-dashboard/claims-per-user-prod")
+      .subscribe(
+        data => {
+          this.myprodScoreResponse = data;
+          this.myProdScoresFetch.next(this.myprodScoreResponse);
+        },
+        error => {
+          // alert("Something Went Wrong");
+        }
+      );
+  }
+  //draw-score --e
+
+
 
   getAuditScores(action, fromDate, toDate) {
     const param = {

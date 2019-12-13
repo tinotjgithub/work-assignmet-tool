@@ -38,10 +38,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AuthenticationModule } from "./modules/authentication/authentication.module";
+import { DropdownModule } from 'primeng/dropdown';
+
 import { ErrorInterceptorService } from './services/error-interceptor.service';
+import { DrawScoreComponent } from './components/task-management/draw-score/draw-score.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +67,8 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     ScoreCardComponent,
     AuditModeComponent,
     ReportsComponent,
-    ReportPageComponent
+    ReportPageComponent,
+    DrawScoreComponent
   ],
   imports: [
     BrowserModule,
@@ -73,10 +79,12 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     TableModule,
     NgbModule,
     HttpClientModule,
+    DropdownModule,
     BrowserAnimationsModule,
     ProgressSpinnerModule,
     ListboxModule,
     MultiSelectModule,
+    CalendarModule,
     InputTextModule,
     SidebarModule,
     PanelMenuModule,

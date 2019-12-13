@@ -160,6 +160,311 @@ app.post("/api/resource-dashboard/claims-per-user", (req, res, next) => {
   res.status(200).json(userProductivityDto);
 });
 
+//draw-score --b
+app.post("/api/resource-dashboard/claims-per-user-prod", (req, res, next) => {
+  const userProductivityDto = {
+    "userProductivityDtoWeekly": [
+      {
+        "finishDate": "2019-12-01",
+        "claimCount": 1,
+        "target": 15
+      },
+      {
+        "finishDate": "2019-12-07",
+        "claimCount": 6,
+        "target": 10
+      },
+      {
+        "finishDate": "2019-12-14",
+        "claimCount": 9,
+        "target": 8
+      },
+      {
+        "finishDate": "2019-12-21",
+        "claimCount": 2,
+        "target": 4
+      },
+      {
+        "finishDate": "2019-12-28",
+        "claimCount": 4,
+        "target": 8
+      },
+      {
+        "finishDate": "2019-12-31",
+        "claimCount": 1,
+        "target": 1
+      }
+    ],
+    "userProductivityDtoMonthly": [
+      {
+        "finishDate": "2019-01-02",
+        "claimCount": 2,
+        "target": 15
+      },
+      {
+        "finishDate": "2019-02-03",
+        "claimCount": 7,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-03-04",
+        "claimCount": 10,
+        "target": 12
+      },
+      {
+        "finishDate": "2019-04-05",
+        "claimCount": 3,
+        "target": 4
+      },
+      {
+        "finishDate": "2019-05-06",
+        "claimCount": 1,
+        "target": 13
+      },
+      {
+        "finishDate": "2019-06-07",
+        "claimCount": 3,
+        "target": 19
+      },
+      {
+        "finishDate": "2019-07-08",
+        "claimCount": 7,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-08-08",
+        "claimCount": 7,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-09-08",
+        "claimCount": 7,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-10-08",
+        "claimCount": 7,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-11-08",
+        "claimCount": 7,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-12-08",
+        "claimCount": 7,
+        "target": 14
+      }
+    ],
+    "userProductivityDtoHourly": [
+      {
+        "finishDate": "2019-12-13 9:24:25.694",
+        "claimCount": 0,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 10:24:25.694",
+        "claimCount": 6,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 11:24:25.694",
+        "claimCount": 9,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 12:24:25.694",
+        "claimCount": 2,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 13:24:25.694",
+        "claimCount": 4,
+        "target": 6
+      },
+      {
+        "finishDate": "2019-12-13 14:24:25.694",
+        "claimCount": 1,
+        "target": 5
+      },
+      {
+        "finishDate": "2019-12-13 15:24:25.694",
+        "claimCount": 10,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13 16:24:25.694",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13 17:24:25.694",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13 18:24:25.694",
+        "claimCount": 1,
+        "target": 2
+      }
+    ],
+    "userProductivityDtoDaily": [
+      {
+        "finishDate": "2019-12-01",
+        "claimCount": 0,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-02",
+        "claimCount": 6,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-03",
+        "claimCount": 9,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-04",
+        "claimCount": 2,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-05",
+        "claimCount": 4,
+        "target": 6
+      },
+      {
+        "finishDate": "2019-12-06",
+        "claimCount": 1,
+        "target": 5
+      },
+      {
+        "finishDate": "2019-12-07",
+        "claimCount": 10,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-08",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-09",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-10",
+        "claimCount": 1,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-11",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-12",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-14",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-15",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-16",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-17",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-18",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-19",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-20",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-21",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-22",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-23",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-24",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-25",
+        "claimCount": 5,
+        "target": 12
+      },
+      {
+        "finishDate": "2019-12-26",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-27",
+        "claimCount": 11,
+        "target": 12
+      },
+      {
+        "finishDate": "2019-12-28",
+        "claimCount": 5,
+        "target": 14
+      },
+      {
+        "finishDate": "2019-12-29",
+        "claimCount": 3,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-30",
+        "claimCount": 8,
+        "target": 7
+      },
+    ]
+  }
+  res.status(200).json(userProductivityDto);
+});
+//draw-score --e
 app.post("/api/resource-dashboard/claims-per-status", (req, res, next) => {
   const userStatusDto = {
     "userStatusDtos": [
