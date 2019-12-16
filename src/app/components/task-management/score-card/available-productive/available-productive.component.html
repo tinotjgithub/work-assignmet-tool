@@ -1,0 +1,9 @@
+<h6>Available Vs Productive</h6>
+<div class="card align-items-center m-8">
+    <div class="card-body m-8">
+        <google-chart #chart [title]="titleavailable" *ngIf="isAvailableVsProdRendered" [type]="typeavailable"
+            [data]="dataavailable" [options]="optionsavailable" [width]="widthavailable"
+            [columnNames]="columnNamesavailable" [height]="heightavailable">
+        </google-chart>
+    </div>
+</div>

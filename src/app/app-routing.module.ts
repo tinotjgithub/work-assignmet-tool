@@ -5,7 +5,7 @@ import { RouteGuard } from "./guards/route.guard/route.guard.service";
 import { UserManagementComponent } from "./components/user-management/user-management.component";
 import { ReprioritizeComponent } from "./components/reprioritize/reprioritize.component";
 import { ReportsComponent } from "./components/reports/reports.component";
-import { ScoreCardComponent } from "./components/task-management/score-card/score-card/score-card.component";
+import { ScoreCardComponent } from "./components/task-management/score-card/score-card.component";
 import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
 import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
 import { AuthGuard } from "./guards/auth.guard/auth.guard";
