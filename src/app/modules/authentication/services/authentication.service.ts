@@ -21,7 +21,8 @@ export class AuthenticationService {
       password
     };
 
-    this.http.post(param, "token/authenticate").subscribe(res => {
+    // This shoud be changed to post
+    this.http.get("token/authenticate", param).subscribe(res => {
       this.setLogin({ success: true, token: res.jwttoken, roleId: "ADMIN" });
     });
   }
