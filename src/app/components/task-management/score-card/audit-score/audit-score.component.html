@@ -1,0 +1,8 @@
+<h6>Audit Score</h6>
+<div class="card align-items-center m-6">
+    <div class="card-body m-6">
+        <google-chart *ngIf="isAuditRendered" #chart [title]="titleaudit" [type]="typeaudit" [data]="dataaudit"
+            [options]="optionsaudit" [width]="widthaudit" [columnNames]="columnNamesaudit" [height]="heightaudit">
+        </google-chart>
+    </div>
+</div>

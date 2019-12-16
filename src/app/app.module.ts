@@ -25,8 +25,9 @@ import { ReprioritizeComponent } from "./components/reprioritize/reprioritize.co
 import { ToastComponent } from "./components/toast.component";
 import { GoogleChartsModule } from "angular-google-charts";
 import { DateParserFormatter } from "./date-parser-formater";
-import { ScoreCardComponent } from "./components/task-management/score-card/score-card/score-card.component";
+import { ScoreCardComponent } from "./components/task-management/score-card/score-card.component";
 import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
+import { AuditScoreComponent } from "./components/task-management/score-card/audit-score/audit-score.component";
 import { ReportsComponent } from "./components/reports/reports.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
@@ -45,6 +46,10 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { DrawScoreComponent } from './components/task-management/draw-score/draw-score.component';
+import { MyProductivityComponent } from './components/task-management/score-card/my-productivity/my-productivity.component';
+import { MyContributionComponent } from './components/task-management/score-card/my-contribution/my-contribution.component';
+import { StatusDateComponent } from './components/task-management/score-card/status-date/status-date.component';
+import { AvailableProductiveComponent } from './components/task-management/score-card/available-productive/available-productive.component';
 
 @NgModule({
   declarations: [
@@ -64,9 +69,14 @@ import { DrawScoreComponent } from './components/task-management/draw-score/draw
     ToastComponent,
     ScoreCardComponent,
     AuditModeComponent,
+    AuditScoreComponent,
     ReportsComponent,
     ReportPageComponent,
-    DrawScoreComponent
+    DrawScoreComponent,
+    MyProductivityComponent,
+    MyContributionComponent,
+    StatusDateComponent,
+    AvailableProductiveComponent
   ],
   imports: [
     BrowserModule,
