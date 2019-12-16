@@ -11,16 +11,17 @@ export class TaskmanagementService {
   private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
   private prodScoresFetch = new Subject<any[]>();
-   //draw-score --b
+  //draw-score --b
   private myProdScoresFetch = new Subject<any[]>();
-   //draw-score --e
+  //draw-score --e
+  private availableVsProdScoresFetch = new Subject<any[]>();
   private statusScoresFetch = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
   private conScoresFetch = new Subject<any>();
   private auditScoresFetch = new Subject<any>();
-  private userId = "abc@abc.com";
   private auditClaimDetailsSub = new Subject<AuditClaim>();
 
+  private userId = "abc@abc.com";
   private loggedInUserEmail = "admin@promt.com";
   private taskTimerSub = new Subject<{
     timer: string;
@@ -47,10 +48,11 @@ export class TaskmanagementService {
 
   claimDetails: any;
   prodScoreResponse: any;
-   //draw-score --b
+  //draw-score --b
   myprodScoreResponse: any;
-   //draw-score --e
+  //draw-score --e
   auditScoreResponse: any;
+  availableVsProdScoreResponse: any;
   assignTaskResponse: any;
   statusScoreResponse: any;
   conScoreResponse: any;
@@ -77,6 +79,10 @@ export class TaskmanagementService {
 
   getAuditScoresListner() {
     return this.auditScoresFetch.asObservable();
+  }
+
+  getAvailableVsProdScoresListner() {
+    return this.availableVsProdScoresFetch.asObservable();
   }
 
   getStatusScoresListner() {
@@ -244,6 +250,26 @@ export class TaskmanagementService {
       );
   }
 
+  getAvailableVsProdScores(action, fromDate, toDate) {
+    const param = {
+      action: action,
+      fromDate: fromDate,
+      toDate: toDate,
+      userId: 4
+    };
+    this.baseHTTPService
+      .post(param, "api/resource-dashboard/hours-per-available-vs-productive")
+      .subscribe(
+        data => {
+          this.availableVsProdScoreResponse = data;
+          this.availableVsProdScoresFetch.next(this.availableVsProdScoreResponse);
+        },
+        error => {
+          // alert("Something Went Wrong");
+        }
+      );
+  }
+
   getConScores(action, fromDate, toDate) {
     const param = {
       action: action,
@@ -282,23 +308,6 @@ export class TaskmanagementService {
           // alert("Something Went Wrong");
         }
       );
-    // this.statusScoreResponse = {
-    //   "userProductivityDto": null,
-    //   "userStatusDtos": [
-    //     {
-    //       "status": "complete",
-    //       "claimCount": 8
-    //     },
-    //     {
-    //       "status": "pend",
-    //       "claimCount": 5
-    //     },
-    //     {
-    //       "status": "route",
-    //       "claimCount": 1
-    //     }
-    //   ]
-    // }
   }
 
   assignTask() {

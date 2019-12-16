@@ -13,9 +13,8 @@ import * as moment from 'moment';
 })
 export class DrawScoreComponent implements OnInit {
 
-  productiveSchedule: FormGroup;
+  productiveGroup: FormGroup;
   dataproductivity: any;
-  yearOptions: any = [];
   scheduleOptions: any;
   defaultDate: any;
   submittedProd: boolean = false;
@@ -23,22 +22,20 @@ export class DrawScoreComponent implements OnInit {
   monthWise: boolean = false;
   dayWise: boolean = false;
   weekWise: boolean = false;
-  yearWise: boolean = false;
   scheduleList = Array<{ scheduleId: number, scheduleName: string }>();
   userProductivityDto: any;
 
   constructor(public datePipe: DatePipe, private router: Router, fbprod: FormBuilder, fbcon: FormBuilder, private taskManagementService: TaskmanagementService) {
-    this.productiveSchedule = fbprod.group({
+    this.productiveGroup = fbprod.group({
       scheduleProductive: [''],
       scheduleMonth: [''],
       scheduleDay: [''],
-      scheduleYear: [''],
       scheduleFromWeek: [''],
       scheduleToWeek: ['']
     })
-
+    // conditionallyRequiredMonthValidator
   }
-  get prod() { return this.productiveSchedule.controls; }
+  get prod() { return this.productiveGroup.controls; }
 
   //Productivity chart
 
@@ -62,18 +59,18 @@ export class DrawScoreComponent implements OnInit {
     },
     pointSize: 15
   };
-  widthproductivity = 900;
+
+  widthproductivity = 800;
   heightproductivity = 400;
 
   ngOnInit() {
     window.scrollTo(0, 0);
     let that = this;
     this.getScheduleList();
-    this.getYearList();
-    this.getDefaultProductiveSchedule();
+    this.getDefaultproductiveGroup();
   }
 
-  getDefaultProductiveSchedule() {
+  getDefaultproductiveGroup() {
     this.taskManagementService.getMyProdScores("");
     this.userProductivityDto = this.taskManagementService.myprodScoreResponse;
     this.taskManagementService.getMyProdScoresListner().subscribe(data => {
@@ -95,8 +92,6 @@ export class DrawScoreComponent implements OnInit {
         scheduleFormat = this.datePipe.transform(productivity[index].finishDate, 'EEEE');
       else if (schedule === 'monthly')
         scheduleFormat = productivity[index].finishDate;
-      else if (schedule === 'yearly')
-        scheduleFormat = this.datePipe.transform(productivity[index].finishDate, 'MMM');
       else if (schedule === 'daily')
         scheduleFormat = this.datePipe.transform(productivity[index].finishDate, 'hh');
 
@@ -106,7 +101,7 @@ export class DrawScoreComponent implements OnInit {
 
   getProductiveDays() {
     //incoming response from service 
-    const scheduleValue = this.productiveSchedule.get('scheduleProductive').value;
+    const scheduleValue = this.productiveGroup.get('scheduleProductive').value;
     let scheduleArray = [];
     scheduleArray = (this.scheduleList.filter((val => val.scheduleId === scheduleValue.value)));
     const schedule = scheduleArray && scheduleArray[0] && scheduleArray[0].scheduleName ? scheduleArray[0].scheduleName : '';
@@ -120,15 +115,11 @@ export class DrawScoreComponent implements OnInit {
         }
       }
       else if (schedule === "monthly") {
-        if (this.userProductivityDto && this.userProductivityDto.userProductivityDtoDaily) {
-          this.getProductivityChartValue(this.userProductivityDto.userProductivityDtoDaily, schedule);
-        }
-      }
-      else if (schedule === "yearly") {
         if (this.userProductivityDto && this.userProductivityDto.userProductivityDtoMonthly) {
           this.getProductivityChartValue(this.userProductivityDto.userProductivityDtoMonthly, schedule);
         }
-      } else if (schedule === "weekly") {
+      }
+      else if (schedule === "weekly") {
         if (this.userProductivityDto && this.userProductivityDto.userProductivityDtoWeekly) {
           this.getProductivityChartValue(this.userProductivityDto.userProductivityDtoWeekly, schedule);
         }
@@ -136,13 +127,31 @@ export class DrawScoreComponent implements OnInit {
     })
   }
 
+  //   this.myForm.get('scheduleProductive').valueChanges
+  //     .subscribe(value => {
+  //       if(value && value===3) {
+  //         this.myForm.get('scheduleMonth').setValidators(Validators.required)
+  //       } else {
+  //         this.myForm.get('scheduleMonth').clearValidators();
+  //       }
+  //     }
+  // );
+
+  // conditionallyRequiredMonthValidator(formGroup: FormGroup) {
+  //   if (formGroup.value.scheduleProductive && formGroup.value.scheduleProductive.value === 3) {
+  //     return Validators.required(formGroup.get('scheduleMonth')) ? {
+  //       conditionallyRequiredMonth: true,
+  //     } : null;
+  //   }
+  //   return null;
+  // }
+
   getScheduleList() {
     this.scheduleOptions = [];
     this.scheduleList = [
       { scheduleId: 1, scheduleName: 'daily' },
       { scheduleId: 2, scheduleName: 'weekly' },
-      { scheduleId: 3, scheduleName: 'monthly' },
-      { scheduleId: 4, scheduleName: 'yearly' }
+      { scheduleId: 3, scheduleName: 'monthly' }
     ];
     this.scheduleOptions.push({ "name": '--Select Schedule--', "value": null })
     this.scheduleList.map((s) => {
@@ -150,21 +159,11 @@ export class DrawScoreComponent implements OnInit {
     })
   }
 
-  getYearList() {
-    this.yearOptions = [];
-    this.yearOptions.push({ "name": '--Select Year--', "value": null })
-    for (var y = 2000; y <= 2030; y++) {
-      this.yearOptions.push({ "name": y, "value": y });
-    }
-    console.log(this.yearOptions);
-  }
-
   onChangeSchedule() {
-    let val = this.productiveSchedule.get('scheduleProductive').value;
+    let val = this.productiveGroup.get('scheduleProductive').value;
     this.dayWise = val.value === 1 ? true : false;
     this.weekWise = val.value === 2 ? true : false;
     this.monthWise = val.value === 3 ? true : false;
-    this.yearWise = val.value === 4 ? true : false;
   }
 
   onSubmitProductive() {
