@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { AppComponent } from "./../../../app.component";
 import { ActivatedRoute } from "@angular/router";
+import { NotifierService } from "src/app/services/notifier.service";
 
 @Component({
   selector: "app-draw-mode",
@@ -18,7 +19,8 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     private taskManagementService: TaskmanagementService,
     private datePype: DatePipe,
     public app: AppComponent,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: NotifierService
   ) {}
   // These are important variables
   pause: boolean;
@@ -107,6 +109,10 @@ export class DrawModeComponent implements OnInit, OnDestroy {
     inputElement.select();
     document.execCommand("copy");
     inputElement.setSelectionRange(0, 0);
+    this.toastService.throwNotification({
+      type: "success",
+      message: "Claim ID copied"
+    });
   }
 
   triggerClaimCompletion(action = "complete", comments = this.comments) {

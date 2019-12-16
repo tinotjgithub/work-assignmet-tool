@@ -21,10 +21,13 @@ export class AuthenticationService {
       password
     };
 
-    // This shoud be changed to post
-    this.http.get("token/authenticate", param).subscribe(res => {
-      this.setLogin({ success: true, token: res.jwttoken, roleId: "ADMIN" });
-    });
+    this.setLogin({ success: true, token: "TEST TOKEN", roleId: "ADMIN" });
+
+    // This shoud be changed to post when all others are pulled the latest and DB has valid data
+    // this.http.get("token/authenticate", param).subscribe(res => {
+    //   this.setLogin({ success: true, token: res.jwttoken, roleId: "ADMIN" });
+    // });
+
   }
 
   setLogin(loginRes) {

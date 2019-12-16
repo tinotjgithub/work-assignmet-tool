@@ -41,7 +41,15 @@ export class AppComponent implements OnInit {
       this.router.navigate([""]);
     }
     this.notifierService.getNotifierListener().subscribe(res => {
-      this.showError(res.message, "Exception Occured");
+      if (res.type === "error") {
+        this.showError(res.message, "Error");
+      }
+      if (res.type === "success") {
+        this.showSuccess(res.message, "Success");
+      }
+      if (res.type === "warning") {
+        this.showWarning(res.message, "Warning");
+      }
     });
   }
 
@@ -74,12 +82,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  showStandard(message: string, header: string) {
-    this.toastService.show(message, {
-      delay: 2000,
-      autohide: true
-    });
-  }
 
   showSuccess(message: string, header: string) {
     this.toastService.show(message, {
@@ -94,6 +96,15 @@ export class AppComponent implements OnInit {
   showFailure(message: string, header: string) {
     this.toastService.show(message, {
       classname: "bg-danger text-dark",
+      delay: 2000,
+      autohide: true,
+      header: false,
+      headertext: header
+    });
+  }
+  showWarning(message: string, header: string) {
+    this.toastService.show(message, {
+      classname: "bg-warning text-dark",
       delay: 2000,
       autohide: true,
       header: false,
