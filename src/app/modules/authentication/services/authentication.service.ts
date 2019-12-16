@@ -21,13 +21,10 @@ export class AuthenticationService {
       password
     };
 
-    // This should be replaced with actual back end call
-
-    // this.http.get("api/authentication/login", param).subscribe(res => {
-    //   this.setLogin(res);
-    // });
-
-    this.setLogin({ success: true, token: 'THIS_IS_SAMPLE_TOKEN', roleId: "ADMIN" });
+    // This shoud be changed to post
+    this.http.get("token/authenticate", param).subscribe(res => {
+      this.setLogin({ success: true, token: res.jwttoken, roleId: "ADMIN" });
+    });
   }
 
   setLogin(loginRes) {

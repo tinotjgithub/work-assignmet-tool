@@ -8,7 +8,6 @@ import AssignAuditTask from "./models/AuditAssingTask";
   providedIn: "root"
 })
 export class TaskmanagementService {
-  private tasks: any[] = [];
   private taskUpdatedSub = new Subject<any[]>();
   private prodScoresFetch = new Subject<any[]>();
   //draw-score --b
@@ -21,7 +20,6 @@ export class TaskmanagementService {
   private auditScoresFetch = new Subject<any>();
   private auditClaimDetailsSub = new Subject<AuditClaim>();
 
-  private userId = "abc@abc.com";
   private loggedInUserEmail = "admin@promt.com";
   private taskTimerSub = new Subject<{
     timer: string;
@@ -200,9 +198,6 @@ export class TaskmanagementService {
         data => {
           this.prodScoreResponse = data;
           this.prodScoresFetch.next(this.prodScoreResponse);
-        },
-        error => {
-          // alert("Something Went Wrong");
         }
       );
   }
@@ -243,9 +238,6 @@ export class TaskmanagementService {
         data => {
           this.auditScoreResponse = data;
           this.auditScoresFetch.next(this.auditScoreResponse);
-        },
-        error => {
-          // alert("Something Went Wrong");
         }
       );
   }
@@ -283,9 +275,6 @@ export class TaskmanagementService {
         data => {
           this.conScoreResponse = data;
           this.conScoresFetch.next(this.conScoreResponse);
-        },
-        error => {
-          // alert("Something Went Wrong");
         }
       );
   }
@@ -303,9 +292,6 @@ export class TaskmanagementService {
         data => {
           this.statusScoreResponse = data;
           this.statusScoresFetch.next(this.statusScoreResponse);
-        },
-        error => {
-          // alert("Something Went Wrong");
         }
       );
   }
