@@ -9,6 +9,9 @@ import { ScoreCardComponent } from "./components/task-management/score-card/scor
 import { DrawModeComponent } from "./components/task-management/draw-mode/draw-mode.component";
 import { AuditModeComponent } from "./components/task-management/audit-mode/audit-mode.component";
 import { AuthGuard } from "./guards/auth.guard/auth.guard";
+//score-draw --b
+import { DrawScoreComponent } from './components/task-management/draw-score/draw-score.component';
+//score draw --e
 
 const routes: Routes = [
   {
@@ -79,6 +82,17 @@ const routes: Routes = [
       expectedRoles: ["ADMIN", "AUDITOR", "PROCESSOR"]
     }
   },
+  //score-draw --b
+  {
+    path: "DrawScore",
+    component: DrawScoreComponent,
+    canActivate: [RouteGuard, AuthGuard],
+    data: {
+      breadcrumb: [{ label: "Actions" }, { label: "Draw Score" }],
+      expectedRoles: ["ADMIN", "AUDITOR", "PROCESSOR"]
+    }
+  },
+  //score-draw --e
   {
     path: "AuditMode",
     component: AuditModeComponent,
@@ -95,4 +109,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [RouteGuard]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

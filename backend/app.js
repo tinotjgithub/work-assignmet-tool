@@ -154,6 +154,119 @@ app.post("/api/resource-dashboard/claims-per-user", (req, res, next) => {
   res.status(200).json(userProductivityDto);
 });
 
+//draw-score --b
+app.post("/api/resource-dashboard/claims-per-user-prod", (req, res, next) => {
+  const userProductivityDto = {
+    "userProductivityDtoWeekly": [
+      {
+        "finishDate": "2019-12-01",
+        "claimCount": 1,
+        "target": 15
+      },
+      {
+        "finishDate": "2019-12-07",
+        "claimCount": 6,
+        "target": 10
+      },
+      {
+        "finishDate": "2019-12-14",
+        "claimCount": 9,
+        "target": 8
+      },
+      {
+        "finishDate": "2019-12-21",
+        "claimCount": 2,
+        "target": 4
+      },
+      {
+        "finishDate": "2019-12-28",
+        "claimCount": 4,
+        "target": 8
+      },
+      {
+        "finishDate": "2019-12-31",
+        "claimCount": 1,
+        "target": 1
+      }
+    ],
+    "userProductivityDtoHourly": [
+      {
+        "finishDate": "2019-12-13 9:24:25.694",
+        "claimCount": 0,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 10:24:25.694",
+        "claimCount": 6,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 11:24:25.694",
+        "claimCount": 9,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 12:24:25.694",
+        "claimCount": 2,
+        "target": 2
+      },
+      {
+        "finishDate": "2019-12-13 13:24:25.694",
+        "claimCount": 4,
+        "target": 6
+      },
+      {
+        "finishDate": "2019-12-13 14:24:25.694",
+        "claimCount": 1,
+        "target": 5
+      },
+      {
+        "finishDate": "2019-12-13 15:24:25.694",
+        "claimCount": 10,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13 16:24:25.694",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13 17:24:25.694",
+        "claimCount": 5,
+        "target": 7
+      },
+      {
+        "finishDate": "2019-12-13 18:24:25.694",
+        "claimCount": 1,
+        "target": 2
+      }
+    ],
+    "userProductivityDtoMonthly": [
+      {
+        "finishDate": "Week 1",
+        "claimCount": 0,
+        "target": 2
+      },
+      {
+        "finishDate": "Week 2",
+        "claimCount": 6,
+        "target": 2
+      },
+      {
+        "finishDate": "Week 3",
+        "claimCount": 9,
+        "target": 2
+      },
+      {
+        "finishDate": "Week 4",
+        "claimCount": 2,
+        "target": 2
+      }
+    ]
+  }
+  res.status(200).json(userProductivityDto);
+});
+//draw-score --e
 app.post("/api/resource-dashboard/claims-per-status", (req, res, next) => {
   const userStatusDto = {
     "userStatusDtos": [
@@ -172,6 +285,32 @@ app.post("/api/resource-dashboard/claims-per-status", (req, res, next) => {
     ]
   }
   res.status(200).json(userStatusDto);
+});
+
+app.post("/api/resource-dashboard/hours-per-available-vs-productive", (req, res, next) => {
+  const userAvailableVsProdDto = {
+    "availableVsProductiveDtos": [
+      {
+        "days": "2019-12-12",
+        "availableCount": 7,
+        "productiveCount": 8.08,
+        "targetHours": 7
+      },
+      {
+        "days": "2019-12-13",
+        "availableCount": 6.75,
+        "productiveCount": 8.08,
+        "targetHours": 7
+      },
+      {
+        "days": "2019-12-14",
+        "availableCount": 8.1,
+        "productiveCount": 7.1,
+        "targetHours": 7
+      }
+    ]
+  }
+  res.status(200).json(userAvailableVsProdDto);
 });
 
 app.post("/api/resource-dashboard/claims-audited-per-user", (req, res, next) => {

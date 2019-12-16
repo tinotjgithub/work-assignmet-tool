@@ -10,11 +10,16 @@ import AssignAuditTask from "./models/AuditAssingTask";
 export class TaskmanagementService {
   private taskUpdatedSub = new Subject<any[]>();
   private prodScoresFetch = new Subject<any[]>();
+  //draw-score --b
+  private myProdScoresFetch = new Subject<any[]>();
+  //draw-score --e
+  private availableVsProdScoresFetch = new Subject<any[]>();
   private statusScoresFetch = new Subject<any[]>();
   private claimDetailsSub = new Subject<any>();
   private conScoresFetch = new Subject<any>();
   private auditScoresFetch = new Subject<any>();
   private auditClaimDetailsSub = new Subject<AuditClaim>();
+
   private loggedInUserEmail = "admin@promt.com";
   private taskTimerSub = new Subject<{
     timer: string;
@@ -41,7 +46,11 @@ export class TaskmanagementService {
 
   claimDetails: any;
   prodScoreResponse: any;
+  //draw-score --b
+  myprodScoreResponse: any;
+  //draw-score --e
   auditScoreResponse: any;
+  availableVsProdScoreResponse: any;
   assignTaskResponse: any;
   statusScoreResponse: any;
   conScoreResponse: any;
@@ -60,9 +69,18 @@ export class TaskmanagementService {
   getProdScoresListner() {
     return this.prodScoresFetch.asObservable();
   }
+  //draw-score --b
+  getMyProdScoresListner() {
+    return this.myProdScoresFetch.asObservable();
+  }
+  //draw-score --e
 
   getAuditScoresListner() {
     return this.auditScoresFetch.asObservable();
+  }
+
+  getAvailableVsProdScoresListner() {
+    return this.availableVsProdScoresFetch.asObservable();
   }
 
   getStatusScoresListner() {
@@ -184,6 +202,29 @@ export class TaskmanagementService {
       );
   }
 
+  //draw-score --b
+
+  getMyProdScores(action) {
+    const param = {
+      action: action,
+      userId: 4
+    };
+    this.baseHTTPService
+      .post(param, "api/resource-dashboard/claims-per-user-prod")
+      .subscribe(
+        data => {
+          this.myprodScoreResponse = data;
+          this.myProdScoresFetch.next(this.myprodScoreResponse);
+        },
+        error => {
+          // alert("Something Went Wrong");
+        }
+      );
+  }
+  //draw-score --e
+
+
+
   getAuditScores(action, fromDate, toDate) {
     const param = {
       action: action,
@@ -197,6 +238,26 @@ export class TaskmanagementService {
         data => {
           this.auditScoreResponse = data;
           this.auditScoresFetch.next(this.auditScoreResponse);
+        }
+      );
+  }
+
+  getAvailableVsProdScores(action, fromDate, toDate) {
+    const param = {
+      action: action,
+      fromDate: fromDate,
+      toDate: toDate,
+      userId: 4
+    };
+    this.baseHTTPService
+      .post(param, "api/resource-dashboard/hours-per-available-vs-productive")
+      .subscribe(
+        data => {
+          this.availableVsProdScoreResponse = data;
+          this.availableVsProdScoresFetch.next(this.availableVsProdScoreResponse);
+        },
+        error => {
+          // alert("Something Went Wrong");
         }
       );
   }
