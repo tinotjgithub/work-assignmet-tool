@@ -20,8 +20,8 @@
         style="background-color: black; border-radius: 0px; font-family:digital">{{timer}}</button>
     </div>
 
-    <div class="p-2 collapse multi-collapse" id="collapseRoute">
-      <div class="card p-2">
+    <div class="card p-2 collapse multi-collapse" id="collapseRoute" style="overflow: hidden">
+      <div class="p-2">
         <div>
           <textarea [(ngModel)]="comments" placeholder="Enter comments here.." class=" form-control p-2"
             id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -30,19 +30,17 @@
         </div>
       </div>
     </div>
-    <div class="card-deck p-2 " style="margin-top: 25px">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex justify-content-center">
-            <input class="form-control" type="text" value="Claim ID" readonly
-              style="margin: 15px; width: 25%; font-size: x-large; text-align: center">
-            <input class="form-control readonly" type="text" value={{claimDetails.claimId}} readonly
-              style="margin: 15px; width: 25%;font-size: x-large;text-align: center" #userinput>
-            <button (click)="copyInputMessage(userinput)" class="btn btn-secondary rounded-icon" data-toggle="tooltip"
-              data-placement="bottom" title="Copy Claim Id">
-              <i class="fa fa-clipboard" aria-hidden="true"></i>
-            </button>
-          </div>
+    <div class="card ">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <input class="form-control" type="text" value="Claim ID" readonly
+            style="margin: 15px; width: 25%; font-size: x-large; text-align: center">
+          <input class="form-control readonly" type="text" value={{claimDetails.claimId}} readonly
+            style="margin: 15px; width: 25%;font-size: x-large;text-align: center" #userinput>
+          <button (click)="copyInputMessage(userinput)" class="btn btn-secondary rounded-icon" data-toggle="tooltip"
+            data-placement="bottom" title="Copy Claim Id">
+            <i class="fa fa-clipboard" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </div>
