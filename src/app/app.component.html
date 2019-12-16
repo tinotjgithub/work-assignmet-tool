@@ -1,8 +1,10 @@
-<app-header *ngIf="isAuthenticated === true"></app-header>
-<app-navigation-bar *ngIf="isAuthenticated === true"></app-navigation-bar>
-<p-breadcrumb *ngIf="isAuthenticated === true" [model]="items" ></p-breadcrumb>
-<div  style="min-height: 605px">
-  <router-outlet></router-outlet>
+<div style="background-color: #e9ecef">
+  <app-header *ngIf="isAuthenticated === true"></app-header>
+  <app-navigation-bar *ngIf="isAuthenticated === true"></app-navigation-bar>
+  <p-breadcrumb *ngIf="isAuthenticated === true" [model]="items"></p-breadcrumb>
+  <div style="min-height: 605px">
+    <router-outlet></router-outlet>
+  </div>
+  <app-toasts></app-toasts>
+  <app-footer *ngIf="isAuthenticated === true"></app-footer>
 </div>
-<app-toasts></app-toasts>
-<app-footer *ngIf="isAuthenticated === true"></app-footer>
